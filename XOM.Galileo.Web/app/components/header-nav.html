@@ -1,0 +1,44 @@
+﻿<header class="header-nav em-c-header em-c-header--condensed em-c-header--blue em-u-margin-bottom-none" role="banner">
+    <div class="em-l-container em-c-header__inner">
+        <div class="em-c-header__body">
+            <div class="em-c-header__title-container">
+                <h2 class="em-c-header__title"><a href="#" rel="home" class="em-c-header__title-link">{{appTitle}}</a></h2>
+            </div>
+            <button class="em-c-btn em-c-btn--small em-c-btn--inverted em-c-header__nav-btn"
+                    ng-class="{ 'em-is-active': menu }"
+                    ng-click="showMenu()">
+                <div class="em-c-btn__inner">
+                    <em-icon is="menu" class="em-c-btn__icon" ng-show="!menu"></em-icon>
+                    <em-icon is="x" class="em-c-btn__icon" ng-show="menu"></em-icon>
+                    <span class="em-c-btn__text">{{menu ? 'Close' : 'Menu'}}</span>
+                </div>
+            </button>
+            <div class="em-c-header__nav-container" ng-class="{ 'em-is-active': menu }">
+                <nav class="em-c-primary-nav" role="navigation">
+                    <ul class="em-c-primary-nav__list">
+                        <li class="em-c-primary-nav__item" ng-repeat="navItem in navItems">
+                            <a class="em-c-primary-nav__link em-u-clickable"
+                               ng-class="{ 'em-is-active': navItem.active }"
+                               ng-click="select(navItem)"
+                               ng-href="{{navItem.href}}">
+                                {{navItem.title}}
+                                <em-icon is="caret-down" class="em-c-primary-nav__icon" ng-if="navItem.subItems"></em-icon>
+                            </a>
+                            <ul class="em-c-primary-nav__sublist"
+                                ng-if="navItem.subItems"
+                                ng-class="{ 'em-is-active': navItem.active }">
+                                <li class="em-c-primary-nav__subitem" ng-repeat="subItem in navItem.subItems">
+                                    <a ng-href="{{subItem.href}}" class="em-c-primary-nav__sublink">{{subItem.title}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li style="border-left: 1px solid white; padding-left: 1rem">
+                            <span class="fa fa-user em-u-margin-right-half"></span>
+                            <span>{{userName}}</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

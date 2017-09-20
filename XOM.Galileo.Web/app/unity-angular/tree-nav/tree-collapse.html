@@ -1,0 +1,11 @@
+﻿
+<button class="em-c-btn"
+        ng-click="vm.collapse()">
+    <div class="em-c-btn__inner">
+        <em-icon is="x" ng-if="!vm.collapsed" class="em-c-btn__icon"></em-icon>
+        <em-icon is="plus" ng-if="vm.collapsed" class="em-c-btn__icon"></em-icon>
+        <span class="em-c-btn__text">
+            {{ vm.collapsed ? 'Show' : 'Collapse' }} all
+        </span>
+    </div>
+</button>

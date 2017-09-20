@@ -1,0 +1,20 @@
+﻿<li class="em-c-accordion__item em-js-accordion-item"
+    data-ng-class="{'em-is-closed': isOpen === false}">
+    <div class="em-c-accordion__header">
+        <a class="em-c-accordion__title em-js-accordion-trigger"
+           data-ng-click="isOpen = !isOpen">
+            <svg class="em-c-icon em-c-accordion__icon"
+                 data-ng-show="isOpen === false">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-caret-down"></use>
+            </svg>
+            <svg class="em-c-icon em-c-accordion__icon"
+                 data-ng-show="isOpen === true">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-caret-down"></use>
+            </svg>
+            <span class="em-c-accordion__title-text">{{title}}</span>
+        </a>
+    </div>
+    <div class="em-c-accordion__body">
+        <div ng-transclude></div>
+    </div>
+</li>

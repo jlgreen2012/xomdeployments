@@ -1,0 +1,54 @@
+﻿@import '../../unity-angular/colors/colors';
+
+// sass-lint:disable class-name-format
+
+.em-c-section__footer {
+    border-top: 1px solid $dark-grey;
+    margin-top: 2rem;
+    padding-top: .5rem;
+}
+
+.em-c-progress-tracker__item {
+    cursor: pointer;
+}
+
+// Incomplete tracker item
+.em-c-progress-tracker__number {
+    border-color: $violet;
+    color: $blue-gradient;
+}
+
+// Completed tracker item
+.em-is-complete {
+    .em-c-progress-tracker__number {
+        background-color: $turquoise;
+        border-color: $turquoise;
+        color: $white;
+    }
+
+    .em-c-progress-tracker__label {
+        color: $turquoise,;
+    }
+}
+
+// Current tracker item
+.em-is-current {
+    .em-c-progress-tracker__number {
+        background-color: $white;
+        border-color: $turquoise;
+        color: $turquoise;
+    }
+
+    .em-c-progress-tracker__label {
+        color: $turquoise;
+    }
+}
+
+.wz-invalid-step {
+    color: $burgundy;
+
+    .em-c-progress-tracker__number {
+        border-color: $burgundy;
+        color: $burgundy;
+    }
+}

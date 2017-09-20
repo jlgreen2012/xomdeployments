@@ -1,0 +1,68 @@
+﻿<!-- Page Title -->
+<div class="em-u-margin-bottom">
+    <h1>Assessments</h1>
+</div>
+
+<!-- Section -->
+<div id="assessment-details">
+
+    <form name="tc.form" novalidate role="form">
+        <div class="em-u-margin-bottom-double">
+            <span>Please provide some additional information prior to completing the assessment:</span>
+        </div>
+
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': tc.form.submitted && tc.form.name.$error.required}">
+            <label for="team-name-input" class="em-c-field__label">The name of the team, product, or application for which I am responding:</label>
+            <div class="em-c-field__body">
+                <!--<input id="team-name-input" type="text" name="name" data-ng-model="tc.team.name" class="em-c-input em-c-field__input" required />-->
+                <input type="text" ng-model="tc.team.name" name="name" placeholder="" uib-typeahead="team.name as team.name for team in tc.search($viewValue)" typeahead-min-length="0" typeahead-editable="true" ng-change="tc.validateTeamName(tc.team.name); tc.editTeamProperty(tc.team.name)"
+                       typeahead-loading="tc.isLoadingTeams" class="em-c-input em-c-field__input" typeahead-popup-template-url="app/unity-angular/typeahead/unity-angular.typeahead.template.html" typeahead-on-select="tc.selectTeam($item)" required>
+                <svg class="em-c-icon em-c-field__icon"
+                     data-ng-show="tc.form.submitted && tc.form.name.$error.required">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+                </svg>
+            </div>
+            <div class="em-c-field__note" data-ng-show="tc.form.submitted && tc.form.name.$error.required">The name is required.</div>
+        </div>
+
+        <div class="em-c-field">
+            <label for="team-info-input" class="em-c-field__label float-left">Additional information for the team, product, or application for which I am responding:</label>
+            <div class="em-c-field__note float-right">(optional)</div>
+            <div class="em-c-field__body">
+                <textarea id="team-info-input" data-ng-model="tc.team.info" class="em-c-textarea" ng-change="tc.editTeamProperty(tc.team.info)"></textarea>
+            </div>
+        </div>
+
+        <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="tc.message !== null">
+            <svg class="em-c-icon em-c-alert__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+            </svg>
+            <div class="em-c-alert__body">
+                {{tc.message}}
+            </div>
+        </div>
+
+        <div class="em-c-alert em-c-alert--warning" role="alert" data-ng-show="tc.warning !== null">
+            <svg class="em-c-icon em-c-alert__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+            </svg>
+            <div class="em-c-alert__body">
+                {{tc.warning}}
+            </div>
+        </div>
+
+        <div id="form-buttons" class="em-u-margin-top-double">
+            <button class="em-c-btn em-u-align-left float-left"
+                    type="button"
+                    data-ng-click="tc.cancel()">
+                <span class="em-c-btn__text">Cancel</span>
+            </button>
+            <button class="em-c-btn em-c-btn--primary float-right"
+                    type="button"
+                    data-ng-click="tc.saveTeam()">
+                <span class="em-c-btn__text">Continue</span>
+            </button>
+        </div>
+    </form>
+</div>

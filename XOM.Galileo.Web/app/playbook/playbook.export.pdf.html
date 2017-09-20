@@ -1,0 +1,27 @@
+﻿<div data-ng-model="isGeneratingPdf" data-ng-init="true">
+    <div class="em-loader-overlay" data-ng-class="{'em-loader-overlay': isGeneratingPdf === true || pc.loaded === false}">
+
+        <div id="export-content"
+             pb-export-html data-file-name="{{pc.assessment.name.split(' ').join('') + '_Playbook'}}.pdf"
+             ready-to-download="pc.loaded" is-loading="isGeneratingPdf">
+
+            <div class="em-u-padding-double">
+                <div class="em-u-margin-bottom">
+                    <h1>Playbook</h1>
+                    <h2>{{pc.assessment.name}}</h2>
+                </div>
+
+                <div data-ng-show="pc.loaded === true">
+                    <div ng-include="'app/playbook/partials/edit.html'"
+                         data-ng-if="pc.playbooks.length > 0"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Loading message, not part of export -->
+    <em-loader data-ng-show="isGeneratingPdf === true || pc.loaded === false"
+               style="position:absolute; top:50%; left: 50%;"
+               class="center"></em-loader>
+</div>

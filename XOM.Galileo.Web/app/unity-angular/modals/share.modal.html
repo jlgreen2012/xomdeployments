@@ -1,0 +1,56 @@
+﻿<div class="em-c-modal em-js-modal"
+     data-ng-class="{'em-is-closed': isOpen === false}">
+    <div class="em-c-modal__window em-js-modal-window">
+        <div class="em-c-modal__header">
+            <h3 class="em-c-modal__title">{{title}}</h3>
+            <button class="em-c-btn em-c-btn--bare em-c-modal__close-btn em-js-modal-close-trigger"
+                    data-ng-click="close()">
+                <div class="em-c-btn__inner">
+                    <svg class="em-c-btn__icon " data-em-icon-path="../../images/em-icons.svg">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-x"></use>
+                    </svg>
+                </div>
+            </button>
+        </div>
+        <div class="em-c-modal__body em-c-text-passage em-c-text-passage--small">
+
+            <!--<div class="em-c-field ">
+                <label for="" class="em-c-field__label">Link</label>
+                <div class="em-c-field__body">
+                    <input type="text" id="" class="em-c-input" placeholder="Placeholder" value="{{link}}" />
+                </div>
+                <div class="em-c-field__note">Provide this link to the user that wants to add this to their shared assessment list.</div>
+            </div>-->
+
+            <div class="em-c-search__body">
+                <input type="text" class="em-c-search__input" value="{{link}}" />
+                <button class="em-c-btn" aria-label="Copy"
+                        data-ng-click="copy()">
+                    <div class="em-c-btn__inner">Copy
+                        <span class="fa fa-clipboard em-u-margin-left-half"></span>
+                    </div>
+                </button>
+            </div>
+            <div class="em-c-field__note">Provide the link above to a user in order to share this item with them.</div>
+
+            <div class="em-c-alert" role="alert"
+                 data-ng-show="copied.message"
+                 data-ng-class="{'em-c-alert--success': copied.success === true, 'em-c-alert--error': copied.success === false }">
+                <div class="em-c-alert__body">
+                    {{copied.message}}
+                </div>
+                <div class="em-c-alert__actions">
+                </div>
+            </div>
+
+        </div>
+        <div class="em-c-modal__footer em-c-text-passage em-c-text-passage--small">
+            <div class="em-c-btn-group em-c-modal--alert em-js-modal-only">
+                <button class="em-c-btn em-c-btn--primary em-js-modal-confirm-trigger"
+                        data-ng-click="ok()">
+                    <span class="em-c-btn__text">OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

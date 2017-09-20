@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+
+<div class="em-c-band em-c-band--blue-deep app-logs">
+    <div class="em-l-container">
+        <div class="em-l-grid--2up">
+            <div class="em-l-grid__item">
+                <h2>Application Logs</h2>
+            </div>
+            <div class="em-l-grid__item">
+                <label class="em-c-search__label em-u-is-vishidden">Search</label>
+                <div class="em-c-search__body em-u-margin-bottom">
+                    <input type="search" class="em-c-search__input" placeholder="Search" ng-model="search">
+                    <em-button primary aria-label="Search" style="cursor: default">
+                        <em-icon is="search"></em-icon>
+                    </em-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="em-l-container app-logs">
+    <em-loader type="spinner" absolute center ng-if="logsCtrl.loading && !logsCtrl.error"></em-loader>
+    <em-alert error fixed ng-if="logsCtrl.error">
+        Error loading application logs.
+        <em-button text ng-click="logsCtrl.reload()">
+            Click here to try again
+        </em-button>
+    </em-alert>
+
+    <div ng-if="logsCtrl.logs.length">
+        <section>
+            <div class="em-c-well em-u-padding">
+                <table class="em-c-table em-c-table--condensed">
+                    <thead class="em-c-table__header">
+                        <tr class="em-c-table__header-row">
+                            <th class="em-c-table__header-cell">Id</th>
+                            <th class="em-c-table__header-cell">EventId</th>
+                            <th class="em-c-table__header-cell">Source</th>
+                            <th class="em-c-table__header-cell">Message</th>
+                            <th class="em-c-table__header-cell">Timestamp</th>
+                            <th class="em-c-table__header-cell">Level</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="em-c-table__body">
+                        <tr class="em-c-table__row"
+                            ng-repeat-start="log in logsCtrl.logs | filter: search | orderBy:'-Timestamp' track by log.Id ">
+                            <td class="em-c-table__cell">{{log.Id}}</td>
+                            <td class="em-c-table__cell">{{log.EventId}}</td>
+                            <td class="em-c-table__cell">{{log.Source}}</td>
+                            <td class="em-c-table__cell">{{log.Message}}</td>
+                            <td class="em-c-table__cell">{{log.Timestamp | utcDateFormatter}}</td>
+                            <td class="em-c-table__cell {{log.Level | logLevel}}">{{log.Level | logLevel}}</td>
+                            <td class="em-c-table__cell">
+                                <em-button aria-label="Expand" style="cursor: default" ng-show="true" ng-click="expanded = !expanded">
+                                    <em-icon is="support"></em-icon>
+                                </em-button>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat-end ng-show="expanded">
+                            <td colspan="6">
+                                <table class="em-c-table em-c-table--condensed">
+                                    <thead class="em-c-table__header">
+                                        <tr class="em-c-table__header-row"></tr>
+                                    </thead>
+                                    <tbody class="em-c-table__body">
+                                        <tr class="em-c-table__row">
+                                            <td>
+                                                <div class="detail-label">Error Message:</div>
+                                                <div class="detail-content">
+                                                    {{log.Message}}
+                                                </div>
+                                                <br />
+                                                <div class="detail-label">Severity:</div>
+                                                <div class="detail-content">
+                                                    {{log.Level | logLevel}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="detail-label">Occurred At:</div>
+                                                <div class="detail-content">
+                                                    {{log.Timestamp | utcDateFormatter}}
+                                                </div>
+
+                                                <br />
+                                                <div class="detail-label">Occurred In:</div>
+                                                <div class="detail-content">
+                                                    {{log.Source}}
+                                                </div>
+
+                                            </td>
+                                        </tr>
+
+                                        <tr class="em-c-table__row">
+                                            <td colspan="2">
+                                                <div class="detail-label">Session Detail:</div>
+                                                <div class="detail-content">
+                                                    Username: {{log.SessionDetails.Username}}<br />
+                                                    Session Id: {{ log.SessionDetails.Session }}
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        <tr class="em-c-table__row">
+                                            <td colspan="2">
+                                                <div class="detail-label">Exception Detail:</div>
+                                                <div class="detail-content">
+                                                    {{log.ExceptionMessage}}
+
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

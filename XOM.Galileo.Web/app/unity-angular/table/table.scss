@@ -1,0 +1,57 @@
+﻿/*
+
+    EM-Table
+    
+    
+    @directive <em-table>
+
+*/
+
+.em-c-table {
+
+    $border: 1px solid #e5e5e5;
+
+    // Invert header
+    .em-c-table__header.invert {
+        background-color: transparent;
+        color: #000;
+    }
+
+    // Icon transition
+    .em-c-table__row .em-c-table__icon {
+        transition: transform .35s;
+    }
+
+    // Vertical stripes
+    &.vertical-striped {
+
+        // Header
+        .em-c-table__header {
+            &.invert {
+                border-bottom: $border;
+            }
+
+            th:not(:last-child) {
+                border-right: $border;
+            }
+        }
+
+        // Td
+        td:not(:last-child) {
+            border-right: $border;
+        }
+
+        // Last tr for parent groupings
+        tbody:last-child {
+            tr {
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                &[parent]:not(.em-is-open) {
+                    border-bottom-color: transparent;
+                }
+            }
+        }
+    }
+}

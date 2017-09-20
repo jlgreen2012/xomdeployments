@@ -1,0 +1,52 @@
+﻿<div class="em-u-margin-bottom">
+    <h1>Playbook</h1>
+    <h2>{{pc.assessment.name}}</h2>
+</div>
+
+<!-- Alerts -->
+<div data-ng-show="pc.loaded === true && pc.info !== null">
+    <div class="em-c-alert" role="alert">
+        <div class="em-c-alert__body">
+            {{pc.info}}
+        </div>
+    </div>
+</div>
+<div data-ng-show="pc.loaded === true && pc.message !== null">
+    <div class="em-c-alert em-c-alert--error" role="alert">
+        <svg class="em-c-icon em-c-alert__icon">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
+        </svg>
+        <div class="em-c-alert__body">
+            {{pc.message}}
+        </div>
+    </div>
+</div>
+
+<div class="em-l em-l--two-column two-column-left-sidebar-on-top"
+     data-ng-show="pc.loaded === true && pc.message === null">
+
+    <!-- team assessment list -->
+    <div class="em-l__secondary em-u-margin-right-double">
+        <div ng-include="'app/playbook/partials/list.html'"></div>
+    </div>
+
+    <div class="em-l__main">
+        <div ng-include="'app/playbook/partials/edit.html'"
+             data-ng-if="pc.playbooks.length > 0"></div>
+
+        <div data-ng-show="pc.playbooks == null || pc.playbooks.length === 0">
+            <div class="em-c-alert" role="alert">
+                <div class="em-c-alert__body">
+                    You have not created any playbooks for this assessment. 
+                </div>
+                <div class="em-c-alert__actions">
+                    <a class="em-c-text-btn"
+                            href="/#/assessments/{{pc.assessment.id}}/playbook" >
+                        <!--TODO: allow navigation directly to playbook -->
+                        Create Playbook <span class="fa fa-plus-circle em-u-margin-left-half"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

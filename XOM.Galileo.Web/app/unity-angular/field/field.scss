@@ -1,0 +1,49 @@
+﻿/*
+
+    EM-Field and children
+    
+    
+    @directives <em-field>
+                <em-field-body>
+                <em-field-group>
+                <em-field-messages>
+              + <em-toggle>
+              + <em-date-picker>
+              + <input/>
+              + <textarea>
+              + <select>
+              + <label>
+*/
+
+.em-c-field {
+
+    // Improves body size for icon placement
+    .em-c-field__body.has-icon {
+        display: inline-block;
+        padding-right: 48px;
+    }
+    
+    // Toggles
+    em-toggle {
+        padding: 3px 0; // improves the icon positioning
+    }
+
+    // Messages
+    &.em-has-error {
+        em-field-note.em-c-field__note {
+            background-color: transparent;
+            color: #b12a0b;
+            position: relative;
+            width: 100%;
+            padding: 4px 8px 1rem;
+            transition: {
+                duration: .35s;
+                property: color, opacity;
+            }
+
+            span {
+                position: absolute;
+            }
+        }
+    }
+}

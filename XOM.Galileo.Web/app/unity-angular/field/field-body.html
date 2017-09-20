@@ -1,0 +1,11 @@
+﻿
+<div class="em-c-field__body"
+     ng-class="{
+        'has-icon': vm.hasIcon
+     }">
+    <div ng-transclude></div>
+    <em-icon is="ban"           ng-show="vm.disabled"></em-icon>
+    <em-icon is="lock"          ng-show="!vm.disabled && vm.readonly"></em-icon>
+    <em-icon is="warning"       ng-show="!vm.disabled && !vm.readonly && vm.error"></em-icon>
+    <em-icon is="circle-check"  ng-show="!vm.disabled && !vm.readonly && !vm.error && vm.valid"></em-icon>
+</div>

@@ -1,0 +1,41 @@
+﻿<ul class="em-c-accordion">
+    <li em-accordian data-title="My Assessments" data-is-open="true">
+        <div data-ng-repeat="assessment in (filteredItems = (ac.assessment.teamAssessments | filter: {latest: {isCompletedByMe: true}} ))">
+            <div class="em-u-padding em-u-clickable"
+                 data-ng-click="ac.reviewTeamAssessment(assessment.latest)">
+                <span data-ng-class="{'em-u-color--blue': assessment.latest.teamId === ac.current.details.teamId }">
+                    <span class="em-u-margin-right-half">{{assessment.latest.teamName}}</span>
+                    <span class="float-right"
+                          style="white-space:nowrap"
+                          data-ng-show="assessment.latest.status === 'COMPLETED'">
+                        <span class="fa fa-check"></span>
+                        ({{assessment.latest.completed | date:'MM/dd/yyyy'}})
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div data-ng-if="filteredItems.length === 0"
+             class="em-u-padding">
+            <span>You have not completed any assessments.</span>
+        </div>
+    </li>
+    <li data-em-accordian data-title="Shared with Me" data-is-open="true">
+        <div data-ng-repeat="assessment in (filteredSharedItems = (ac.assessment.teamAssessments | filter: {latest: {isCompletedByMe: false}}))">
+            <div class="em-u-padding em-u-clickable"
+                 data-ng-click="ac.reviewTeamAssessment(assessment.latest)">
+                <span data-ng-class="{'em-u-color--blue': assessment.latest.teamId === ac.current.details.teamId }">
+                    <span class="em-u-margin-right-half">{{assessment.latest.teamName}}</span>
+                    <span class="float-right"
+                          style="white-space:nowrap"
+                          data-ng-show="assessment.latest.status === 'COMPLETED'">
+                        ({{assessment.latest.completed | date:'MM/dd/yyyy'}})
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div data-ng-if="filteredSharedItems.length === 0"
+             class="em-u-padding">
+            <span>No assessments have been shared with you.</span>
+        </div>
+    </li>
+</ul>

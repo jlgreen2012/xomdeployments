@@ -1,0 +1,17 @@
+﻿<ol class="em-c-progress-tracker">
+    <li class="em-c-progress-tracker__item"
+        data-ng-repeat="step in stepsToShow"
+        data-ng-class="{'em-is-complete': step.isCompleted,
+                        'em-is-current': step.isCurrentStep,
+                        'wz-invalid-step': showInvalidStyles === true && !step.isCompleted }"
+        data-ng-click="step.setCurrentStep()">
+        <div class="em-c-progress-tracker__number">
+            <span class="fa fa-lg" 
+                  data-ng-class="{'fa-check visible': step.isCompleted, 
+                                  'fa-times visible': showInvalidStyles === true && !step.isCompleted}"></span>
+        </div>
+        <div class="em-c-progress-tracker__label">
+            {{step.name}}
+        </div>
+    </li>
+</ol>

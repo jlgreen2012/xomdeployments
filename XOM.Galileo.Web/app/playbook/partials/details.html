@@ -1,0 +1,43 @@
+﻿<!-- Info -->
+<div id="playbook-details">
+    <div class="em-l-grid em-l-grid--2up ">
+        <!-- Instructions -->
+        <div class="em-l-grid__item em-u-text-align-left">
+            <h2 class="">{{assessment.name}}</h2>
+        </div>
+        <!--<div class="em-l-grid__item em-u-text-align-right">
+            <a class="em-c-btn em-c-btn--primary" href="/{{assessment.id}}">
+                <span class="em-c-btn__text">Start Assessment!</span>
+            </a>
+        </div>-->
+    </div>
+
+    <div class="em-l-grid em-l-grid--2up ">
+        <!-- Instructions -->
+        <div class="em-l-grid__item show-new-lines">
+            {{assessment.playbookInstructions.trim()}}
+        </div>
+
+        <!-- IDK -->
+        <div class="em-l-grid__item em-u-text-align-right box-border">
+            <a class="em-c-btn em-c-btn--primary em-u-align-center button-wide vertical-center em-u-margin-bottom" href="/#/assessments/{{assessment.id}}/playbook">
+                <span class="em-c-btn__text">Create new Playbook</span>
+            </a>
+            <br/>
+            <a class="em-c-btn em-c-btn--primary em-u-align-center button-wide vertical-center em-u-margin-top" href="/#/assessments/{{assessment.id}}/playbooks">
+                <span class="em-c-btn__text">View Playbooks</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div data-ng-show="ac.loaded === true && ac.message !== null">
+    <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="message !== null">
+        <svg class="em-c-icon em-c-alert__icon">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
+        </svg>
+        <div class="em-c-alert__body">
+            {{ac.message}}
+        </div>
+    </div>
+</div>

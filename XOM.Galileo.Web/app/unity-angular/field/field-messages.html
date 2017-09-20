@@ -1,0 +1,12 @@
+﻿
+<div ng-messages="vm.model.$error"
+     ng-show="!vm.field.disabled && !vm.field.readonly && vm.model.$touched">
+    <em-field-note>
+        <span ng-if="vm.required"   ng-message="required">  Required                        </span>
+        <span ng-if="vm.number"     ng-message="number">    Only numbers allowed            </span>
+        <span ng-if="vm.min"        ng-message="min">       Only positive numbers allowed   </span>
+        <span ng-if="vm.minlength"  ng-message="minlength"> Too short                       </span>
+        <span ng-if="vm.maxlength"  ng-message="maxlength"> Too long                        </span>
+        <span ng-if="vm.unique"     ng-message="unique">    Must be unique                  </span>
+    </em-field-note>
+</div>

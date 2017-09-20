@@ -1,0 +1,77 @@
+﻿
+<div class="em-l-container em-u-padding-top">
+    <em-loader type="spinner" absolute center middle size="100px" ng-if="userCtrl.isLoading"></em-loader>
+    <div ng-if="!userCtrl.isLoading">
+        <div class="em-l-container">
+            <div class="em-l-grid em-l-grid--halves">
+                <div class="em-l-grid__item">
+                    <h3>Welcome, {{ userCtrl.user.FriendlyName }}</h3>
+                    <h4>Here's what we know about you:</h4>
+                    <em-field>
+                        <label>Id</label>
+                        <em-field-body>
+                            <input type="text" placeholder="User identifier" ng-model="userCtrl.user.Id" />
+                        </em-field-body>
+                    </em-field>
+                    <em-field>
+                        <label>Username</label>
+                        <em-field-body>
+                            <input type="text" placeholder="Username" ng-model="userCtrl.user.Username" />
+                        </em-field-body>
+                    </em-field>
+                    <em-field>
+                        <label>Friendly Name</label>
+                        <em-field-body>
+                            <input type="text" placeholder="User Friendly Name" ng-model="userCtrl.user.FriendlyName" />
+                        </em-field-body>
+                    </em-field>
+                    <em-field>
+                        <label>Email Address</label>
+                        <em-field-body>
+                            <input type="text" placeholder="Email Address" ng-model="userCtrl.user.EmailAddress" />
+                        </em-field-body>
+                    </em-field>
+                </div>
+                <div class="em-l-grid__item">
+                    <h3 class="em-u-margin-bottom-double">Roles</h3>
+
+                    <table class="em-c-table em-c-table--condensed">
+                        <thead class="em-c-table__header">
+                            <tr class="em-c-table__header-row">
+                                <th class="em-c-table__header-cell"
+                                    ng-class="{
+                                        'em-u-text-align-center': $index !== 0
+                                    }"
+                                    ng-repeat="th in ['Name', 'Read', 'Edit', 'Delete', 'Create', 'Submit']">
+                                    {{th}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="em-c-table__body" ng-repeat="roles in userCtrl.roles">
+                            <tr class="em-c-table__row em-u-background-color--curious-blue">
+                                <td colspan="6" class="em-u-padding-half em-u-padding-left">{{roles.replace('Roles', '')}}</td>
+                            </tr>
+                            <tr class="em-c-table__row" ng-repeat="(key, role) in userCtrl.user[roles]">
+                                <td class="em-c-table__cell"
+                                    style="vertical-align: middle">
+                                    {{key}}
+                                </td>
+                                <td class="em-c-table__cell em-u-text-align-center"
+                                    ng-repeat="permission in userCtrl.getPermissions(role)">
+                                    <div class="em-c-badge"
+                                         ng-class="{
+                                             'em-c-badge--positive': role[permission],
+                                             'em-c-badge--negative': !role[permission]
+                                         }">
+                                        {{permission}} {{ role[permission] ? 'Yes' : 'No' }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

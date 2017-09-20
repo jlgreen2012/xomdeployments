@@ -1,0 +1,8 @@
+﻿<div class="em-u-margin-bottom">
+    <h1>Playbooks</h1>
+</div>
+
+<div class="em-u-margin-bottom-quad"
+     data-ng-repeat="assessment in ac.assessments">
+    <div ng-include="'app/playbook/partials/details.html'" onload="assessment = assessment"></div>
+</div>

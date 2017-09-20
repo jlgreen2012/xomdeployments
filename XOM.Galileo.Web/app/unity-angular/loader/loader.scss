@@ -1,0 +1,64 @@
+﻿/*
+
+    EM-Loader
+    
+    
+    @directive <em-loader size="valid css height/width" type="spinner || default" center>
+
+*/
+
+.em-c-loader {
+
+    $spinnerColor: #29d;
+    
+    pointer-events: none;
+
+    &[center] {
+        margin: auto;
+    }
+    
+    &[middle] {
+        vertical-align: middle;
+    }
+
+    &[absolute] {
+        position: absolute;
+        z-index: 9999;
+
+        &[center] {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &[middle] {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        &[center][middle] {
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .spinner {
+        animation: spinner 400ms linear infinite;
+        border: {
+            color: transparent;
+            top-color: $spinnerColor;
+            left-color: $spinnerColor;
+            style: solid;
+            radius: 50%;
+            width: 2px;
+        }
+        height: 100%;
+        width: 100%;
+    }
+    
+    @keyframes spinner {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+}
+
+.em-loader-overlay {
+    opacity: .5;
+    z-index: 9999;
+}

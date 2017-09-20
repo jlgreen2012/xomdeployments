@@ -1,0 +1,26 @@
+﻿{
+  "local": {
+    "configs":  {
+      "apiUrl": "http://localhost:13547/api/",
+      "enableDebug": true
+    }
+  },
+  "dev": {
+    "configs":  {
+      "apiUrl": "http://localhost:13547/api/",
+      "enableDebug": true
+    }
+  },
+  "acc": {
+    "configs":  {
+      "apiUrl": "http://localhost:13547/api/",
+      "enableDebug": false
+    }
+  },
+  "prd": {
+    "configs":  {
+      "apiUrl": "http://localhost:13547/api/",
+      "enableDebug": false
+    }
+  }
+}

@@ -1,0 +1,242 @@
+﻿<div class="em-l-grid em-l-grid--2up ">
+    <!-- Team Name & Info -->
+    <div class="em-l-grid__item">
+        <div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon">
+            <div class="em-c-solid-card__body em-u-display-flex" style="justify-content:space-between;">
+                <div class="float-left em-u-display-flex">
+                    <span class="fa fa-2x fa-users"></span>
+                    <h3 class="em-c-solid-card__title float-right">
+                        <span>{{pc.current.details.teamName}}</span>
+                    </h3>
+                </div>
+                <div class="float-right">
+                    <h4 class="em-c-solid-card__kicker">TEAM</h4>
+                </div>
+            </div>
+            <div class="em-c-solid-card__footer">
+                <span style="word-break:break-word">{{pc.current.details.teamAssessment.teamInfo}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Owner & Last Updated -->
+    <div class="em-l-grid__item">
+        <div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon">
+            <div class="em-c-solid-card__body em-u-display-flex" style="justify-content:space-between;">
+                <div class="float-left em-u-display-flex">
+                    <span class="fa fa-2x fa-user"></span>
+                    <h3 class="em-c-solid-card__title float-right">
+                        <span>{{pc.current.details.ownerName}}</span>
+                    </h3>
+                </div>
+                <div class="float-right">
+                    <h4 class="em-c-solid-card__kicker em-u-margin-bottom-none float-right">OWNER</h4>
+                    <div data-ng-if="pc.current.details.canEditOwner === true && pc.current.mode === pc.modes.edit" data-ng-model="showOwnerModal" data-ng-init="false">
+                        <button class="em-c-text-btn float-right"
+                                type="button"
+                                data-ng-click="showOwnerModal = true">
+                            <span class="em-c-btn__text">
+                                Change Owner
+                            </span>
+                        </button>
+
+                        <div em-modal-confirm
+                             data-title="Update Playbook Owner"
+                             data-confirm-func="pc.ownerForm.onSave()"
+                             data-confirm-text="Save"
+                             data-is-open="showOwnerModal">
+                            <div data-ng-include="'app/playbook/partials/edit.owner.modal.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="em-c-solid-card__footer">
+                <span>{{pc.current.details.lastUpdated | date:'MM/dd/yyyy h:mm a'}} <i>(Last Updated)</i></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Share -->
+<div class="section-header-full-width em-u-margin-top-half" data-ng-if="pc.current.details.isOwnedByMe === true" data-ng-model="pc.showShareModal" data-ng-init="false">
+    <div class="em-c-alert alert-plain" role="alert">
+        <span class="fa fa-user em-u-margin-right"></span>
+        <div class="em-c-alert__body">
+            This playbook is owned by you.
+        </div>
+        <div class="em-c-alert__pctions" ng-show="pc.current.mode === pc.modes.edit">
+            <a class="em-c-text-btn em-u-margin-right"
+                    target="_blank"
+                    href="/#/assessments/{{pc.assessment.id}}/playbooks/{{pc.current.details.id}}/export">
+                Download <span class="fa fa-download fa-sm em-u-margin-left-half"></span>
+            </a>
+            <button class="em-c-text-btn "
+                    data-ng-click="pc.showShareModal = true;">
+                Share <span class="fa fa-share fa-sm em-u-margin-left-half"></span>
+            </button>
+        </div>
+    </div>
+
+    <div data-em-share-modal
+         data-link="pc.getSharePlaybookLink()"
+         data-title="Share Playbook"
+         data-is-open="pc.showShareModal"></div>
+</div>
+
+<!-- Versions -->
+<div class="section-header-full-width em-u-margin-bottom em-u-margin-top-half" data-ng-if="pc.current.versions.list.length > 1">
+    <div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon full-width-card">
+        <div class="em-c-solid-card__body em-u-display-flex" style="justify-content:space-between;">
+            <div class="float-left em-u-display-flex">
+                <span class="fa fa-2x fa-files-o"></span>
+                <h3 class="em-c-solid-card__title float-right">
+                    <span>Versions</span>
+                </h3>
+            </div>
+            <div class="float-right">
+                <h4 class="em-c-solid-card__kicker"></h4>
+            </div>
+        </div>
+        <div class="em-c-solid-card__footer">
+
+            <div class="em-c-table-object ">
+                <div class="em-c-table-object__header">
+                </div>
+                <!--end em-c-table-object__header-->
+                <div class="em-c-table-object__body">
+                    <div class="em-c-table-object__body-inner">
+                        <table class="em-c-table ">
+                            <thead class="em-c-table__header">
+                                <tr class="em-c-table__header-row">
+                                    <th scope="col" class="em-c-table__header-cell ">Created</th>
+                                    <th scope="col" class="em-c-table__header-cell ">Owner</th>
+                                    <th scope="col" class="em-c-table__header-cell ">Status</th>
+                                    <th scope="col" class="em-c-table__header-cell em-u-text-align-center" data-ng-if="pc.current.mode === pc.modes.edit">Review</th>
+                                </tr>
+                            </thead>
+                            <tbody class="em-c-table__body ">
+                                <tr class="em-c-table__row " data-ng-repeat="playbook in pc.current.versions.list">
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable">
+                                        {{playbook.created | date:'MM/dd/yyyy h:mm a' }}
+                                    </td>
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable">
+                                        {{playbook.ownerName | truncate:100}}
+                                    </td>
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable">
+                                        <span ng-show="playbook.isArchived === true"><i>Archived</i></span>
+                                        <span ng-show="playbook.isArchived === false">Current</span>
+                                    </td>
+                                    <td class="em-c-table__cell em-js-cell em-js-cell-editable em-u-text-align-center" data-ng-if="pc.current.mode === pc.modes.edit">
+                                        <button class="em-c-text-btn "
+                                                data-ng-click="pc.getPlaybook(playbook.id)"
+                                                data-ng-if="pc.current.details.id !== playbook.id">
+                                            <span class="fa fa-file fa-2x em-u-margin-left-half" title="review"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="em-c-table__footer">
+                                <tr class="em-c-table__footer-row"></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon full-width-card">
+    <div class="em-c-solid-card__body em-u-display-inline-block">
+        <div class="float-left">
+            <span class="fa fa-2x fa-th-list"></span>
+            <h3 class="em-c-solid-card__title float-right">
+                <span>Committments</span>
+            </h3>
+        </div>
+        <div class="float-right">
+        </div>
+    </div>
+    <div class="em-c-solid-card__footer"
+         data-ng-if="pc.loaded === true"
+         data-ng-controller="CommitmentController as cc"
+         data-ng-init="cc.activate(pc.current.details.id, pc.current.details.commitments, pc.current.details.teamAssessment)">
+
+        <!-- Commitment error message -->
+        <div class="em-c-alert em-c-alert--error em-u-margin-bottom" role="alert"
+             data-ng-show="cc.error !== null">
+            <svg class="em-c-icon em-c-alert__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+            </svg>
+            <div class="em-c-alert__body">
+                {{cc.error}}
+            </div>
+        </div>
+
+        <!-- Commitment info message -->
+        <div data-ng-show="cc.loaded === true && cc.info !== null"
+             class="em-u-margin-bottom">
+            <div class="em-c-alert" role="alert">
+                <div class="em-c-alert__body">
+                    {{cc.info}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Commitment list -->
+        <table data-ng-show="cc.loaded === true && cc.commitments.length > 0"
+               class="table-commitments table-ellipses">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th data-ng-show="pc.current.details.isOwnedByMe === true && pc.current.details.isArchived === false && pc.current.mode === pc.modes.edit" class="em-u-text-align-center">Edit</th>
+                    <th data-ng-show="pc.current.details.isOwnedByMe === true && pc.current.details.isArchived === false && pc.current.mode === pc.modes.edit" class="em-u-text-align-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="commitment in pc.current.details.commitments | orderBy: 'categoryName'"
+                    pb-commitment
+                    commitment="commitment"
+                    playbook-id="pc.current.details.id"></tr>
+            </tbody>
+        </table>
+        <div data-ng-show="cc.loaded === true && cc.commitments.length === 0">
+            <div class="em-c-alert alert-plain" role="alert">
+                <div class="em-c-alert__body" data-ng-if="cc.enableSuggestions === true">
+                    <div ng-show="filteredCategories.length > 0">
+                        You have not made any commitments yet. Start by adding a few commitments for the assessment categories you could improve on:
+                        <ul class="em-c-bulleted-list">
+                            <li class="em-c-bulleted-list__item"
+                                data-ng-repeat="category in (cc.categories | filter: { needsCommitments: true }) as filteredCategories">{{category.name}}({{+category.score * 100 | number:0}}%)</li>
+                        </ul>
+                    </div>
+                    <div ng-show="filteredCategories.length == 0">
+                        You have not made any commitments yet.
+                    </div>
+                </div>
+                <div class="em-c-alert__body" data-ng-if="cc.enableSuggestions === false">
+                    You have not made any commitments yet.
+                </div>
+            </div>
+        </div>
+
+        <div class="em-u-margin-top pull-right" data-ng-show="pc.current.details.isOwnedByMe === true && pc.current.details.isArchived === false && pc.current.mode === pc.modes.edit">
+            <button class="em-c-btn em-c-btn--primary"
+                    data-ng-click="cc.showAddCommitmentForm()">
+                Add Commitment <span class="fa fa-plus-circle fa-lg em-u-margin-left-half"></span>
+            </button>
+        </div>
+
+        <div class="em-is-closed"
+             pb-commitment-modal
+             title="{{cc.form.title}}"
+             save-func="cc.form.onSave()"
+             close-func="cc.form.onClose()"
+             is-open="cc.form.show">
+            <div ng-include="'app/playbook/commitment/partials/edit.html'"></div>
+        </div>
+    </div>
+</div>

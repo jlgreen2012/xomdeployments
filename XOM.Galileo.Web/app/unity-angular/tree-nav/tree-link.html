@@ -1,0 +1,18 @@
+﻿
+<div ng-click="vm.item.isActive = vm.item.hasChildren ? !vm.item.isActive : false" 
+     ng-class="{
+         'em-c-tree__link--has-children' : vm.item.hasChildren,
+         'em-is-active' : vm.item.isActive,
+         'em-u-clickable' : vm.item.hasChildren
+     }" 
+     class="em-c-tree__link"
+     role="tab"
+     aria-controls=""
+     aria-expanded="false" 
+     aria-selected="false">
+
+    <em-icon is="caret-right" class="em-c-tree__icon" ng-if="vm.item.hasChildren"></em-icon>
+
+    <div class="em-c-tree__text" ng-transclude></div>
+
+</div>

@@ -1,0 +1,47 @@
+﻿/*
+
+    EM-Tree
+    
+    
+    @directives <tree-nav>
+                <tree-list>
+                <tree-item>
+                <tree-link>
+
+*/
+
+
+nav.em-c-tree {
+    margin: 0;
+    height: auto;
+
+    @mixin flex-align-center() {
+        display: flex;
+        align-items: center;
+    }
+
+    .em-c-tree__link {
+        @include flex-align-center();
+        transition: 0.35s;
+
+        .em-c-icon.em-c-tree__icon {
+            position: initial;
+            margin-left: -2px;
+            margin-right: 16px;
+            transition: 0.35s;
+        }
+
+        .em-c-tree__text {
+            @include flex-align-center();
+            width: 100%;
+
+            [right] {
+                margin-left: auto;
+            }
+
+            > * + * {
+                margin-left: 1rem;
+            }
+        }
+    }
+}

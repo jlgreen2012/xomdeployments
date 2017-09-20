@@ -1,0 +1,40 @@
+﻿<div class="em-u-margin-top-double">
+    <div class="em-u-display-inline-block em-u-width-100">
+        <div class="float-left">
+            <h3 class="em-u-margin-bottom-double em-u-display-inline-block">{{category.categoryName}}</h3>
+            <h6 class="em-u-margin-left-half em-u-display-inline-block"
+                data-ng-if="category.score >= 0">
+                {{category.score * 100 | number:0}}%
+            </h6>
+        </div>
+        <button class="em-c-btn em-c-btn--large em-js-btn-selectable float-right"
+                data-ng-click="ac.current.mode = ac.modes.review"
+                data-ng-if="ac.current.mode === ac.modes.reviewDetails">
+            <span class="em-c-btn__text">Back</span>
+        </button>
+    </div>
+
+    <section class="em-c-section assessment-review-question-section"
+             data-ng-repeat="question in category.questions | orderBy: 'questionOrder'">
+        <header class="em-c-section__header ">
+            <h4 class="em-c-section__title ">{{question.questionText}}</h4>
+        </header>
+        <div class="em-c-section__body">
+            <div class="em-l-grid "
+                 data-ng-class="{'em-l-grid--6up': question.answers.length === 6, 'em-l-grid--5up': question.answers.length === 5}">
+                <div class="em-l-grid__item assessment-review-answer"
+                     data-ng-repeat="answer in question.answers"
+                     data-ng-class="{'assessment-review-selected-answer': answer.id === question.selectedAnswerId}">
+                    <span class="vertical-center">
+                        {{answer.text}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="em-c-section__footer">
+            <span data-ng-show="question.comment !== '' && question.comment !== null">
+                <i>Additional Comments: {{question.comment}}</i>
+            </span>
+        </div>
+    </section>
+</div>

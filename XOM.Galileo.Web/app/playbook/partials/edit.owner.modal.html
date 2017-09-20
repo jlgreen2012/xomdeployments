@@ -1,0 +1,22 @@
+﻿<form name="pc.ownerForm.form" novalidate role="form">
+    <div class="em-u-margin-bottom-double">
+        <span>
+            Change the owner of this playbook to another user. By doing so, only the new owner will be able to edit this playbook. The playbook will still
+            appear under your Shared Playbooks list.
+        </span>
+    </div>
+    <div>
+        <!--Users-->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': pc.ownerForm.submitted && pc.ownerForm.form.user.$error.required}">
+            <label for="status" class="em-c-field__label">Users:</label>
+            <div class="em-c-field__body">
+                <select name="user" id="user" class="em-c-select em-u-width-100"
+                        ng-options="user.Id as user.FriendlyName + ' (' + user.EmailAddress + ')' for user in pc.ownerForm.users track by user.Id"
+                        ng-model="pc.current.details.ownerId"
+                        required></select>
+            </div>
+            <div class="em-c-field__note" data-ng-show="pc.ownerForm.submitted && pc.ownerForm.form.user.$error.required">The status is required.</div>
+        </div>
+    </div>
+</form>

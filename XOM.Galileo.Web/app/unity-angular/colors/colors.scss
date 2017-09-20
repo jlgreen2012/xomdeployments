@@ -1,0 +1,85 @@
+﻿/*
+
+    Unity Colors
+
+    Helpers implementation for ExxonMobil Unity Framework colors
+
+*/
+
+// Define color variables to use in other stylesheets.
+$amber: #f2ac33;
+$black: #000000;
+$blue: #0c69b0;
+$blue-gradient: #3a397b;
+$burgundy: #ad1723;
+$cerise: #a71065;
+$curious-blue: #3190d9;
+$cyan: #00a3e0;
+$dark-blue: #233190;
+$deep-blue: #111122;
+$green: #00af53;
+$indigo: #002f6c;
+$lime: #b4d405;
+$medium-gray: #545459;
+$orange: #ed8b00;
+$plum: #890c58;
+$purple: #7a4183;
+$red: #d82424;
+$red-gradient: #ad1723;
+$ruby: #b10040;
+$sea-blue: #005f7f;
+$turquoise: #00aca8;
+$vermilion: #d93900;
+$violet: #3a397b;
+$yellow: #ffd700;
+$white: #ffffff;
+$transparent: transparent;
+
+$dark-grey: #e5e5e5;
+$light-grey: #f5f5f5;
+
+// Define all the colors here
+$colors: (
+//  name                main color      contrast color      background-image (gradient to)
+( amber #f2ac33 #000000 ) ( blue #0c69b0 ) ( blue-gradient #3a397b null #233190 ) ( burgundy #ad1723 ) ( cerise #a71065 ) ( curious-blue #3190d9 ) ( cyan #00a3e0 #000000 ) ( dark-blue #233190 ) ( deep-blue #111122 ) ( green #00af53 #000000 ) ( indigo #002f6c ) ( lime #b4d405 #000000 ) ( medium-gray #545459 ) ( orange #ed8b00 #000000 ) ( plum #890c58 ) ( purple #7a4183 ) ( red #d82424 ) ( red-gradient #ad1723 null #d82424 ) ( ruby #b10040 ) ( sea-blue #005f7f ) ( turquoise #00aca8 #000000 ) ( vermilion #d93900 ) ( violet #3a397b ) ( yellow #ffd700 #000000 ) ( white #ffffff #000000 ) ( transparent transparent #000000 ) );
+
+// Helper for left to right gradient
+@function gradient($from, $to) {
+    @return linear-gradient(45deg, $from 0, $to 100%);
+}
+
+// Mixin for EM color
+@mixin color ($name, $color) {
+    .em-u-color--#{$name} {
+        color: $color !important;
+    }
+}
+
+// Mixin for EM background-color
+@mixin bg-color ($name, $bgColor, $color: #ffffff, $gradient: null) {
+    @if ($color == null) {
+        $color: #ffffff
+    }
+
+    .em-u-background-color--#{$name} {
+        background: {
+            color: $bgColor !important;
+
+            @if ($gradient) {
+                image: gradient($bgColor, $gradient) !important;
+            }
+        }
+
+        color: $color;
+    }
+}
+
+/* Colors */
+@each $name, $color in $colors {
+    @include color($name, $color);
+}
+
+/* Background Colors */
+@each $name, $bg, $color, $gradient in $colors {
+    @include bg-color($name, $bg, $color, $gradient);
+}

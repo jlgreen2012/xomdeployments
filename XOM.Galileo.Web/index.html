@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title>Galileo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link href="dist/css/vendor.css" rel="stylesheet">
+    <link href="dist/css/app.css" rel="stylesheet">
+
+    <style>
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header-nav app-title="Evolve"></header-nav>
+
+    <main>
+        <div class="em-l-container em-u-margin-top-double">
+            <ng-view></ng-view>
+        </div>
+    </main>
+
+    <script src="dist/js/vendor.js"></script>
+    <script src="dist/js/app.js"></script>
+</body>
+</html>

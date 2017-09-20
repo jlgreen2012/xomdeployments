@@ -1,0 +1,61 @@
+﻿/*
+
+    EM-Expandable-Button
+    
+    
+    @directive <em-expandable-button>
+*/
+
+.em-c-expandable-button {
+
+    // Button
+    .em-c-btn {
+        .em-c-btn__icon {
+            transition: transform .35s;
+        }
+    }
+        
+    // Plus icon
+    &[plus-icon] {
+        .em-c-btn {
+            .em-c-btn__icon {
+                transform: rotateZ(-225deg);
+            }
+        }
+    }
+
+    // Target for expandability
+    .expandable-target {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: {
+            property: opacity, height;
+            duration: .35s;
+        }
+    }
+
+    // Active
+    &.em-is-active {
+        // Caret icon rotation
+        .em-c-btn__icon {
+            transform: rotateZ(90deg);
+        }
+        
+        // Plus icon rotation
+        &[plus-icon] {
+            .em-c-btn {
+                .em-c-btn__icon {
+                    transform: rotateZ(0deg);
+                }
+            }
+        }
+
+        // Target display
+        .expandable-target {
+            height: auto;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}

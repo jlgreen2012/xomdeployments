@@ -1,0 +1,15 @@
+﻿<div class="em-u-margin-bottom">
+    <h1>New Playbook</h1>
+    <h2>{{pc.assessment.name}}</h2>
+</div>
+
+<!-- Alerts -->
+<div data-ng-show="pc.loaded === true && pc.info !== null" class="em-u-margin-bottom">
+    <div class="em-c-alert" role="alert">
+        <div class="em-c-alert__body">
+            {{pc.info}}
+        </div>
+    </div>
+</div>
+
+<div ng-include="'app/playbook/partials/new.html'"></div>

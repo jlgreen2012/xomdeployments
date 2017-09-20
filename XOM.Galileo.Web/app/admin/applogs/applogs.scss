@@ -1,0 +1,35 @@
+﻿@import '../../unity-angular/colors/colors';
+
+.app-logs {
+    // sass-lint:disable-block class-name-format
+    .em-c-table__cell {
+        font-size: small;
+        padding-bottom: 1rem;
+        padding-left: .8rem;
+        padding-right: .8rem;
+        padding-top: 1rem;
+        vertical-align: middle;
+
+        .em-c-field__body {
+            margin-bottom: 0;
+        }
+    }
+
+    .Critical {
+        color: $red;
+        font-weight: bold;
+    }
+
+    code {
+        font-size: 1em;
+    }
+
+    .detail-label {
+        font-weight: bold;
+        margin-bottom: 4px;
+    }
+
+    .detail-content {
+        margin-left: 8px;
+    }
+}

@@ -1,0 +1,31 @@
+﻿
+<ul class="em-c-accordion">
+    <li em-accordian data-title="My playbooks" data-is-open="true">
+        <div data-ng-repeat="playbook in (filteredItems = (pc.playbooks | filter: {latest: {isOwnedByMe: true}}))">
+            <div class="em-u-padding em-u-clickable"
+                 data-ng-click="pc.getPlaybook(playbook.latest.id)">
+                <span data-ng-class="{'em-u-color--blue': playbook.latest.teamName === pc.current.details.teamName }">
+                    <span class="em-u-margin-right-half">{{playbook.latest.teamName}}</span>
+                </span>
+            </div>
+        </div>
+        <div data-ng-if="filteredItems.length === 0"
+             class="em-u-padding">
+            <span>You have not created any playbooks.</span>
+        </div>
+    </li>
+    <li data-em-accordian data-title="Shared with Me" data-is-open="true">
+        <div data-ng-repeat="playbook in (filteredSharedItems = (pc.playbooks | filter: {latest: {isOwnedByMe: false}}))">
+            <div class="em-u-padding em-u-clickable"
+                 data-ng-click="pc.getPlaybook(playbook.latest.id)">
+                <span data-ng-class="{'em-u-color--blue': playbook.latest.teamName === pc.current.details.teamName }">
+                    <span class="em-u-margin-right-half">{{playbook.latest.teamName}}</span>
+                </span>
+            </div>
+        </div>
+        <div data-ng-if="filteredSharedItems.length === 0"
+             class="em-u-padding">
+            <span>No playbooks have been shared with you.</span>
+        </div>
+    </li>
+</ul>

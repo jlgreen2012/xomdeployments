@@ -1,0 +1,45 @@
+﻿<tr>
+    <td>{{commitment.name}}</td>
+    <td>{{commitment.categoryName}}</td>
+    <td data-ng-model="showFullDescription" data-ng-init="showFullDescription = false">
+        <span ng-show="showFullDescription === false">
+            {{commitment.description | truncate:150}}
+            <a ng-show="commitment.description.length > 150"
+               ng-click="showFullDescription = true"
+               class="em-u-clickable">Show More</a>
+        </span>
+
+        <span ng-show="showFullDescription === true">
+            {{commitment.description}}
+            <a ng-show="commitment.description.length > 150"
+               ng-click="showFullDescription = false"
+               class="em-u-clickable">Show Less</a>
+
+           
+        </span>
+    </td>
+    <td>{{getStatusDisplayName(commitment.status)}}</td>
+    <td class="em-u-text-align-center"
+        data-ng-show="canEdit === true">
+        <button class="em-c-text-btn"
+                data-ng-click="edit()">
+            <span class="fa fa-edit fa-2x" title="edit"></span>
+        </button>
+    </td>
+    <td class="em-u-text-align-center"
+        data-ng-show="canEdit === true">
+        <button class="em-c-text-btn "
+                data-ng-click="remove()">
+            <span class="fa fa-remove fa-2x" title="delete"></span>
+        </button>
+</tr>
+
+<div em-modal-confirm
+     data-title="Delete Commitment"
+     data-confirm-func="confirmRemove()"
+     data-confirm-text="Yes"
+     data-cancel-func="cancelRemove()"
+     data-is-open="showDeleteModal"
+     class="em-is-closed">
+    <p>Are you sure you want to delete this commitment? This action cannot be undone.</p>
+</div>

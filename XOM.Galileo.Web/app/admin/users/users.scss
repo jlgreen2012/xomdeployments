@@ -1,0 +1,14 @@
+﻿.admin-users {
+    // sass-lint:disable-block class-name-format
+    .em-c-table__cell {
+        padding-bottom: 1rem;
+        padding-left: .8rem;
+        padding-right: .8rem;
+        padding-top: 1rem;
+        vertical-align: middle;
+
+        .em-c-field__body {
+            margin-bottom: 0;
+        }
+    }
+}

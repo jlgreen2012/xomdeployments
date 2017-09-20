@@ -1,0 +1,242 @@
+﻿<!--<div>
+    <h2>{{ac.current.details.assessmentName}}</h2>
+</div>-->
+
+<div data-ng-show="ac.loaded === true && ac.assessment.teamAssessments.length === 0">
+    <div class="em-c-alert" role="alert">
+        <svg class="em-c-icon em-c-alert__icon">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
+        </svg>
+        <div class="em-c-alert__body">
+            You do not have any completed assessments to review.
+        </div>
+        <div class="em-c-alert__actions">
+            <a class="em-c-text-btn "
+               href="/#/assessments/{{ac.assessment.id}}/team">
+                Take Assessment <span class="fa fa-plus-circle em-u-margin-left-half"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div data-ng-show="ac.loaded === true && ac.assessment.teamAssessments.length > 0">
+
+    <!-- Tiles -->
+    <div class="em-l-grid em-l-grid--2up ">
+        <div class="em-l-grid__item">
+            <!-- Score -->
+            <div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon">
+                <div class="em-c-solid-card__body em-u-display-flex" style="justify-content:space-between;">
+                    <div class="float-left em-u-display-flex">
+                        <span class="fa fa-2x fa-pie-chart"></span>
+                        <h3 class="em-c-solid-card__title float-right">
+                            <span data-ng-if="ac.current.details.score !== null">{{ac.current.details.score * 100 | number:0}}%</span>
+                            <span data-ng-if="ac.current.details.score === null">NA</span>
+                        </h3>
+                    </div>
+                    <div class="float-right">
+                        <h4 class="em-c-solid-card__kicker">SCORE</h4>
+                    </div>
+                </div>
+                <div class="em-c-solid-card__footer">
+                    <span data-ng-if="ac.current.details.completed !== null">{{ac.current.details.completed | date:'MM/dd/yyyy h:mm a'}}</span>
+                    <span data-ng-if="ac.current.details.completed === null">{{ac.current.details.lastUpdated | date:'MM/dd/yyyy h:mm a'}} <i>(Last Updated)</i></span>
+                </div>
+            </div>
+        </div>
+        <div class="em-l-grid__item">
+            <!-- Team -->
+            <div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon">
+                <div class="em-c-solid-card__body em-u-display-flex" style="justify-content:space-between;">
+                    <div class="float-left em-u-display-flex">
+                        <span class="fa fa-2x fa-users"></span>
+                        <h3 class="em-c-solid-card__title float-right">
+                            <span>{{ac.current.details.teamName}}</span>
+                        </h3>
+                    </div>
+                    <div class="float-right">
+                        <h4 class="em-c-solid-card__kicker">TEAM</h4>
+                    </div>
+                </div>
+                <div class="em-c-solid-card__footer">
+                    <span style="word-break:break-word">{{ac.current.details.teamInfo}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="em-l-grid em-l-grid--2up" data-ng-show="ac.current.details.status === 'COMPLETED'">
+        <div class="em-l-grid__item">
+            <!-- Playbook -->
+            <div class="section-header-full-height"
+                 data-ng-if="ac.current.mode !== ac.modes.download">
+                <div class="section-header-full-width" data-ng-show="ac.current.details.hasPlaybook === true">
+                    <div class="em-c-alert alert-plain alert-full-height" role="alert">
+                        <span class="fa fa-book em-u-margin-right"></span>
+                        <div class="em-c-alert__body">
+                            <span>
+                                View the <i ng-show="ac.current.details.id !== ac.current.attempts.latest.id">archived</i> Playbook for this team assessment.
+                            </span>
+                        </div>
+                        <div class="em-c-alert__actions">
+                            <a class="em-c-text-btn " href="/#/assessments/{{ac.current.details.assessmentId}}/teams/{{ac.current.details.teamId}}/playbooks/{{ac.current.details.playbookId}}">
+                                View <!--<span class="fa fa-book fa-sm em-u-margin-left-half"></span>-->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-header-full-width" data-ng-show="ac.current.details.hasPlaybook === false && ac.current.details.id === ac.current.attempts.latest.id">
+                    <div class="em-c-alert alert-plain alert-full-height" role="alert">
+                        <span class="fa fa-book em-u-margin-right"></span>
+                        <div class="em-c-alert__body">
+                            <span>
+                                Create a Playbook to address any areas of improvement!
+                            </span>
+                        </div>
+                        <div class="em-c-alert__actions">
+                            <a class="em-c-text-btn " href="/#/assessments/{{ac.current.details.assessmentId}}/teams/{{ac.current.details.teamId}}/playbook">
+                                Create <span class="fa fa-plus-circle fa-sm em-u-margin-left-half"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-header-full-width" data-ng-show="ac.current.details.hasPlaybook === false && ac.current.details.id !== ac.current.attempts.latest.id">
+                    <div class="em-c-alert alert-plain alert-full-height" role="alert">
+                        <span class="fa fa-book em-u-margin-right"></span>
+                        <div class="em-c-alert__body">
+                            <span>
+                                Review the most recent version to view Playbook details.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download mode -->
+            <div class="section-header-full-height"
+                 data-ng-if="ac.current.mode === ac.modes.download">
+                <div class="section-header-full-width">
+                    <div class="em-c-alert alert-plain alert-full-height" role="alert">
+                        <span class="fa fa-book em-u-margin-right"></span>
+                        <div class="em-c-alert__body">
+                            <span data-ng-show="ac.current.details.hasPlaybook === true">
+                                A Playbook exists for this team assessment.
+                            </span>
+                            <span data-ng-show="ac.current.details.hasPlaybook === false">
+                                A Playbook does not exist for this team assessment.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="em-l-grid__item">
+            <!-- Share -->
+            <div class="section-header-full-width section-header-full-height" data-ng-if="ac.current.details.isCompletedByMe === true" data-ng-model="ac.showShareModal" data-ng-init="false">
+                <div class="em-c-alert alert-plain alert-full-height" role="alert">
+                    <span class="fa fa-user em-u-margin-right"></span>
+                    <div class="em-c-alert__body">
+                        This assessment was completed by you.
+                    </div>
+                    <div class="em-c-alert__actions"
+                         data-ng-if="ac.current.mode !== ac.modes.download">
+                        <a class="em-c-text-btn em-u-margin-right"
+                           target="_blank"
+                           href="/#/assessments/{{ac.assessment.id}}/teamAssessments/{{ac.current.details.id}}/export">
+                            Download <span class="fa fa-download fa-sm em-u-margin-left-half"></span>
+                        </a>
+                        <button class="em-c-text-btn "
+                                data-ng-click="ac.showShareModal = true;">
+                            Share <span class="fa fa-share fa-sm em-u-margin-left-half"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div data-em-share-modal
+                     data-link="ac.getShareAssessmentLink()"
+                     data-title="Share Assessment"
+                     data-is-open="ac.showShareModal"></div>
+            </div>
+            <div class="section-header-full-width section-header-full-height" data-ng-show="ac.current.details.isCompletedByMe === false">
+                <div class="em-c-alert alert-plain alert-full-height" role="alert">
+                    <span class="fa fa-user em-u-margin-right"></span>
+                    <div class="em-c-alert__body">
+                        This assessment was completed by {{ac.current.details.owner}}
+                    </div>
+                    <div class="em-c-alert__actions">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-header-full-width em-u-margin-bottom em-u-margin-top" data-ng-if="ac.current.attempts.list.length > 1">
+        <!-- Multiple Attempts -->
+        <div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon full-width-card">
+            <div class="em-c-solid-card__body em-u-display-flex" style="justify-content:space-between;">
+                <div class="float-left em-u-display-flex">
+                    <span class="fa fa-2x fa-files-o"></span>
+                    <h3 class="em-c-solid-card__title float-right">
+                        <span>Versions</span>
+                    </h3>
+                </div>
+                <div class="float-right">
+                    <h4 class="em-c-solid-card__kicker"></h4>
+                </div>
+            </div>
+            <div class="em-c-solid-card__footer">
+
+                <div class="em-c-table-object ">
+                    <div class="em-c-table-object__header">
+                    </div>
+                    <!--end em-c-table-object__header-->
+                    <div class="em-c-table-object__body">
+                        <div class="em-c-table-object__body-inner">
+                            <table class="em-c-table ">
+                                <thead class="em-c-table__header">
+                                    <tr class="em-c-table__header-row">
+                                        <th scope="col" class="em-c-table__header-cell ">Date</th>
+                                        <th scope="col" class="em-c-table__header-cell ">Status</th>
+                                        <th scope="col" class="em-c-table__header-cell ">Owner</th>
+                                        <th scope="col" class="em-c-table__header-cell ">Score</th>
+                                        <th scope="col" class="em-c-table__header-cell em-u-text-align-center" data-ng-if="ac.current.mode !== ac.modes.download">Review</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="em-c-table__body ">
+                                    <tr class="em-c-table__row " data-ng-repeat="teamAssessment in ac.current.attempts.list">
+                                        <td class="em-c-table__cell em-js-cell em-js-cell-editable">
+                                            {{teamAssessment.completed !== null ? teamAssessment.completed : teamAssessment.started  | date:'MM/dd/yyyy h:mm a' | truncate:100}}
+                                        </td>
+                                        <td class="em-c-table__cell em-js-cell em-js-cell-editable">
+                                            {{teamAssessment.status.replace('_',' ')}}
+                                        </td>
+                                        <td class="em-c-table__cell em-js-cell em-js-cell-editable">
+                                            {{teamAssessment.owner | truncate:100}}
+                                        </td>
+                                        <td class="em-c-table__cell em-js-cell em-js-cell-editable">
+                                            <span ng-if="teamAssessment.completed !== null">
+                                                {{+teamAssessment.score * 100 | number:0}}%
+                                            </span>
+                                            <span ng-if="teamAssessment.completed === null">
+                                                NA
+                                            </span>
+                                        </td>
+                                        <td class="em-c-table__cell em-js-cell em-js-cell-editable em-u-text-align-center" data-ng-if="ac.current.mode !== ac.modes.download">
+                                            <button class="em-c-text-btn "
+                                                    data-ng-click="ac.reviewTeamAssessment(teamAssessment)"
+                                                    data-ng-if="ac.current.details.id !== teamAssessment.id">
+                                                <span class="fa fa-file fa-2x em-u-margin-left-half" title="review"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="em-c-table__footer">
+                                    <tr class="em-c-table__footer-row"></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

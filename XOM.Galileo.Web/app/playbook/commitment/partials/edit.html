@@ -1,0 +1,136 @@
+﻿<form name="cc.form" novalidate role="form">
+    <div class="em-u-margin-bottom-double">
+        <span>
+            Commitments represent specific improvements that the team/project/application can make in relation to the 
+            assessment results. We recommend adding at least one commitment for each area of improvement. Commitments can build
+            on themselves over time and be completed on your schedule.
+        </span>
+    </div>   
+    <div>
+        <!-- Name -->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': cc.form.submitted && cc.form.name.$error.required}">
+            <label for="name" class="em-y-field__label">Name:</label>
+            <div class="em-c-field__body">
+                <input name="name" class="em-c-input em-u-width-100" type="text" data-ng-model="cc.form.data.name"
+                       required />
+                <svg class="em-c-field__icon"
+                     data-ng-show="cc.form.submitted === true && cc.form.name.$error.required">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+                </svg>
+            </div>
+            <div class="em-c-field__note" data-ng-show="cc.form.submitted && cc.form.name.$error.required">The name is required.</div>
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': cc.form.submitted && cc.form.category.$error.required}">
+            <label for="category" class="em-c-field__label">Category:</label>
+            <div data-ng-if="cc.enableSuggestions === true">
+                <div class="em-c-alert alert-plain alert-condensed" role="alert">
+                    <div class="em-c-alert__body">
+                        Consider adding commitments for categories: 
+                        
+                        <span ng-repeat="category in cc.categories | filter: {needsCommitments: true}">
+                            <span ng-show="$last"> and </span>
+                            <span ng-show="!$first && !$last">, </span>
+                                {{category.name}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="em-c-field__body">
+                <select name="category" id="category" class="em-c-select em-u-width-100"
+                        ng-options="category.optionText for category in cc.categories track by category.id"
+                        ng-model="cc.form.data.category"
+                        ng-change="cc.setFormCategoryId(cc.form.data.category)"
+                        required>
+                    <option value="">Select category...</option>
+                </select>
+            </div>
+            <div class="em-c-field__note" data-ng-show="cc.form.submitted && cc.form.category.$error.required">The category is required.</div>
+        </div>
+
+        <!-- Question -->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-is-disabled': cc.form.data.category === null}">
+            <div class="em-u-display-inline-block em-u-width-100">
+                <label for="question" class="em-c-field__label float-left">Question:</label>
+                <div class="em-c-field__note float-right">(optional)</div>
+            </div>            
+            <div data-ng-if="cc.enableSuggestions === true && cc.form.data.category !== null && cc.form.data.category.needsCommitments === true">
+                <div class="em-c-alert alert-plain alert-condensed" role="alert">
+                    <div class="em-c-alert__body">
+                        Improvements could be made for the questions indicated with asterisks (*)
+                    </div>
+                </div>
+            </div>
+            <div class="em-c-field__body">
+                <select name="question" id="question" class="em-c-select em-u-width-100 em-is-disabled"
+                        ng-options="question.optionText for question in cc.form.data.category.questions track by question.id"
+                        ng-model="cc.form.data.question"
+                        ng-change="cc.setFormQuestionId(cc.form.data.question)"
+                        ng-disabled="cc.form.data.category === null">
+                    <option value="">Select Question...</option>
+                    <svg class="em-c-icon em-c-field__icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-ban"></use>
+                    </svg>
+                </select>
+            </div>
+        </div>
+
+        <!-- Due Date -->
+        <div class="em-c-field em-u-margin-bottom">
+            <label for="name" class="em-y-field__label float-left">Completion Date Goal:</label>
+            <div class="em-c-field__note float-right">(optional)</div>
+            <div class="em-c-field__body">
+                <em-date-picker name="dueDate" data-model="cc.form.data.dueDateLocal"
+                                on-select="cc.setFormDueDateValue(cc.form.data.dueDateLocal)"></em-date-picker>
+                <!--<input class="em-c-input em-u-width-100" type="text" data-ng-model="cc.form.data.dueDate" />-->
+            </div>
+        </div>
+
+        <!--Status-->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': cc.form.submitted && cc.form.status.$error.required}">
+            <label for="status" class="em-c-field__label">Implementation Status:</label>
+            <div class="em-c-field__body">
+                <select name="status" id="status" class="em-c-select em-u-width-100"
+                        ng-options="status.display for status in cc.statuses track by status.value"
+                        ng-model="cc.form.data.statusObj"
+                        ng-change="cc.setFormStatusValue(cc.form.data.statusObj)"
+                        required>
+                    <option value="">Select Status...</option>
+                </select>
+            </div>
+            <div class="em-c-field__note" data-ng-show="cc.form.submitted && cc.form.status.$error.required">The status is required.</div>
+        </div>
+
+        <!--Description-->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': cc.form.submitted && cc.form.description.$error.required}">
+            <label for="description" class="em-c-field__label">Description:</label>
+            <div class="em-c-field__body">
+                <textarea name="description" class="em-u-width-100" 
+                          data-ng-model="cc.form.data.description"
+                          required
+                          rows="5"
+                          style="resize:vertical"></textarea>
+                <svg class="em-c-field__icon"
+                     data-ng-show="cc.form.submitted === true && cc.form.description.$error.required">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+                </svg>
+            </div>
+            <div class="em-c-field__note" data-ng-show="cc.form.submitted && cc.form.description.$error.required">The description is required.</div>
+        </div>      
+
+        <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="cc.error !== null && typeof(cc.error) !== 'undefined' && cc.error.trim() !== ''">
+            <svg class="em-c-icon em-c-alert__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+            </svg>
+            <div class="em-c-alert__body">
+                {{cc.error}}
+            </div>
+        </div>
+    </div>
+</form>

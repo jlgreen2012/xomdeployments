@@ -1,0 +1,8 @@
+﻿<div class="em-u-margin-bottom">
+    <h1>Assessments</h1>
+</div>
+
+<div class="em-u-margin-bottom-quad"
+     data-ng-repeat="assessment in ac.assessments">
+    <div ng-include="'app/assessment/partials/details.html'" onload="assessment = assessment"></div>
+</div>

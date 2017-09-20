@@ -1,0 +1,37 @@
+﻿<div class="em-c-solid-card em-c-solid-card--compact em-c-solid-card--with-icon full-width-card em-u-margin-bottom-double">
+    <div class="em-c-solid-card__body em-u-display-inline-block">
+        <div class="float-left">
+            <span class="fa fa-2x fa-file-text"></span>
+            <h3 class="em-c-solid-card__title float-right">
+                <span>Review</span>
+            </h3>
+        </div>
+        <div class="float-right">
+        </div>
+    </div>
+    <div class="em-c-solid-card__footer">
+        <div data-ng-show="ac.current.details.status === 'COMPLETED'">
+            <!-- Radar Chart -->
+            <div pd-radar-chart data-data="ac.current.radarChartData.data" data-legend="ac.current.radarChartData.legend"></div>
+
+            <!-- Loading message -->
+            <em-loader data-ng-show="ac.isTeamAssessmentDetailLoading === true"
+                       class="center"></em-loader>
+        </div>
+
+        <!-- In Progress message -->
+        <div data-ng-if="ac.current.details.status === 'IN_PROGRESS'">
+            <div class="em-u-align-center vertical-center">
+                <h3 class="em-u-color--red em-u-text-align-center">Assessment In-Progress</h3>
+                <p class="em-u-text-align-center">This assessment is incomplete or has not yet been submitted. Select the Resume button below to return to the assessment in-progress.</p>
+
+                <div class="em-u-text-align-center">
+                    <a class="em-c-btn em-c-btn--large em-js-btn-selectable"
+                       href="#/assessments/{{ac.current.details.assessmentId}}/team/{{ac.current.details.teamId}}">
+                        <span class="em-c-btn__text">Resume Assessment</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

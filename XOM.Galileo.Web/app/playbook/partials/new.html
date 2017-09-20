@@ -1,0 +1,94 @@
+﻿<form name="pc.newPlaybookForm.form" novalidate role="form">
+    <div class="em-u-margin-bottom-double">
+        <span>
+            An Evolve Playbook represents your team, application or project's commitment to grow its ability
+            to deliver highly functioning software more efficiently and frequently.
+        </span>
+    </div>
+    <div ng-show="pc.loaded === true">
+
+        <!-- Team Dropdown -->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.teamAssessment.$error.required}"
+             data-ng-if="pc.newPlaybookForm.teamAssessments.length > 0">
+            <label for="team-name-input" class="em-c-field__label">Team, application or project:</label>
+            <div class="em-c-field__body">
+                <select name="teamAssessment" id="teamAssessment" class="em-c-select select-wide"
+                        ng-options="teamAssessment.teamName | truncate:30 for teamAssessment in pc.newPlaybookForm.teamAssessments track by teamAssessment.id"
+                        ng-model="pc.current.details.teamAssessment"
+                        required
+                        playbook-validator>
+                    <option value="">Select Team...</option>
+                </select>
+                <svg class="em-c-icon em-c-field__icon" style="left:51%"
+                     data-ng-show="pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.teamAssessment.$error.required">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+                </svg>
+            </div>
+            <div class="em-c-field__note" data-ng-show="pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.teamAssessment.$error.required">The team is required.</div>
+        </div>
+
+        <div class="section-header-full-width" data-ng-if="pc.newPlaybookForm.hasSelectedTeamAssessment() === true">
+
+            <!-- Info if playbook already exists. -->
+            <div class="em-c-alert em-c-alert--error" role="alert" data-ng-if="pc.newPlaybookForm.form.$error.completed">
+                <div class="em-c-alert__body">
+                    The assessment for this team is still in progress. You can create a playbook once it is completed and submitted.
+                </div>
+                <div class="em-c-alert__actions">
+                    <a class="em-c-text-btn"
+                       href="/#/assessments/{{pc.newPlaybookForm.form.teamAssessment.$viewValue.assessmentId}}/team/{{pc.newPlaybookForm.form.teamAssessment.$viewValue.teamId}}/edit">
+                        Resume Assessment <span class="fa fa-play-circle-o em-u-margin-left-half"></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Playbook already exists. -->
+            <div class="em-c-alert em-c-alert--warning" role="alert" data-ng-if="pc.newPlaybookForm.form.$error.noPlaybook">
+                <div class="em-c-alert__body">
+                    A Playbook already exists for this team.
+                </div>
+                <div class="em-c-alert__actions">
+                    <button class="em-c-text-btn"
+                            ng-click="pc.navigateToPlaybookDetails(pc.newPlaybookForm.form.teamAssessment.$viewValue.playbookId)">
+                        <!--TODO: allow navigation directly to playbook -->
+                        Edit Playbook <span class="fa fa-file em-u-margin-left-half"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Committments -->
+        <!--<div data-ng-show="pc.newPlaybookForm.form.$valid === true">
+            <label class="em-c-field__label">Commitments:</label>
+            <span>stuff</span>
+            <button class="em-c-btn float-right"
+                    type="button"
+                    data-ng-click="pc.addCommitmentToPlaybook()">
+                <span class="em-c-btn__text">Add</span>
+            </button>
+        </div>-->
+
+        <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="pc.message !== null">
+            <svg class="em-c-icon em-c-alert__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+            </svg>
+            <div class="em-c-alert__body">
+                {{pc.message}}
+            </div>
+        </div>
+
+        <div id="form-buttons" class="em-u-margin-top-quad">
+            <button class="em-c-btn em-u-align-left float-left"
+                    type="button"
+                    data-ng-click="pc.newPlaybookForm.cancel()">
+                <span class="em-c-btn__text">Cancel</span>
+            </button>
+            <button class="em-c-btn em-c-btn--primary float-right"
+                    type="button"
+                    data-ng-click="pc.createPlaybook()">
+                <span class="em-c-btn__text">Create</span>
+            </button>
+        </div>
+    </div>
+</form>

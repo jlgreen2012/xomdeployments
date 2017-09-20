@@ -1,0 +1,63 @@
+﻿@import 'unity-angular/colors/colors';
+
+//General layout definitions for the whole app
+
+select {
+    background-color: $white;
+}
+
+// ********** ANGULAR-LOADING-BAR **********
+body {
+    > header {
+        position: relative;
+
+        > #loading-bar > .bar { //sass-lint:disable-line no-ids
+            position: absolute;
+            top: 100%;
+        }
+
+        > #loading-bar-spinner { //sass-lint:disable-line no-ids
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}
+
+// ********** HELPERS **********
+.capitalize {
+    text-transform: capitalize;
+}
+
+.justify {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.svg-content-responsive {
+    display: inline-block;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.show-new-lines {
+    white-space: pre-line;
+}
+
+.float-right {
+    float: right !important; //sass-lint:disable-line no-important
+}
+
+.float-left {
+    float: left !important; //sass-lint:disable-line no-important
+}
+
+.em-c-alert {
+    margin-bottom: 0;
+}

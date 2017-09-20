@@ -1,0 +1,10 @@
+﻿
+<div class="em-c-field"
+     ng-transclude
+     ng-class="{
+        'em-is-valid':    !vm.disabled && !vm.readonly && !vm.error && vm.valid,
+        'em-has-error':   !vm.disabled && !vm.readonly &&  vm.error,
+        'em-is-disabled':  vm.disabled || vm.readonly,
+        'em-c-field--toggle': vm.toggle
+     }">
+</div>

@@ -1,0 +1,27 @@
+﻿
+<div class="em-c-expandable-button"
+     ng-class="{
+         'em-is-active': vm.isActive
+     }">
+    <button class="em-c-btn em-c-btn--is-expandable"
+            ng-class="{
+                'em-c-btn--primary': vm.primary,
+                'em-c-btn--small': vm.small,
+            }"
+            ng-click="vm.isActive = !vm.isActive">
+        <div class="em-c-btn__inner">
+            <em-icon is="x"
+                     class="em-c-btn__icon"
+                     ng-if="vm.plusIcon">
+            </em-icon>
+            <span class="em-c-btn__text">{{ vm.isActive ? vm.activeLabel : vm.label }}</span>
+            <em-icon is="caret-right"
+                     class="em-c-btn__icon"
+                     ng-if="!vm.plusIcon">
+            </em-icon>
+        </div>
+    </button>
+    <div class="expandable-target"
+         ng-transclude>
+    </div>
+</div>

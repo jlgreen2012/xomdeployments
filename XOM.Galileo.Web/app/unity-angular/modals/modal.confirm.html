@@ -1,0 +1,38 @@
+﻿<div class="em-c-modal em-js-modal"
+     data-ng-class="{'em-is-closed': isOpen !== true}">
+    <div class="em-c-modal__window em-js-modal-window">
+        <div class="em-c-modal__header">
+            <h3 class="em-c-modal__title">{{title}}</h3>
+            <button class="em-c-btn em-c-btn--bare em-c-modal__close-btn em-js-modal-close-trigger"
+                    data-ng-click="cancel()">
+                <div class="em-c-btn__inner">
+                    <svg class="em-c-btn__icon " data-em-icon-path="../../images/em-icons.svg">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-x"></use>
+                    </svg>
+                </div>
+            </button>
+            <!-- end em-c-btn -->
+        </div>
+        <!-- end em-c-modal__header -->
+        <div class="em-c-modal__body em-c-text-passage em-c-text-passage--small">
+            <ng-transclude></ng-transclude>
+        </div>
+        <!-- end em-c-modal__body -->
+        <div class="em-c-modal__footer em-c-text-passage em-c-text-passage--small">
+            <div class="em-c-btn-group em-c-modal--alert em-js-modal-only">
+                <button class="em-c-btn em-c-btn--primary em-js-modal-confirm-trigger"
+                        data-ng-click="ok()">
+                    <span class="em-c-btn__text">{{confirmText}}</span>
+                </button>
+                <!-- end em-c-btn -->
+                <button class="em-c-btn em-c-btn--secondary em-js-modal-cancel-trigger"
+                        data-ng-click="cancel()">
+                    <span class="em-c-btn__text">{{cancelText}}</span>
+                </button>
+                <!-- end em-c-btn -->
+            </div>
+        </div>
+        <!-- end em-c-modal__footer -->
+    </div>
+    <!-- end em-c-modal__window -->
+</div>

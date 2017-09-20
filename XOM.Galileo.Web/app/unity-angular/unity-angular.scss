@@ -1,0 +1,51 @@
+﻿/*
+
+    ExxonMobile's Unity Angular module style definitions
+
+*/
+
+// ********** EM-UNITY FIXES **********
+textarea {
+    resize: none;
+}
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.em-c-header--condensed {
+
+    .em-c-header__inner {
+        margin: 0 auto;
+    }
+}
+
+// ********** EM-UNITY IMPROVEMENTS **********
+// Icons will rotate
+.em-c-primary-nav__icon {
+    transition: transform 0.35s;
+}
+
+// Improve navigation styling
+.em-c-header--condensed .em-c-header__body {
+    padding: 0;
+
+    .em-c-primary-nav__item {
+        margin-right: 0;
+
+        .em-c-primary-nav__link {
+            padding: 1rem;
+            transition: 0.35s;
+        }
+    }
+}
+
+// Improve icons position
+.em-c-field__count,
+.em-c-field__icon {
+    bottom: initial;
+    right: 10px;
+    top: 8px;
+}

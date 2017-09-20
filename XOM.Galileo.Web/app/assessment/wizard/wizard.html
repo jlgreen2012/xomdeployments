@@ -1,0 +1,118 @@
+﻿<div class="em-l-container">
+
+    <section class="em-c-section" data-ng-class="{'em-is-disabled': showSaveAndExitModal}">
+
+        <div class="wrapper">
+            <!--Header-->
+            <header class="em-c-section__header section-header-full-width">
+                <div class="em-l-grid__item float-left">
+                    <h2 class="em-c-section__title">{{title}}</h2>
+                </div>
+                <div class="em-l-grid__item float-right"
+                     data-ng-if="currentStep().type !== 'END'">
+                    <div pb-wizard-status
+                         data-steps="steps"
+                         data-show-invalid-styles="currentStep().type === 'REVIEW'"></div>
+                </div>
+            </header>
+
+            <!--Body-->
+            <div class="em-c-section__body">
+                <div>
+                    <div data-ng-if="currentStep().type === 'QUESTION'"
+                         data-pb-wizard-question-page
+                         data-page="currentStep().currentPage">
+                    </div>
+                    <div data-ng-if="currentStep().type === 'START' || currentStep().type === 'REVIEW' || currentStep().type === 'END'">
+                        <!--data-ng-include="'app/assessment/wizard/wizard.review.page.html'"
+                        data-on-load="isValid = currentStep().currentPage.isValid"
+                         >-->
+                        <div class="em-l-linelength-container em-u-align-center">
+                            <p data-ng-repeat="item in currentStep().currentPage.content">{{item}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Footer-->
+        <footer class="em-c-section__footer wz-footer sticky-footer">
+
+            <!-- Alerts -->
+            <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="message !== null">
+                <svg class="em-c-icon em-c-alert__icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
+                </svg>
+                <div class="em-c-alert__body">
+                    {{message}}
+                </div>
+            </div>
+
+            <div class="em-l-grid em-l-grid--1-to-3up ">
+                <div class="em-l-grid__item">
+                    <div class="em-c-btn-bar vertical-center">
+                        <ul class="em-c-btn-bar__list float-left">
+                            <li class="em-c-btn-bar__item "
+                                data-ng-repeat-start="button in currentStep().currentPage.navigation.left | orderBy: 'order' | filter:{hidden : false}"
+                                data-ng-if="!button.hidden">
+                                <button class="em-c-btn em-c-btn--small em-js-btn-selectable"
+                                        data-ng-click="button.func()"
+                                        data-ng-disabled="!button.enabled">
+                                    <span class="em-c-btn__text">{{button.text}}</span>
+                                </button>
+                            </li>
+                            <li class="em-c-btn-bar__item em-c-btn-bar__item--separator"
+                                data-ng-repeat-end></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="em-l-grid__item">
+                    <!--Category-->
+                    <div class="wz-footer-label em-u-align-center em-u-text-align-center">
+                        <h5>{{currentStep().name}}</h5>
+                        <h6>
+                            <span>{{currentStep().currentPage.navigationStatus}}</span>
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="em-l-grid__item">
+                    <div class="em-c-btn-bar vertical-center">
+                        <ul class="em-c-btn-bar__list float-right">
+                            <li class="em-c-btn-bar__item em-c-btn-bar__item--separator"
+                                data-ng-repeat-start="button in currentStep().currentPage.navigation.right | orderBy: 'order' | filter:{hidden : false}"></li>
+                            <li class="em-c-btn-bar__item "
+                                data-ng-repeat-end
+                                data-ng-if="!button.hidden">
+                                <button class="em-c-btn em-c-btn--small em-js-btn-selectable"
+                                        data-ng-click="button.func()"
+                                        data-ng-disabled="!button.enabled">
+                                    <span class="em-c-btn__text">{{button.text}}</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+    <section>
+        <!-- Modals -->
+        <div em-modal-confirm
+             data-title="Save and Exit Assessment"
+             data-confirm-func="confirmSaveAndExit()"
+             data-is-open="showSaveAndExitModal">
+            <p>You have chosen to save the input provided thus far and exit the assessment.</p>
+            <p>Select OK below to save all information and return to the Assessments page, or select Cancel to return to the current assessment.</p>
+        </div>
+
+        <div em-modal-confirm
+             data-title="Cancel Assessment"
+             data-confirm-func="confirmCancel()"
+             data-is-open="showCancelModal">
+            <p>You have chosen to cancel this assessment. If you are sure you want to cancel and delete all input provided thus far, click OK below.</p>
+            <p>If you would like to save your assessment and finish it later, select Cancel below, and then select 'Save and Exit' from the current assessment screen.</p>
+        </div>
+    </section>
+</div>

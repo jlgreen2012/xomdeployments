@@ -1,0 +1,9 @@
+﻿<div data-ng-repeat="question in page.questions"
+     data-pb-multiple-choice-question
+     data-question="{{question.questionText}}"
+     data-question-id="{{question.questionId}}"
+     data-number="{{question.questionOrder}}"
+     data-answers="question.answers"
+     data-comment="question.comment"
+     data-is-answered="question.isAnswered"
+     data-selected-answer="question.selectedAnswerId"></div>

@@ -1,0 +1,12 @@
+﻿# Linter Options
+options:
+
+# File Options
+files:
+
+# Rule Configuration
+rules:
+  indentation:
+    - 2
+    -
+      size: 4

@@ -1,0 +1,33 @@
+﻿<div class="em-l-container">
+    <div class="em-c-field ">
+        <h4 for="" class="em-c-field__label">
+            <span class="wz-question-text">{{+number + 1}}. {{question}}</span>
+        </h4>
+
+        <!--MC Options-->
+        <div class="em-c-field__body">
+            <ul class="em-c-option-list ">
+                <li class="em-c-option-list__item em-js-radio-trigger-parent"
+                    data-ng-model="answers"
+                    data-ng-repeat="answer in answers">
+                    <label class="em-c-input-group" for="radio-{{answer.id}}">
+                        <input id="radio-{{answer.id}}" type="radio" name="radio-{{questionId}}" class="em-c-input-group__control em-js-radio-trigger"
+                               data-ng-model="selectedAnswer"
+                               data-ng-value="{{answer.id}}"
+                               data-ng-change="selectAnswer(answer)">
+                        <span class="em-c-input-group__text">{{answer.text}}</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!--Comment-->
+        <div class="em-c-field ">
+            <label for="" class="em-c-field__label">Comment</label>
+            <div class="em-c-field__body">
+                <textarea class="em-c-textarea " id="" placeholder="Optional comment..." value="" rows="2"
+                          data-ng-model="comment"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
