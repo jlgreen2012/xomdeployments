@@ -1,0 +1,915 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XOM.Galileo.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:XOM.Galileo.WebAPI.LoggingConfig">
+            <summary>
+            Provides an object responsible for maintaining logging configuration settings.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.LoggingConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Registers various logging configurations for use in the services.
+            </summary>
+            <param name="config">The source http configuration.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.LoggingConfig.RegisterDatabaseLogListener">
+            <summary>
+            Registers a listener which writes all log entries, warning and above,
+            to a database location.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.LoggingConfig.RegisterEventLogListener">
+            <summary>
+            Registers a listener which writes all critical log entries a the
+            event log.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.LoggingConfig.RegisterTextLogListener">
+            <summary>
+            Registers a listener which writes all log entries a text file location.
+            </summary>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.XOMAppsAuthorizeAttribute">
+            <summary>
+            Provides an authorization attribute responsible for enforcing application
+            wide user security based on the currently logged in user's roles and role permissions.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsAuthorizeAttribute.#ctor(XOM.Galileo.BLL.Security.PrivilegeOptions)">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.XOMAppsAuthorizeAttribute"/>
+            with the rolenames set.
+            </summary>
+            <param name="privileges">The set of privileges to enforce.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsAuthorizeAttribute.OnAuthorization(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Calls when an action is being authorized.
+            </summary>
+            <param name="actionContext">The action context.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsAuthorizeAttribute.OnAuthorizationAsync(System.Web.Http.Controllers.HttpActionContext,System.Threading.CancellationToken)">
+            <summary>
+            Calls when an action is being authorized.
+            </summary>
+            <param name="actionContext">The action context.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsAuthorizeAttribute.IsAuthorized(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Indicates whether the specified control is authorized.
+            </summary>
+            <param name="actionContext">The action context.</param>
+            <returns>
+            True when the specified control is authorized, otherwise false.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsAuthorizeAttribute.IsUserAuthorized(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Helper method responsible for checking the user is authorized to
+            perform the specified action.
+            </summary>
+            <returns>True when the user is authorized, otherwise false.</returns>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute">
+            <summary>
+            Provides an authorization attribute responsible for enforcing component
+            security based on the currently logged in user's component roles and role permissions.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute.#ctor(XOM.Galileo.BLL.Security.SecurableComponentType,XOM.Galileo.BLL.Security.PrivilegeOptions)">
+            <summary>
+            Creates a new instance of <see
+            cref="T:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute"/> with the rolenames set.
+            </summary>
+            <param name="componentType"></param>
+            <param name="privileges"></param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute.#ctor(XOM.Galileo.BLL.Security.SecurableComponentType,XOM.Galileo.BLL.Security.PrivilegeOptions,System.Boolean,System.String)">
+            <summary>
+            Creates a new instance of <see
+            cref="T:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute"/> with the rolenames set.
+            </summary>
+            <param name="componentType">
+            The component type for which access must be granted.
+            </param>
+            <param name="privileges">The set of privileges to enforce.</param>
+            <param name="isIdentified">
+            Indicates whether or not the component can be identified.
+            </param>
+            <param name="identifierName">
+            When a component can be identified, represents the name of the
+            parameter in the web request which identifies the component.
+            </param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute.OnAuthorization(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Calls when an action is being authorized.
+            </summary>
+            <param name="actionContext">The action context.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute.OnAuthorizationAsync(System.Web.Http.Controllers.HttpActionContext,System.Threading.CancellationToken)">
+            <summary>
+            Calls when an action is being authorized.
+            </summary>
+            <param name="actionContext">The action context.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute.GetIdentifiedValue(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Given an action context, provides the identified value associated
+            with the identifier value.
+            </summary>
+            <param name="actionContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute.IsAuthorized(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Indicates whether the specified control is authorized.
+            </summary>
+            <param name="actionContext">The action context.</param>
+            <returns>
+            True when the specified control is authorized, otherwise false.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.XOMAppsComponentAuthorizeAttribute.IsUserAuthorized(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Helper method responsible for checking the user is authorized to
+            perform the specified action.
+            </summary>
+            <returns>True when the user is authorized, otherwise false.</returns>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController">
+            <summary>
+            Provides a controller responsible for ApplicationLogEntry records.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController"/>.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.Delete(System.Int32)">
+            <summary>
+            Deletes the ApplicationLogEntry identified by the specified identifier.
+            </summary>
+            <param name="id">The source ApplicationLogEntry identifier.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.DeleteAsync(System.Int32)">
+            <summary>
+            Deletes the ApplicationLogEntry identified by the specified identifier.
+            </summary>
+            <param name="id">The source ApplicationLogEntry identifier.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.Get">
+            <summary>
+            Gets the set of all ApplicationLogEntry records.
+            </summary>
+            <returns>An enumerable set of all ApplicationLogEntry records.</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.Get(System.Int32)">
+            <summary>
+            Gets the ApplicationLogEntry record for corresponding to the
+            specified ApplicationLogEntry identifier.
+            </summary>
+            <returns>
+            A ApplicationLogEntry record which corresponds to the specified
+            ApplicationLogEntry identifier.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.GetAsync">
+            <summary>
+            Gets the set of all ApplicationLogEntry records.
+            </summary>
+            <returns>An enumerable set of all ApplicationLogEntry records.</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.GetAsync(System.Int32)">
+            <summary>
+            Gets the ApplicationLogEntry record for corresponding to the
+            specified ApplicationLogEntry identifier.
+            </summary>
+            <returns>
+            A ApplicationLogEntry record which corresponds to the specified
+            ApplicationLogEntry identifier.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.Post(XOM.Galileo.BLL.ApplicationLogEntry)">
+            <summary>
+            Adds the specified ApplicationLogEntry to the system.
+            </summary>
+            <param name="data">The source ApplicationLogEntry data.</param>
+            <returns>
+            A ApplicationLogEntry object corresponding to the saved record.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.PostUserAsync(XOM.Galileo.BLL.ApplicationLogEntry)">
+            <summary>
+            Adds the specified ApplicationLogEntry to the system.
+            </summary>
+            <param name="data">The source ApplicationLogEntry data.</param>
+            <returns>
+            A ApplicationLogEntry object corresponding to the saved record.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.Put(System.Int32,XOM.Galileo.BLL.ApplicationLogEntry)">
+            <summary>
+            Upates the ApplicationLogEntry identified by the specified identifier
+            with the specified data values.
+            </summary>
+            <param name="id">The source ApplicationLogEntry identifier.</param>
+            <param name="data">The source ApplicationLogEntry data.</param>
+            <returns>
+            A ApplicationLogEntry object corresponding to the saved record.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Tests.ApplicationLogEntriesController.PutAsync(System.Int32,XOM.Galileo.BLL.ApplicationLogEntry)">
+            <summary>
+            Updates the ApplicationLogEntry specified by the identifier with the
+            specified ApplicationLogEntry data.
+            </summary>
+            <param name="id">The source ApplicationLogEntry identifier.</param>
+            <param name="data">The source web safe ApplicationLogEntry data.</param>
+            <returns>
+            A ApplicationLogEntry object which corresponds to the result of the
+            saving of specified data.
+            </returns>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Controllers.AuthenticationController">
+            <summary>
+            Provides a controller responsible for authorizing users.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Controllers.AuthenticationController"/>.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.ApplyDefaultSecurity">
+            <summary>
+            Applies default security for user roles and user component roles to
+            the current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.ApplyDefaultSecurity(System.String)">
+            <summary>
+            Applies default security for user roles and user component roles to
+            the user corresponding to the specified username.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.ApplyDefaultSecurity(System.String,System.String)">
+            <summary>
+            Applies default security for user roles and user component roles to
+            the user corresponding to the specified username.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.ApplyDefaultSecurityAsync">
+            <summary>
+            Applies default security for user roles and user component roles to
+            the current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.ApplyDefaultSecurityAsync(System.String)">
+            <summary>
+            Applies default security for user roles and user component roles to
+            the current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.ApplyDefaultSecurityAsync(System.String,System.String)">
+            <summary>
+            Applies default security for user roles and user component roles to
+            the current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.RefreshUser(System.Int32,XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Refreshes the specified user with data taken from the Active
+            Directory user principal information resolution.
+            </summary>
+            <param name="id">The source user id.</param>
+            <param name="userData">The user object</param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.RefreshUserAsync(System.Int32,XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Refreshes the specified user with data taken from the Active
+            Directory user principal information resolution.
+            </summary>
+            <param name="id">The source user id.</param>
+            <param name="userData">The user object</param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.RegisterByUsername(System.String)">
+            <summary>
+            Registers a user which is identified by the specified username.
+            </summary>
+            <param name="username">The source username.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.RegisterByUsernameAsync(System.String)">
+            <summary>
+            Registers a user which is identified by the specified username.
+            </summary>
+            <param name="username">The source username.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.RegisterUser(XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Provides a means of registering a new user to the site with default permissions.
+            </summary>
+            <param name="userData">The source user.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AuthenticationController.RegisterUserAsync(XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Provides a means of registering a new user to the site with default permissions.
+            </summary>
+            <param name="userData">The source user.</param>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Controllers.PlaybookController">
+            <summary>
+            Endpoint for all playbook actions.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.#ctor(XOM.Galileo.BLL.IPlaybookService)">
+            <summary>
+            Intializes controller.
+            </summary>
+            <param name="playbookService"></param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.AddCommitment(System.Int32,XOM.Galileo.Model.CommitmentDTO)">
+            <summary>
+            Adds a new commitment to an existing playbook.
+            </summary>
+            <param name="playbookId">
+            Id of the playbook the commitment belongs to
+            </param>
+            <param name="commitment">CommitmentDTO to add</param>
+            <returns>IHttpActionResult</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.Delete(System.Int32)">
+            <summary>
+            Deletes a playbook. Not yet allowed, so returns unauthorized.
+            </summary>
+            <param name="id">Id of the playbook.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.DeleteCommitment(System.Int32,System.Int32)">
+            <summary>
+            Deletes a commitment from a playbook.
+            </summary>
+            <param name="playbookId">
+            Id of the playbook the commitment belongs to
+            </param>
+            <param name="commitmentId">Id of the commitment to delete</param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.Get">
+            <summary>
+            Get all playbooks for the current user.
+            </summary>
+            <returns>List of PlaybookDTOs</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.Get(System.Int32)">
+            <summary>
+            Gets a plyabook by its id if the current user has access to it.
+            </summary>
+            <param name="id">Id of the playbook</param>
+            <returns>Playbook DTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.GetPlaybooksForAssessment(System.Int32)">
+            <summary>
+            Get all playbooks for the current user and the specified assessment.
+            </summary>
+            <param name="assessmentId">
+            Id of the assessment to filter playbooks by.
+            </param>
+            <returns>List of PlaybookDTOs</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.Post(XOM.Galileo.Model.TeamAssessmentDTO)">
+            <summary>
+            Creates a new playbook for a team assessment.
+            </summary>
+            <param name="teamAssessment">
+            Team Assessment this playbook is related to
+            </param>
+            <returns>A new playbook dto</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.Put(System.Int32,XOM.Galileo.Model.PlaybookDTO)">
+            <summary>
+            Update a playbook.
+            </summary>
+            <param name="id">Id of the playbook entity</param>
+            <param name="playbook">Playbook DTO with updates</param>
+            <returns>Updated playbook dto</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.SharePlaybook(System.Int32)">
+            <summary>
+            Shares the given playbook with the current user.
+            </summary>
+            <param name="playbookId">Id of the playbook to share</param>
+            <returns>The PlaybookDTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.PlaybookController.UpdateCommitment(System.Int32,System.Int32,XOM.Galileo.Model.CommitmentDTO)">
+             <summary>
+            Updates an existing commitment on an existing playbook.
+             </summary>
+             <param name="playbookId">
+             Id of the playbook the commitment belongs to
+             </param>
+             <param name="commitmentId">Id of the Commitment to be updated</param>
+             <param name="commitment">CommitmentDTO to update</param>
+             <returns>IHttpActionResult</returns>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Controllers.SecurityBaseController">
+            <summary>
+            Provides an abstract base class for security controllers supporting the creation of new users.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.SecurityBaseController.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Controllers.SecurityBaseController" />.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.SecurityBaseController.CreateNewUser">
+            <summary>
+            Helper method for creating a new user for the current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.SecurityBaseController.CreateNewUser(System.String,System.String)">
+            <summary>
+            Helper method for creating a new user based on the username.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Controllers.AssessmentController">
+            <summary>
+            Endpoint for all assessment actions.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AssessmentController.Get">
+            <summary>
+            Gets a list of all available assessments.
+            </summary>
+            <returns>List of AssessmentDTOs</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AssessmentController.Get(System.Int32)">
+            <summary>
+            Gets details for an assessment.
+            </summary>
+            <param name="id">Id of the assessment</param>
+            <returns><see cref="T:XOM.Galileo.Model.AssessmentDTO"/></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AssessmentController.GetTeamAssessment(System.Int32,System.Int32)">
+            <summary>
+            Gets the Team Assessment details.
+            </summary>
+            <param name="assessmentId">Assessment Id</param>
+            <param name="teamAssessmentId">Team Assessment Id</param>
+            <returns>TeamAssessmentDTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.AssessmentController.GetTeamAssessments(System.Int32)">
+            <summary>
+            Gets all completed Team Assessments for the Assessment provided.
+            <para>Filters to team assessments the user has permission to view.</para>
+            </summary>
+            <param name="assessmentId">Id of the Assessment</param>
+            <returns>List of TeamAssessmentDTO</returns>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Controllers.TeamController">
+            <summary>
+            Endpoint for team data.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.#ctor(XOM.Galileo.BLL.IAssessmentService,XOM.Galileo.BLL.ITeamService)">
+            <summary>
+            Creates a new instance of TeamController.
+            </summary>
+            <param name="assessmentService"><see cref="T:XOM.Galileo.BLL.IAssessmentService"/></param>
+            <param name="teamService"><see cref="T:XOM.Galileo.BLL.ITeamService"/></param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.Delete(System.Int32)">
+            <summary>
+            Deletes a Team.
+            </summary>
+            <param name="id">Team Id</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.Get">
+            <summary>
+            Gets all teams.
+            </summary>
+            <returns>List of TeamDTOs</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.Get(System.Int32)">
+            <summary>
+            Gets a team by its Id.
+            </summary>
+            <param name="id">Team Id</param>
+            <returns>TeamDTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.GetAssessmentDetails(System.Int32,System.Int32)">
+            <summary>
+            Gets the Team Assessment details.
+            </summary>
+            <param name="teamId"></param>
+            <param name="assessmentId"></param>
+            <returns>TeamAssessmentDTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.GetAssessments(System.Int32)">
+            <summary>
+            Gets all assessments and the team assessments for the provided team.
+            </summary>
+            <param name="teamId">Team Id</param>
+            <returns>List of AssessmentDTOs with child TeamAssessmentDTOs</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.GetByName(System.String)">
+            <summary>
+            Gets all teams whose name matches the search criteria.
+            </summary>
+            <param name="name">Search criteria</param>
+            <returns>List of <see cref="T:XOM.Galileo.Model.TeamDTO"/></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.Post(XOM.Galileo.Model.TeamDTO)">
+            <summary>
+            Creates and validates a new team.
+            </summary>
+            <param name="team">Team DTO</param>
+            <returns>Saved Team DTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.Put(System.Int32,XOM.Galileo.Model.TeamDTO)">
+            <summary>
+            Updates and validates the team.
+            </summary>
+            <param name="id">Team Id</param>
+            <param name="team">Team DTO</param>
+            <returns>Updated TeamDTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.SaveAssessment(System.Int32,System.Int32,XOM.Galileo.Model.TeamAssessmentDTO)">
+            <summary>
+            Saves all responses for the team assessment.
+            </summary>
+            <param name="teamId">Team Id</param>
+            <param name="assessmentId">Assessment Id</param>
+            <param name="teamAssessment">TeamAssessmentDTO</param>
+            <returns>Updated TeamAssessmentDTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.ShareAssessment(System.Int32,System.Int32)">
+            <summary>
+            Creates a link between the current user and the team assessment.
+            </summary>
+            <param name="teamId">Team Id</param>
+            <param name="assessmentId">Assessment Id</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.StartAssessment(System.Int32,System.Int32)">
+            <summary>
+            Starts the team assessment for the current user. Creates a new TeamAssessment.
+            </summary>
+            <param name="teamId">Team Id</param>
+            <param name="assessmentId">Assessment Id</param>
+            <returns>TeamAssessmentDTO</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.TeamController.SubmitAssessment(System.Int32,System.Int32,XOM.Galileo.Model.TeamAssessmentDTO)">
+            <summary>
+            Saves and submits the team assessment.
+            </summary>
+            <param name="teamId">Team Id</param>
+            <param name="assessmentId">Assessment Id</param>
+            <param name="teamAssessment">Team Assessment DTO</param>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Controllers.UsersController">
+            <summary>
+            Provides a controller responsible for providing information about users.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Controllers.UsersController"/>.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.DeleteUser(System.Int32)">
+            <summary>
+            Deletes the user specified by the identifier.
+            </summary>
+            <param name="id">The source user identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.DeleteUserAsync(System.Int32)">
+            <summary>
+            Deletes the user specified by the identifier.
+            </summary>
+            <param name="id">The source user identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.Get">
+            <summary>
+            Gets the set of all _users.
+            </summary>
+            <returns>A List of all users currently in the system.</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.GetAsync">
+            <summary>
+            Gets the set of all _users.
+            </summary>
+            <returns>A List of all users currently in the system.</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.GetUserById(System.Int32)">
+            <summary>
+            Gets the user information for corresponding to the specified user identifier.
+            </summary>
+            <returns>
+            A user object which corresponds to the specified user identifier.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.GetUserByIdAsync(System.Int32)">
+            <summary>
+            Gets the user information for corresponding to the specified user identifier.
+            </summary>
+            <returns>
+            A user object which corresponds to the specified user identifier.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.GetUserByUsername(System.String)">
+            <summary>
+            Gets the user information for corresponding to the specified username.
+            </summary>
+            <returns>A user object which corresponds to the specified username.</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.GetUserByUsernameAsync(System.String)">
+            <summary>
+            Gets the user information for corresponding to the specified username.
+            </summary>
+            <returns>A user object which corresponds to the specified username.</returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.PostUser(XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Adds the specified user to the system. Note if the
+            ForceUserPrincipalResolution is enabled, the user will be assigned
+            information based upon their AD user principal data.
+            </summary>
+            <param name="userData">The source web safe user data.</param>
+            <returns>
+            A user object which corresponds to the result of the saving of
+            specified user data.
+            </returns>
+            <remarks>This may be redundant with the Authentication controller.</remarks>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.PostUserAsync(XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Adds the specified user to the system. Note if the
+            ForceUserPrincipalResolution is enabled, the user will be assigned
+            information based upon their AD user principal data.
+            </summary>
+            <param name="userData">The source web safe user data.</param>
+            <returns>
+            A user object which corresponds to the result of the saving of
+            specified user data.
+            </returns>
+            <remarks>This may be redundant with the Authentication controller.</remarks>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.PutUser(System.Int32,XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Updates the user specified by the identifier with the specified user data.
+            </summary>
+            <param name="id">The source user identifier.</param>
+            <param name="userData">The source web safe user data.</param>
+            <returns>
+            A user object which corresponds to the result of the saving of
+            specified user data.
+            </returns>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Controllers.UsersController.PutUserAsync(System.Int32,XOM.Galileo.BLL.Security.WebSafeUser)">
+            <summary>
+            Updates the user specified by the identifier with the specified user data.
+            </summary>
+            <param name="id">The source user identifier.</param>
+            <param name="userData">The source web safe user data.</param>
+            <returns>
+            A user object which corresponds to the result of the saving of
+            specified user data.
+            </returns>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Filters.FilterUnhandledExceptionsAttribute">
+            <summary>
+            Catches all unhandled exceptions within a method and hides the exception
+            details from the responses, depending on the configuration settings.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.FilterUnhandledExceptionsAttribute.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Filters.FilterUnhandledExceptionsAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.FilterUnhandledExceptionsAttribute.OnException(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            Raises the exception event.
+            </summary>
+            <param name="context">The context for the action.</param>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Filters.ValidateModelAttribute">
+            <summary>
+            Validates all method object parameters based on their data annotations
+            and validates that required models are non-null. and data types.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.ValidateModelAttribute.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Filters.ValidateModelAttribute"/> with a
+            new logger instance.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.ValidateModelAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Filters.ValidateModelAttribute"/>
+            </summary>
+            <param name="loggerName">Name of NLog logger to use to log errors.</param>
+            <param name="isRequired">Model is non-nullable.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.ValidateModelAttribute.OnActionExecuting(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Execution method.
+            </summary>
+            <param name="actionContext">Context of the request.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.#ctor(System.String,System.Int32,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute"/>
+            with source, event identifier and message set to the specified values
+            and log level set to error.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.#ctor(XOM.Framework.Logging.LogLevel,System.String,System.Int32,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute"/>
+            with source, event identifier, message and log level set to the
+            specified values.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.EventId">
+            <summary>
+            Gets or sets the exception event identifier.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.LogLevel">
+            <summary>
+            Gets or sets the logging level.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.Message">
+            <summary>
+            Gets or sets the accompanying message exception.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.Source">
+            <summary>
+            Gets or sets the source of the exception.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Filters.ExceptionHandlerAttribute.OnException(System.Web.Http.Filters.HttpActionExecutedContext)">
+            <summary>
+            Raises the exception event.
+            </summary>
+            <param name="context">The context for the action.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Helpers.DatabaseLogListener.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Helpers.DatabaseLogListener"/>.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.DatabaseLogListener.Level">
+            <summary>
+            Gets or sets a value indicating the minimum logging level at which
+            this listener is subscribed to receive.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Helpers.MessageResources.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Helpers.MessageResources"/>.
+            </summary>
+        </member>
+        <member name="T:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration">
+            <summary>
+            Provides a set of configurable properties for use as security configrations.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration"/> loading
+            the values from the application configuration file.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.#ctor(System.Boolean)">
+            <summary>
+            Creates a new instance of <see cref="T:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration"/>.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.ApplicationLogPath">
+             <summary>
+             Gets or sets the file system path where application logs should be stored.
+            
+             Leave this value blank to store logs in the %TEMP% directory.
+             </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.DatabaseLoggingEnabled">
+            <summary>
+            When set to true, a database log listener will be enabled and write
+            events to database tables.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.EnableAutomaticUserCreation">
+            <summary>
+            Gets or sets a value which indicates whether or not the service will
+            automatically create a new application user when a user browses the
+            site for the first time. The user will also be setup with default
+            credentials based on AD group membership.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.EnvironmentIsProduction">
+            <summary>
+            Gets a value which indicates whether or not the environment should be
+            treated as a production environment. If true, the environment will
+            not seed objects which should not be seeded in a production
+            environment and will not auto generate database schema.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.ForceUserPrincipalResolution">
+            <summary>
+            Gets or sets a value which indicates whether or not all user updates
+            to resolve the User Principal information from ActiveDirectory for
+            mapped user data fields such as Email, UserName, etc.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.MigrateDatabaseOnContextInitialization">
+            <summary>
+            Gets or sets a value which determines whether or not outstanding
+            migrations on the database identified by the SecurityDataContext
+            value will execute on initialization.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.PreventExcepionLeak">
+            <summary>
+            Gets or sets a value indicating whether or not exception messages
+            should be returned to clients as generic messages.
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.SeedDebugEnabled">
+            <summary>
+            Gets a value indicating whether or not a debugger will be attached
+            </summary>
+        </member>
+        <member name="P:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.VerboseValidationErrorsEnabled">
+            <summary>
+            Gets a value which indicates whether or not errors encountered during
+            validation are expanded so as to display verbose error detail
+            including the source of the exception, the type of validation failure
+            encountered, and reason for failure.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.LoadFromConfiguration">
+            <summary>
+            Loads the configuration settings from the associated application configuration.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.GetConfigurationValue(System.String,System.String)">
+            <summary>
+            Helper method which retrieves the specified key value from the
+            application settings or the default value when it cannot be found.
+            </summary>
+            <param name="settingsKey">The source settings key.</param>
+            <param name="defaultValue">The source default value.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.Helpers.ServiceConfiguration.GetConfigurationValueAsBool(System.String,System.Boolean)">
+            <summary>
+            Helper method which retrieves the specified key value from the
+            application settings as a boolean or the default value when it cannot
+            be found.
+            </summary>
+            <param name="settingsKey">The source settings key.</param>
+            <param name="defaultValue">The source default value.</param>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.WebApiApplication.Application_BeginRequest">
+            <summary>
+            Provides a means of handling CORS Options request for handshake when
+            localhost is Origin.
+            </summary>
+        </member>
+        <member name="M:XOM.Galileo.WebAPI.WebApiApplication.Application_Error(System.Object,System.EventArgs)">
+            <summary>
+            Unhandled application level exceptions get logged.
+            </summary>
+            <param name="sender">Request</param>
+            <param name="e">Event arguments</param>
+        </member>
+    </members>
+</doc>
