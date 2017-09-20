@@ -1,11 +1,11 @@
 ﻿
 <div data-ng-model="isGeneratingPdf" data-ng-init="true">
-     <div class="em-loader-overlay" data-ng-class="{'em-loader-overlay': isGeneratingPdf === true || ac.loaded === false}">
+     <div class="em-loader-overlay" data-ng-class="{'em-loader-overlay': isGeneratingPdf === true || ac.loading.isAnythingLoading()}">
 
         <!-- Export content -->
         <div id="export-content"
              pb-export-html data-file-name="{{ac.assessment.name.split(' ').join('') + '_Results'}}.pdf"
-             ready-to-download="ac.loaded" is-loading="isGeneratingPdf">
+             ready-to-download="!ac.loading.loaders.gettingData" is-loading="isGeneratingPdf">
 
             <div class="em-u-padding-double">
                 <div class="em-u-margin-bottom">
@@ -13,7 +13,7 @@
                     <h2>{{ac.assessment.name}}</h2>
                 </div>
 
-                <div ng-class="{'invisible': ac.loaded !== true}">
+                <div ng-class="{'invisible': ac.loading.loaders.gettingData === true}">
 
                     <!-- Overview -->
                     <div ng-include="'app/assessment/partials/review.overview.html'"></div>
@@ -47,7 +47,7 @@
     </div>
 
     <!-- Loading message, not part of export -->
-    <em-loader data-ng-show="isGeneratingPdf === true || ac.loaded === false"
+    <em-loader data-ng-show="isGeneratingPdf === true || ac.loading.isAnythingLoading()"
                style="position:absolute; top:50%; left: 50%;"
                class="center"></em-loader>
 </div>

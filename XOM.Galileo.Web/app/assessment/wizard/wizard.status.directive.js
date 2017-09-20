@@ -31,6 +31,10 @@
          * @param {Array} attrs
          */
         function link(scope, element, attrs) {
+            // Initalize items.
+            scope.stepWidthPercentage = 12;
+
+
             // Changes to questions. Mostly used for initial load.
             scope.$watchCollection(
                 function () {
@@ -39,11 +43,31 @@
                     ];
                 }, function (newValue, oldValue) {
                     if (newValue !== oldValue) {
-                        scope.stepsToShow = scope.steps.filter(function (s) {
-                            return s.type === 'QUESTION';
-                        });
+                        setSteps();
                     }
                 });
+
+            /**
+             * Filter steps to question steps only.
+             */
+            function setSteps() {
+                scope.stepsToShow = scope.steps.filter(function (s) {
+                    return s.type === 'QUESTION';
+                });
+
+                setStepStyles();
+            }
+
+            /**
+             * Calculate the step percentage based on the total number of steps.
+             */
+            function setStepStyles() {
+                let totalSteps = scope.stepsToShow.length,
+                    totalSections = totalSteps + (totalSteps * 0.25),
+                    totalWidth = 100;
+
+                scope.stepWidthPercentage = totalWidth / totalSections;                
+            }
         }
     }
 })();

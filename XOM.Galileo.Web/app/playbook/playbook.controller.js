@@ -42,7 +42,7 @@
             details: {},
             suggestions: [],
             versions: [],
-            mode: vm.modes.edit 
+            mode: vm.modes.edit
         };
 
         // Available team assessments to create a playbook for.
@@ -52,12 +52,47 @@
 
         // New playbook form.
         vm.newPlaybookForm = {
+            // Form object with validation.
             form: {},
-            teamAssessments: [],
-            hasSelectedTeamAssessment: function () {
-                return !angular.equals(vm.current.details.teamAssessment, null) || typeof vm.current.details.teamAssessment !== "undefined";
+
+            // List of unique teams to select from.
+            teams: [],
+
+            // Upon team selection, determine if we should show the versions dropdown or select the default team assessment.
+            // Show the version dropdown if the most recent attempt is in progress.
+            selectTeam: function (team) {
+                vm.newPlaybookForm.showVersionSelector = team.selectedTeamAssessmentAttempt.completed === null &&
+                    team.allTeamAssessmentAttempts.length > 1;
+
+                vm.current.details.teamAssessment = team.selectedTeamAssessmentAttempt;
             },
-            submitted: false,
+
+            // Upon team assessment selection, validate that the version selected is the most recent completed attempt
+            // and set the team assessment.
+            selectTeamAssessment: function (ta) {
+                var hasAMoreRecentAttempt = vm.newPlaybookForm.selected.allTeamAssessmentAttempts.filter(function (x) {
+                    return x.completed !== null
+                }).find(function (x) {
+                    return x.completed > ta.completed;
+                });
+
+                if (typeof hasAMoreRecentAttempt !== "undefined") {
+                    vm.newPlaybookForm.form.teamAssessment.$setValidity('latestAttempt', false);
+                }
+            },
+
+            // Indicator if we should show the version dropdown.
+            showVersionSelector: false,
+
+            // Selected team item.
+            selected: null,
+
+            // Checks if a team is selected.
+            hasSelectedTeam: function() {
+                return vm.newPlaybookForm.selected !== null && typeof vm.newPlaybookForm.selected !== "undefined";
+            },
+
+            // Cancel action on form.
             cancel: function () {
                 $location.path('/assessments/' + $routeParams.assessmentId + '/playbooks');
             }
@@ -110,8 +145,7 @@
                                 var defaultPlaybook = vm.playbooks[0].latest;
                                 getPlaybook(defaultPlaybook.id)
                                     .then(function () {
-                                        var n = vm.current.details.teamAssessment.assessmentName;
-                                        setAssessmentName(n);
+                                        setAssessmentName(vm.current.details.teamAssessment);
                                         vm.loaded = true;
                                     });
                             }
@@ -129,24 +163,41 @@
                     // Get the details for the specified playbook.
                     getPlaybook(+$routeParams.playbookId)
                         .then(function () {
-                            setAssessmentName(vm.current.details.teamAssessment.assessmentName);
+                            setAssessmentName(vm.current.details.teamAssessment);
                             vm.loaded = true;
                         });
                     break;
 
                     // Create a new playbook and then load the details.
                 case 'CREATE_PLAYBOOK':
-                    // Populate fields for the create form.
-                    getTeamAssessmentList(vm.assessment.id)
-                        .then(function () {
+                    getLatestTeamAssessmentListByTeam(vm.assessment.id)
+                        .then(function (list) {
+                            // build team list with team assessments
+                            vm.newPlaybookForm.teams = list.map(function (l) {
+                                return {
+                                    id: l.latest.teamId,
+                                    name: l.latest.teamName,
+                                    selectedTeamAssessmentAttempt: l.latest,
+                                    allTeamAssessmentAttempts: l.list
+                                };
+                            });
+                            
                             // If route params are provided for a teamassessment, pre-select the fields.
-                            if (+$routeParams.assessmentId > 0 && +$routeParams.teamId > 0) {
-                                vm.current.details.teamAssessment =
-                                vm.newPlaybookForm.teamAssessments.find(function (ta) {
-                                    return ta.teamId === +$routeParams.teamId &&
-                                           ta.assessmentId === +$routeParams.assessmentId;
-                                });
+                            if (+$routeParams.assessmentId > 0 && +$routeParams.teamAssessmentId > 0) {
+                                let team, teamAssessment = null;
+                                teamAssessment = assessmentDataService.getTeamAssessmentByIdFromGroupedList(
+                                                        list, +$routeParams.teamAssessmentId);
+
+                                if (teamAssessment !== null && typeof teamAssessment !== "undefined") {
+                                    team = vm.newPlaybookForm.teams.find(function (x) {
+                                        return x.id === teamAssessment.teamId;
+                                    });
+                                    vm.newPlaybookForm.selected = team;
+                                    vm.newPlaybookForm.selectTeam(team);
+                                    vm.newPlaybookForm.selectTeamAssessment(teamAssessment);
+                                }
                             }
+
                             vm.loaded = true;
                         });
                     break;
@@ -167,7 +218,7 @@
                     // Get the details for the specified playbook.
                     getPlaybook(+$routeParams.playbookId)
                         .then(function () {
-                            setAssessmentName(vm.current.details.teamAssessment.assessmentName);
+                            setAssessmentName(vm.current.details.teamAssessment);
 
                             // Hide irrelevant info from the pages.
                             vm.current.mode = vm.modes.download;
@@ -180,8 +231,10 @@
                         });
 
                     break;
+
                 default:
                     getPlaybookList();
+                    vm.loaded = true;
                     break;
             }
         }
@@ -189,17 +242,19 @@
         /**
          * Sets the assessment name. Used due to source of name being different
          * depending on the
-         * @param {String} name
+         * @param {object} teamAssessment
          */
-        function setAssessmentName(name) {
-            vm.assessment.name = name;
+        function setAssessmentName(teamAssessment) {
+            if (typeof teamAssessment !== "undefined" && teamAssessment !== null) {
+                vm.assessment.name = teamAssessment.assessmentName;
+            }
         }
 
         /**
          * Gets all available playbooks for an assessment.
          * Does not include any team assessments.
          * @param {Int} assessmentId
-         * @returns {Promise}
+         * @returns {Promise} with list of playbook objects, containing latest and list items.
          */
         function getPlaybookList(assessmentId) {
             var deferred = $q.defer();
@@ -348,7 +403,7 @@
         /**
          * Gets the team assessments to build the new playbook form.
          * @param {Int} assessmentId
-         * @returns {Promise} for chaining purposes.
+         * @returns {Promise} with the flat team assessment list.
          */
         function getTeamAssessmentList(assessmentId) {
             var deferred = $q.defer();
@@ -356,17 +411,46 @@
             // Get all assessments.
             assessmentDataService.getTeamAssessments(assessmentId)
                 .then(function (data) {
-                    vm.newPlaybookForm.teamAssessments = data;
-
                     if (data.length === 0) {
                         vm.message = 'You do not have any completed assessments to create a playbook for. Please complete an assessment first.';
                     }
-                    else {
-                        vm.assessment.name = data[0].assessmentName;
-                    }
-                    deferred.resolve();
+                    deferred.resolve(data);
                 });
             return deferred.promise;
+        }
+
+        /**
+         * Gets the latest team assessment for each team.
+         * @param {Int} assessmentId
+         * @returns {Array} flat list of the latest team assessments only.
+         */
+        function getLatestTeamAssessmentListByTeam(assessmentId) {
+            var deferred = $q.defer();
+
+            getTeamAssessmentList(assessmentId)
+                .then(function (data) {
+                    let teamGroup = data.group(teamAssessment => teamAssessment.teamName),
+                        teamAssessments = [],
+                        teamAssessmentObj = null;
+
+                    angular.forEach(teamGroup, function (groupedData) {
+                        teamAssessmentObj = assessmentDataService.getMostRecentAttemptForTeam(groupedData.data);
+                        teamAssessments.push(teamAssessmentObj);
+                    });
+
+                    deferred.resolve(teamAssessments);
+                });
+
+            return deferred.promise;
+        }
+
+        function getMostRecentCompletedTeamAssessmentForTeam(teamAssessmentsForTeam) {
+            mostRecentTeamAssessment = teamAssessmentsForTeam.filter(function (t) {
+                return t.completed !== null;
+            }).reduce(function (prev, current) {
+                return prev.completed > current.completed ? prev : current;
+            });
+            return mostRecentTeamAssessment;
         }
 
         /**
@@ -405,7 +489,7 @@
                     // Load the review data for the shared playbook.
                     vm.getPlaybook(playbookId)
                         .then(function () {
-                            setAssessmentName(vm.current.details.teamAssessment.assessmentName);
+                            setAssessmentName(vm.current.details.teamAssessment);
                         });
                 })
                 .catch(function (error) {
@@ -450,7 +534,7 @@
 
         /**
          * Determines if the current user has the permission or ownership required
-         * in order to change the owner of a playbook. If the user has the permission, get 
+         * in order to change the owner of a playbook. If the user has the permission, get
          * the list of users prepared.
          */
         function canEditOwner() {

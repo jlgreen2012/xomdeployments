@@ -1,0 +1,7 @@
+﻿# Web project specific ignored files.
+
+tests/coverage
+dist/*
+bower_components/*
+!bower_components/unity/
+!bower_components/unity/*

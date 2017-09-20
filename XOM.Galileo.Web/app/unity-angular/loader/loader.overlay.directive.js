@@ -18,9 +18,9 @@
 
         function link(scope, element, attrs) {
             // prevent clicking on anything.
-            element.bind('click', function ($event) {
-                $event.preventDefault();
-            });
+            //element.bind('click', function ($event) {
+            //    $event.preventDefault();
+            //});
         }
     }
 

@@ -23,11 +23,12 @@
                 title: '@',
                 questions: '=',
                 pageSize: '@',
-                loaded: '=',
+                loaded: '&',
                 save: '&',
                 submit: '&',
                 cancel: '&',
-                review: '&'
+                review: '&',
+                disableButtons: '&'
             }
         };
         return directive;

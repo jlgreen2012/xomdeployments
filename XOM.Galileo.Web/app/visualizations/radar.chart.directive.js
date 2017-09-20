@@ -147,7 +147,7 @@
 
                     // For each legend item found with matching text, set up our click bind.
                     angular.forEach(scope.legend, function (l) {
-                        thisItem = [...legendItems].filter(e => e.innerHTML === l.name || e.innerHTML === l.name + ' (NA)');
+                        thisItem = [...legendItems].filter(e => e.textContent === l.name || e.textContent === l.name + ' (NA)');
                         angular.forEach(thisItem, function (i) {
                             angular.element(i).bind('click', l.click);
                         });

@@ -1,0 +1,11 @@
+﻿_references.js
+__references.js
+/_references.js
+gulpfile.js
+karma.conf.js
+node_modules
+bower_components
+tests
+dist
+app/unity-angular/**
+app/visualizations/radar.js

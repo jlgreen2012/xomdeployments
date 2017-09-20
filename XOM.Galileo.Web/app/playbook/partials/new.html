@@ -6,19 +6,46 @@
         </span>
     </div>
     <div ng-show="pc.loaded === true">
-
+        
         <!-- Team Dropdown -->
         <div class="em-c-field em-u-margin-bottom"
-             data-ng-class="{'em-has-error': pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.teamAssessment.$error.required}"
-             data-ng-if="pc.newPlaybookForm.teamAssessments.length > 0">
+             data-ng-class="{'em-has-error': pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.team.$error.required}"
+             data-ng-if="true">
             <label for="team-name-input" class="em-c-field__label">Team, application or project:</label>
             <div class="em-c-field__body">
-                <select name="teamAssessment" id="teamAssessment" class="em-c-select select-wide"
-                        ng-options="teamAssessment.teamName | truncate:30 for teamAssessment in pc.newPlaybookForm.teamAssessments track by teamAssessment.id"
-                        ng-model="pc.current.details.teamAssessment"
+                <select name="team" id="team" class="em-c-select select-wide"
+                        ng-options="t.name | truncate:50 for t in pc.newPlaybookForm.teams track by t.id"
                         required
-                        playbook-validator>
+                        ng-model="pc.newPlaybookForm.selected"
+                        ng-change="pc.newPlaybookForm.selectTeam(pc.newPlaybookForm.selected)">
                     <option value="">Select Team...</option>
+                </select>
+                <svg class="em-c-icon em-c-field__icon" style="left:51%"
+                     data-ng-show="pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.team.$error.required">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../../images/em-icons.svg#icon-warning"></use>
+                </svg>
+            </div>
+            <div class="em-c-field__note" data-ng-show="pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.team.$error.required">The team is required.</div>
+        </div>
+
+        <!-- Version Dropdown -->
+        <div class="em-c-field em-u-margin-bottom"
+             data-ng-class="{'em-has-error': pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.teamAssessment.$error.required}"
+             ng-show="pc.newPlaybookForm.showVersionSelector === true">
+            <label for="team-name-input" class="em-c-field__label">Team Assessment Attempt:</label>
+            <div class="em-c-field__body">
+                <select name="teamAssessment" id="teamAssessment" class="em-c-select select-wide"
+                        ng-options="ta.completed === null ? 
+                                        ('In Progress - started on ' + (ta.started | date:'MM/dd/yyyy at h:mm a') + ' by ' + ta.owner) : 
+                                        ('Completed on ' + (ta.completed | date:'MM/dd/yyyy at h:mm a') + ' by ' + ta.owner)
+                                    for ta 
+                                    in pc.newPlaybookForm.selected.allTeamAssessmentAttempts 
+                                    track by ta.id"
+                        required
+                        playbook-validator
+                        ng-model="pc.current.details.teamAssessment"
+                        data-ng-change="pc.newPlaybookForm.selectTeamAssessment(pc.newPlaybookForm.selected.selectedTeamAssessmentAttempt)">
+                    <option value="">Select Version...</option>
                 </select>
                 <svg class="em-c-icon em-c-field__icon" style="left:51%"
                      data-ng-show="pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.teamAssessment.$error.required">
@@ -28,7 +55,7 @@
             <div class="em-c-field__note" data-ng-show="pc.newPlaybookForm.submitted && pc.newPlaybookForm.form.teamAssessment.$error.required">The team is required.</div>
         </div>
 
-        <div class="section-header-full-width" data-ng-if="pc.newPlaybookForm.hasSelectedTeamAssessment() === true">
+        <div class="section-header-full-width" data-ng-show="pc.newPlaybookForm.hasSelectedTeam() === true">
 
             <!-- Info if playbook already exists. -->
             <div class="em-c-alert em-c-alert--error" role="alert" data-ng-if="pc.newPlaybookForm.form.$error.completed">
@@ -44,7 +71,7 @@
             </div>
 
             <!-- Playbook already exists. -->
-            <div class="em-c-alert em-c-alert--warning" role="alert" data-ng-if="pc.newPlaybookForm.form.$error.noPlaybook">
+            <div class="em-c-alert em-c-alert--error" role="alert" data-ng-if="pc.newPlaybookForm.form.$error.noPlaybook">
                 <div class="em-c-alert__body">
                     A Playbook already exists for this team.
                 </div>
@@ -56,18 +83,15 @@
                     </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Committments -->
-        <!--<div data-ng-show="pc.newPlaybookForm.form.$valid === true">
-            <label class="em-c-field__label">Commitments:</label>
-            <span>stuff</span>
-            <button class="em-c-btn float-right"
-                    type="button"
-                    data-ng-click="pc.addCommitmentToPlaybook()">
-                <span class="em-c-btn__text">Add</span>
-            </button>
-        </div>-->
+            <!-- Attempt selected is not the most recent attempt. -->
+            <div class="em-c-alert em-c-alert--error" role="alert" data-ng-if="pc.newPlaybookForm.form.$error.latestAttempt">
+                <div class="em-c-alert__body">
+                    There is a more recent, completed attempt for this team. A playbook can only be created for the most recent, completed attempt.
+                    Please select the latest attempt.
+                </div>
+            </div>
+        </div>
 
         <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="pc.message !== null">
             <svg class="em-c-icon em-c-alert__icon">
@@ -86,7 +110,8 @@
             </button>
             <button class="em-c-btn em-c-btn--primary float-right"
                     type="button"
-                    data-ng-click="pc.createPlaybook()">
+                    data-ng-click="pc.createPlaybook()"
+                    data-ng-disabled="pc.newPlaybookForm.form.$valid === false">
                 <span class="em-c-btn__text">Create</span>
             </button>
         </div>

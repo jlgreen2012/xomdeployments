@@ -139,7 +139,7 @@
             })
 
             // Create playbook details for team assessment
-            .when('/assessments/:assessmentId/teams/:teamId/playbook', {
+            .when('/assessments/:assessmentId/teamAssessments/:teamAssessmentId/playbook', {
                 controller: 'PlaybookController',
                 controllerAs: 'pc',
                 templateUrl: 'app/playbook/playbook.new.html',

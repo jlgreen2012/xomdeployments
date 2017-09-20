@@ -4,7 +4,8 @@
         data-ng-class="{'em-is-complete': step.isCompleted,
                         'em-is-current': step.isCurrentStep,
                         'wz-invalid-step': showInvalidStyles === true && !step.isCompleted }"
-        data-ng-click="step.setCurrentStep()">
+        data-ng-click="step.setCurrentStep()"
+        style="width: {{stepWidthPercentage}}%; min-width:60px;">
         <div class="em-c-progress-tracker__number">
             <span class="fa fa-lg" 
                   data-ng-class="{'fa-check visible': step.isCompleted, 

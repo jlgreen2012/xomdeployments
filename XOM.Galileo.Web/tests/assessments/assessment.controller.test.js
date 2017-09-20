@@ -109,7 +109,8 @@
                     $rootScope.$apply();
 
                     // assert
-                    expect(vm.loaded).toBeTruthy();
+                    expect(vm.loading.loaders.gettingData).toBeFalsy();
+                    expect(vm.loading.isAnythingLoading()).toBeFalsy();
                 });
             });
 
@@ -171,14 +172,16 @@
                         });
                     });
 
-                    it('should leave loaded set to false', function () {
+                    it('should indicate we are done trying to load data', function () {
                         // arrange
 
                         // act
                         vm.activate();
+                        $rootScope.$apply();
 
                         // assert
-                        expect(vm.loaded).toBeFalsy();
+                        expect(vm.loading.loaders.gettingData).toBeFalsy();
+                        expect(vm.loading.isAnythingLoading()).toBeFalsy();
                     });
 
                     it('should not set the current details', function () {
@@ -289,8 +292,9 @@
                     vm.activate();
                     $rootScope.$apply();
 
-                    //assert
-                    expect(vm.loaded).toBeTruthy();
+                    // assert
+                    expect(vm.loading.loaders.gettingData).toBeFalsy();
+                    expect(vm.loading.isAnythingLoading()).toBeFalsy();
                 });
             });
 
@@ -357,7 +361,7 @@
                 });
             });
 
-            describe('(action = EXPORT_ASSESSMENT', function () {
+            describe('(action = EXPORT_ASSESSMENT)', function () {
                 beforeEach(function () {
                     // Create the controller.
                     vm = $controller('AssessmentController', {
@@ -412,17 +416,15 @@
                     //assert
                     expect(vm.reviewTeamAssessment.calls.mostRecent().args[0].id).toEqual(123);
                 });
-                it('should not try to get the team assessment if the assessment has no team assessments', function () {
+                it('should not try to get the team assessment if the list of team assessments does not contain the team assessment id', function () {
                     // arrange
-                    spyOn(vm, 'getTeamAssessmentDetailsById');
+                    spyOn(vm, 'getTeamAssessmentDetailsById').and.callThrough();
                     vm.getTeamAssessmentDetailsById.calls.reset();
-                    mockAssessmentDataService.getTeamAssessments = jasmine.createSpy('getTeamAssessments() spy')
+                    mockAssessmentDataService.getTeamAssessmentByIdFromGroupedList = jasmine.createSpy('getTeamAssessmentByIdFromGroupedList() spy')
                     .and
-                    .callFake(function (assessmentId, teamId, teamAssessment) {
-                        var mockResult = [];
-                        var d = $q.defer();
-                        d.resolve(mockResult);
-                        return d.promise;
+                    .callFake(function () {
+                        var mockResult;
+                        return mockResult;
                     });
 
                     // act
@@ -432,25 +434,15 @@
                     //assert
                     expect(vm.getTeamAssessmentDetailsById).not.toHaveBeenCalled();
                 });
-                it('should not try to review if the team assessment id is invalid', function () {
+                it('should set an error messageif the team assessment id is invalid and not reviewable', function () {
                     // arrange
-                    spyOn(vm, 'getTeamAssessmentDetailsById');
+                    spyOn(vm, 'getTeamAssessmentDetailsById').and.callThrough();
                     vm.getTeamAssessmentDetailsById.calls.reset();
-                    mockAssessmentDataService.getTeamAssessments = jasmine.createSpy('getTeamAssessments() spy')
+                    mockAssessmentDataService.getTeamAssessmentByIdFromGroupedList = jasmine.createSpy('getTeamAssessmentByIdFromGroupedList() spy')
                     .and
-                    .callFake(function (assessmentId, teamId, teamAssessment) {
-                        var mockResult = [
-                        {
-                            id: 12345,
-                            assessmentId: 1,
-                            teamId: 2,
-                            teamName: 'team one',
-                            started: '2017-09-01T16:30:15.457Z',
-                            completed: '2017-09-03T10:30:15.457Z'
-                        }];
-                        var d = $q.defer();
-                        d.resolve(mockResult);
-                        return d.promise;
+                    .callFake(function () {
+                        var mockResult;
+                        return mockResult;
                     });
 
                     // act
@@ -458,7 +450,7 @@
                     $rootScope.$apply();
 
                     //assert
-                    expect(vm.getTeamAssessmentDetailsById).not.toHaveBeenCalled();
+                    expect(vm.message).not.toEqual(null);
                 });
                 it('should get the review data for the team assessment', function () {
                     // arrange
@@ -482,7 +474,8 @@
                     $rootScope.$apply();
 
                     //assert
-                    expect(vm.loaded).toBeTruthy();
+                    expect(vm.loading.loaders.gettingData).toBeFalsy();
+                    expect(vm.loading.isAnythingLoading()).toBeFalsy();
                 });
             });
         });
@@ -704,79 +697,12 @@
                     done();
                 });
                 $rootScope.$digest();
-            });
+            });            
 
-            it('should get the latest team assessment by completed date', function (done) {
+            it('should get the most recent attempt for a team once per team/assessment relationship', function () {
                 // arrange
                 $rootScope.$digest(); // digest activate method.
-                vm.assessments = [
-                    {
-                        id: 1,
-                        name: 'assessment name',
-                        instructions: 'some instructions'
-                    },
-                    {
-                        id: 2,
-                        name: 'assessment name 2 ',
-                        instructions: 'some instructions 2'
-                    }
-                ];
-                mockAssessmentDataService.getTeamAssessments = jasmine.createSpy('getTeamAssessments() spy')
-                    .and
-                    .callFake(function (assessmentId, teamId, teamAssessment) {
-                        var mockResult = [
-                            {
-                                id: 123,
-                                assessmentId: 2,
-                                teamId: 2,
-                                teamName: 'team one',
-                                started: '2017-09-01T16:30:15.457Z',
-                                completed: '2017-09-03T10:30:15.457Z'
-                            },
-                            {
-                                id: 345,
-                                assessmentId: 2,
-                                teamId: 3,
-                                teamName: 'team two',
-                                started: '2017-06-09T11:30:15.457Z',
-                                completed: '2017-06-13T10:43:15.457Z'
-                            },
-                            {
-                                id: 456,
-                                assessmentId: 2,
-                                teamId: 3,
-                                teamName: 'team two',
-                                started: '2017-06-12T11:30:15.457Z',
-                                completed: null // in progress
-                            },
-                            {
-                                id: 789,
-                                assessmentId: 2,
-                                teamId: 3,
-                                teamName: 'team two',
-                                started: '2017-06-11T11:30:15.457Z',
-                                completed: '2017-06-11T10:43:15.457Z'
-                            }
-                        ];
-                        var d = $q.defer();
-                        d.resolve(mockResult);
-                        return d.promise;
-                    });
-
-                // act
-                vm.getTeamAssessmentListForAssessment(2)
-                .then(function () {
-                    // assert
-                    expect(vm.assessments[1].teamAssessments[1].latest.id).toEqual(345);
-
-                    done();
-                });
-                $rootScope.$digest();
-            });
-
-            it('should get the latest team assessment by started date when completed date is null', function (done) {
-                // arrange
-                $rootScope.$digest(); // digest activate method.
+                mockAssessmentDataService.getMostRecentAttemptForTeam.calls.reset();
                 vm.assessments = [
                     {
                         id: 1,
@@ -832,14 +758,13 @@
                     });
 
                 // act
-                vm.getTeamAssessmentListForAssessment(2)
-                .then(function () {
-                    // assert
-                    expect(vm.assessments[1].teamAssessments[1].latest.id).toEqual(456);
+                vm.getTeamAssessmentListForAssessment(2);
+                $rootScope.$apply();
 
-                    done();
-                });
-                $rootScope.$digest();
+                // assert
+                expect(mockAssessmentDataService.getMostRecentAttemptForTeam.calls.count()).toEqual(2);
+                expect(mockAssessmentDataService.getMostRecentAttemptForTeam.calls.argsFor(0)[0].length).toEqual(1);
+                expect(mockAssessmentDataService.getMostRecentAttemptForTeam.calls.argsFor(1)[0].length).toEqual(3);
             });
         });
 
@@ -1024,7 +949,8 @@
                 $rootScope.$digest();
 
                 // assert
-                expect(vm.loaded).toBeTruthy();
+                expect(vm.loading.loaders.gettingData).toBeFalsy();
+                expect(vm.loading.isAnythingLoading()).toBeFalsy();
             });
 
             it('should set loaded on failure', function () {
@@ -1044,7 +970,8 @@
                 $rootScope.$digest();
 
                 // assert
-                expect(vm.loaded).toBeTruthy();
+                expect(vm.loading.loaders.gettingData).toBeFalsy();
+                expect(vm.loading.isAnythingLoading()).toBeFalsy();
             });
 
             describe('invalid route params', function () {
@@ -1664,6 +1591,35 @@
                 expect(vm.current.review).toHaveBeenCalled();
             });
 
+            it('should indicate we are processing data while submitting to the server', function () {
+                // arrange
+                vm.current.details = {};
+                spyOn(vm.current, 'review');
+                vm.loading.loaders.processingData = false;
+
+                // act
+                vm.current.save();
+
+                // assert
+                expect(vm.loading.loaders.processingData).toBeTruthy();
+                expect(vm.loading.isAnythingLoading()).toBeTruthy();
+            });
+
+            it('should indicate we are done processing data after returning from the server', function () {
+                // arrange
+                vm.current.details = {};
+                spyOn(vm.current, 'review');
+                vm.loading.loaders.processingData = false;
+
+                // act
+                vm.current.save();
+                $rootScope.$apply();
+
+                // assert
+                expect(vm.loading.loaders.processingData).toBeFalsy();
+                expect(vm.loading.isAnythingLoading()).toBeFalsy();
+            });
+
             it('should reject the promise and chain on failure', function () {
                 // arrange
                 vm.current.details = {};
@@ -1752,6 +1708,35 @@
 
                 // assert
                 expect($q.reject).toHaveBeenCalledWith(new Error('An error!'));
+            });
+
+            it('should indicate we are processing data while submitting to the server', function () {
+                // arrange
+                vm.current.details = {};
+                spyOn(vm.current, 'review');
+                vm.loading.loaders.processingData = false;
+
+                // act
+                var result = vm.current.submit();
+
+                // assert
+                expect(vm.loading.loaders.processingData).toBeTruthy();
+                expect(vm.loading.isAnythingLoading()).toBeTruthy();
+            });
+
+            it('should indicate we are done processing data after returning from the server', function () {
+                // arrange
+                vm.current.details = {};
+                spyOn(vm.current, 'review');
+                vm.loading.loaders.processingData = false;
+
+                // act
+                var result = vm.current.submit();
+                $rootScope.$apply();
+
+                // assert
+                expect(vm.loading.loaders.processingData).toBeFalsy();
+                expect(vm.loading.isAnythingLoading()).toBeFalsy();
             });
         });
 
@@ -1858,14 +1843,15 @@
                 var assessmentId = 1,
                     teamId = 2;
                 $rootScope.$digest();
-                vm.loaded = false;
+                vm.loading.loaders.gettingData = true;
 
                 // act
                 vm.addSharedAssessment(assessmentId, teamId);
                 $rootScope.$apply();
 
                 // assert
-                expect(vm.loaded).toBeTruthy();
+                expect(vm.loading.loaders.gettingData).toBeFalsy();
+                expect(vm.loading.isAnythingLoading()).toBeFalsy();
             });
 
             it('should set loaded to true on failure', function () {
@@ -1873,7 +1859,7 @@
                 var assessmentId = 1,
                     teamId = 2;
                 $rootScope.$digest();
-                vm.loaded = false;
+                vm.loading.loaders.gettingData = true;
                 mockAssessmentDataService.addSharedTeamAssessment = jasmine.createSpy('addSharedTeamAssessment() spy')
                     .and
                     .callFake(function (assessmentId, teamId) {
@@ -1887,7 +1873,8 @@
                 $rootScope.$apply();
 
                 // assert
-                expect(vm.loaded).toBeTruthy();
+                expect(vm.loading.loaders.gettingData).toBeFalsy();
+                expect(vm.loading.isAnythingLoading()).toBeFalsy();
             });
 
             it('should call the service to add the link', function () {

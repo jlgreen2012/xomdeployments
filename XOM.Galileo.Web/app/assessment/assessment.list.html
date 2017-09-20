@@ -1,8 +1,14 @@
-﻿<div class="em-u-margin-bottom">
-    <h1>Assessments</h1>
-</div>
+﻿
+<div class="em-loader-overlay" data-ng-class="{'em-loader-overlay': ac.loading.isAnythingLoading()}">
+    <div class="em-u-margin-bottom">
+        <h1>Assessments</h1>
+    </div>
 
-<div class="em-u-margin-bottom-quad"
-     data-ng-repeat="assessment in ac.assessments">
-    <div ng-include="'app/assessment/partials/details.html'" onload="assessment = assessment"></div>
+    <div class="em-u-margin-bottom-quad"
+         data-ng-repeat="assessment in ac.assessments">
+        <div ng-include="'app/assessment/partials/details.html'" onload="assessment = assessment"></div>
+    </div>
 </div>
+<em-loader data-ng-show="ac.loading.isAnythingLoading()"
+           style="position:absolute; top:50%; left: 50%;"
+           class="center"></em-loader>

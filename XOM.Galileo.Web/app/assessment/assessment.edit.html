@@ -1,17 +1,22 @@
-﻿<div data-ng-show="ac.loaded == true && ac.message === null">
-    <div data-pb-wizard
-         data-title="{{ac.current.details.assessmentName}}"
-         data-page-size="2"
-         data-questions="ac.current.details.questions"
-         data-loaded="ac.loaded"
-         data-cancel="ac.current.cancel()"
-         data-save="ac.current.save()"
-         data-submit="ac.current.submit()"
-         data-review="ac.current.review()"></div>
+﻿<div class="em-loader-overlay" data-ng-class="{'em-loader-overlay': ac.loading.isAnythingLoading()}">
+
+    <div data-ng-show="!ac.loading.loaders.gettingData === true && ac.message === null">
+        <div data-pb-wizard
+             data-title="{{ac.current.details.assessmentName}}"
+             data-page-size="2"
+             data-questions="ac.current.details.questions"
+             data-loaded="ac.loading.loaders.gettingData"
+             data-cancel="ac.current.cancel()"
+             data-save="ac.current.save()"
+             data-submit="ac.current.submit()"
+             data-review="ac.current.review()"
+             data-disable-buttons="ac.loading.loaders.processingData"></div>
+    </div>
+
 </div>
 
 <!-- Alerts -->
-<div data-ng-show="ac.loaded === true && ac.message !== null">
+<div data-ng-show="!ac.loading.isAnythingLoading() && ac.message !== null">
     <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="message !== null">
         <svg class="em-c-icon em-c-alert__icon">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
@@ -21,3 +26,7 @@
         </div>
     </div>
 </div>
+
+<em-loader data-ng-show="ac.loading.isAnythingLoading()"
+           style="position:absolute; top:50%; left: 50%;"
+           class="center"></em-loader>

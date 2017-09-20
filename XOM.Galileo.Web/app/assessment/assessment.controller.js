@@ -55,7 +55,20 @@
         };
 
         // Indication that we have all of the data that the UI needs to display.
-        vm.loaded = false;
+        vm.loading = {
+            isAnythingLoading: function () {
+                return vm.loading.loaders.gettingData === true ||
+                       vm.loading.loaders.processingData === true;
+            },
+            doneLoading: function() {
+                vm.loading.loaders.gettingData = false;
+                vm.loading.loaders.processingData = false;
+            },
+            loaders: {
+                gettingData: true,
+                processingData: false
+            }
+        }
 
         // Error or informative message to display instead of the intended content.
         vm.message = null;
@@ -80,7 +93,8 @@
          * Actions to take upon page load.
          */
         function activate() {
-            vm.loaded = false;
+            //vm.loaded = false;
+            vm.loading.loaders.gettingData = true;
 
             // Get route params.
             routeAssessmentId = +$routeParams.assessmentId;
@@ -112,7 +126,8 @@
                                                 vm.message = 'Unable to review assessment.';
                                             })
                                             .finally(function () {
-                                                vm.loaded = true;
+                                                //vm.loaded = true;
+                                                vm.loading.doneLoading();
                                             });
                                         break;
 
@@ -123,23 +138,31 @@
 
                                     case 'EXPORT_ASSESSMENT':
                                         // Get the review data and indicate that it's loaded and read to download.
-                                        var toReview = getTeamAssessmentById(routeTeamAssessmentId);
+                                        var toReview =
+                                            assessmentDataService.getTeamAssessmentByIdFromGroupedList(
+                                                vm.assessment.teamAssessments,
+                                                routeTeamAssessmentId);
                                         vm.reviewTeamAssessment(toReview)
                                             .catch(function (error) {
                                                 vm.message = 'Unable to export assessment.';
                                             })
                                             .finally(function () {
                                                 setCurrentMode(vm.modes.download);
-                                                vm.loaded = true;
+                                                //vm.loaded = true;
+                                                vm.loading.doneLoading();
                                             });
                                         break;
 
                                     default:
                                         // Indicate we've loaded all that we've been told to.
-                                        vm.loaded = true;
+                                        //vm.loaded = true;
+                                        vm.loading.doneLoading();
                                         break;
                                 }
                             });
+                    }
+                    else {
+                        vm.loading.doneLoading();
                     }
                 });
         }
@@ -170,28 +193,6 @@
             var teamAssessment;
             if (vm.assessment.teamAssessments.length > 0) {
                 teamAssessment = vm.assessment.teamAssessments[0].latest;
-            }
-            return teamAssessment;
-        }
-
-        /**
-         * Gets the team assessment matching the provided id on the current assessment.
-         * @param {Int} teamAssessmentId
-         * @returns {Object} the team assessment details. Returns undefined if not found. 
-         */
-        function getTeamAssessmentById(teamAssessmentId) {
-            var teamAssessment;
-            if (vm.assessment.teamAssessments.length > 0) {
-                teamAssessment = vm.assessment.teamAssessments
-                            .map(function (t) {
-                                return t.list;
-                            })
-                            .reduce(function (flat, toFlatten) {
-                                return flat.concat(toFlatten);
-                            }, [])
-                            .find(function (t) {
-                                return t.id === routeTeamAssessmentId;
-                            });
             }
             return teamAssessment;
         }
@@ -262,7 +263,7 @@
                             // Get the latest team assessment for each team and add it to the list.
                             angular.forEach(teamGroup, function (groupedData) {
                                 teamAssessments = groupedData.data;
-                                teamAssessmentObj = getMostRecentAttemptForTeam(teamAssessments);
+                                teamAssessmentObj = assessmentDataService.getMostRecentAttemptForTeam(teamAssessments);
                                 a.teamAssessments.push(teamAssessmentObj);
                             });
                         }
@@ -271,41 +272,6 @@
                 });
             // Return a promise so that we can chain these together as needed.
             return deferred.promise;
-        }
-
-        /**
-         * Creates the team assessment object containing the most recent team assessment
-         * AND the list of all team assessments for a particular team.
-         * @param {Array} groupedTeamAssessments - flat list of team assessments for a given team
-         * @returns {Object} in the form of { latest: {}, list: [] }
-         */
-        function getMostRecentAttemptForTeam(groupedTeamAssessments) {
-            let mostRecentTeamAssessment = null,
-                teamAssessmentObj = null;
-
-            if (groupedTeamAssessments.length > 1) {
-                // Get the latest completed OR started team assessment.
-                mostRecentTeamAssessment = groupedTeamAssessments.reduce(function (prev, current) {
-                    var prevDate, currentDate;
-                    prevDate = prev.completed !== null ? prev.completed : prev.started;
-                    currentDate = current.completed !== null ? current.completed : current.started;
-                    return prevDate > currentDate ? prev : current;
-                });
-
-                // Add to the list of team assessments.
-                teamAssessmentObj = {
-                    latest: mostRecentTeamAssessment,
-                    list: groupedTeamAssessments
-                };
-            }
-            else {
-                // if there's only one attempt, make that the most recent.
-                teamAssessmentObj = {
-                    latest: groupedTeamAssessments[0],
-                    list: groupedTeamAssessments
-                };
-            }
-            return teamAssessmentObj;
         }
 
         /**
@@ -336,7 +302,8 @@
          * Starts the assessment and loads the questions.
          */
         function takeAssessment() {
-            vm.loaded = false;
+            //vm.loaded = false;
+            vm.loading.loaders.gettingData = true;
 
             if (routeAssessmentId > 0 && routeTeamId > 0) {
                 $log.debug("Starting assessment for id: " +
@@ -358,7 +325,7 @@
                         }
                     })
                     .finally(function () {
-                        vm.loaded = true;
+                        vm.loading.doneLoading();
                     });
             }
         }
@@ -497,6 +464,8 @@
          * @returns {Promise}
          */
         function saveAssessment() {
+            vm.loading.loaders.processingData = true;
+
             return assessmentDataService
                 .saveAssessment(routeAssessmentId, routeTeamId, vm.current.details)
                     .then(function (data) {
@@ -506,7 +475,10 @@
                    .catch(function (error) {
                        // return error to wizard.
                        return $q.reject(error);
-                   });
+                    })
+                    .finally(function () {
+                        vm.loading.loaders.processingData = false;
+                    });
         }
 
         /**
@@ -514,6 +486,8 @@
          * @returns {Promise}
          */
         function submitAssessment() {
+            vm.loading.loaders.processingData = true;
+
             return assessmentDataService
                 .submitAssessment(routeAssessmentId, routeTeamId, vm.current.details)
                     .then(function (data) {
@@ -521,6 +495,9 @@
                     })
                     .catch(function (error) {
                         return $q.reject(error);
+                    })
+                    .finally(function () {
+                        vm.loading.loaders.processingData = false;
                     });
         }
 
@@ -567,7 +544,7 @@
                     }
                 })
                 .finally(function () {
-                    vm.loaded = true;
+                    vm.loading.doneLoading();
                 });
         }
 

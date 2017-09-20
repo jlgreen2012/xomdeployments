@@ -57,7 +57,7 @@
                                 data-ng-if="!button.hidden">
                                 <button class="em-c-btn em-c-btn--small em-js-btn-selectable"
                                         data-ng-click="button.func()"
-                                        data-ng-disabled="!button.enabled">
+                                        data-ng-disabled="!button.enabled || disableButtons() === true">
                                     <span class="em-c-btn__text">{{button.text}}</span>
                                 </button>
                             </li>
@@ -87,7 +87,7 @@
                                 data-ng-if="!button.hidden">
                                 <button class="em-c-btn em-c-btn--small em-js-btn-selectable"
                                         data-ng-click="button.func()"
-                                        data-ng-disabled="!button.enabled">
+                                        data-ng-disabled="!button.enabled || disableButtons() === true">
                                     <span class="em-c-btn__text">{{button.text}}</span>
                                 </button>
                             </li>

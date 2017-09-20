@@ -1,54 +1,59 @@
-﻿<div class="em-u-margin-bottom">
-    <h1>Review Assessment</h1>
-    <h2>{{ac.assessment.name}}</h2>
-</div>
+﻿<div class="em-loader-overlay" data-ng-class="{'em-loader-overlay': ac.loading.isAnythingLoading()}">
+    <div class="em-u-margin-bottom">
+        <h1>Review Assessment</h1>
+        <h2>{{ac.assessment.name}}</h2>
+    </div>
 
-<!-- Alerts -->
+    <!-- Alerts -->
 
-<div data-ng-show="ac.loaded === true && ac.info !== null">
-    <div class="em-c-alert" role="alert">
-        <div class="em-c-alert__body">
-            {{ac.info}}
+    <div data-ng-show="!ac.loading.isAnythingLoading() && ac.info !== null">
+        <div class="em-c-alert" role="alert">
+            <div class="em-c-alert__body">
+                {{ac.info}}
+            </div>
         </div>
     </div>
-</div>
-<div data-ng-show="ac.loaded === true && ac.message !== null">
-    <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="message !== null">
-        <svg class="em-c-icon em-c-alert__icon">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
-        </svg>
-        <div class="em-c-alert__body">
-            {{ac.message}}
-        </div>
-    </div>
-</div>
-
-<div data-ng-show="ac.loaded === true && ac.message === null && ac.current.mode === ac.modes.review">
-    <div class="em-l em-l--two-column two-column-left-sidebar-on-top">
-
-        <!-- team assessment list -->
-        <div class="em-l__secondary em-u-margin-right-double">
-            <div ng-include="'app/assessment/partials/nav.list.html'"></div>
-        </div>
-
-        <!-- Dashboard view -->
-        <div class="em-l__main">
-            <div ng-include="'app/assessment/partials/review.overview.html'"></div>
-
-            <!-- Review Section -->
-            <div data-ng-if="ac.current.attempts.list.length === 1"
-                 ng-include="'app/assessment/partials/review.radar.html'"></div>
+    <div data-ng-show="!ac.loading.isAnythingLoading() && ac.message !== null">
+        <div class="em-c-alert em-c-alert--error" role="alert" data-ng-show="message !== null">
+            <svg class="em-c-icon em-c-alert__icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
+            </svg>
+            <div class="em-c-alert__body">
+                {{ac.message}}
+            </div>
         </div>
     </div>
 
-    <!-- Review Section -->
-    <!-- Display down here instead if we're also showing the multiple attempts section. -->
-    <div data-ng-if="ac.current.attempts.list.length > 1"
-         ng-include="'app/assessment/partials/review.radar.html'"></div>
-</div>
+    <div data-ng-show="!ac.loading.isAnythingLoading() && ac.message === null && ac.current.mode === ac.modes.review">
+        <div class="em-l em-l--two-column two-column-left-sidebar-on-top">
 
-<div data-ng-show="ac.loaded === true && ac.message === null && ac.current.mode === ac.modes.reviewDetails">
-    <div class="em-u-margin-top-double" data-ng-repeat="category in ac.current.radarChartData.reviewQuestionData">
-        <div ng-include="'app/assessment/partials/review.details.html'"></div>
+            <!-- team assessment list -->
+            <div class="em-l__secondary em-u-margin-right-double">
+                <div ng-include="'app/assessment/partials/nav.list.html'"></div>
+            </div>
+
+            <!-- Dashboard view -->
+            <div class="em-l__main">
+                <div ng-include="'app/assessment/partials/review.overview.html'"></div>
+
+                <!-- Review Section -->
+                <div data-ng-if="ac.current.attempts.list.length === 1"
+                     ng-include="'app/assessment/partials/review.radar.html'"></div>
+            </div>
+        </div>
+
+        <!-- Review Section -->
+        <!-- Display down here instead if we're also showing the multiple attempts section. -->
+        <div data-ng-if="ac.current.attempts.list.length > 1"
+             ng-include="'app/assessment/partials/review.radar.html'"></div>
+    </div>
+
+    <div data-ng-show="!ac.loading.isAnythingLoading() && ac.message === null && ac.current.mode === ac.modes.reviewDetails">
+        <div class="em-u-margin-top-double" data-ng-repeat="category in ac.current.radarChartData.reviewQuestionData">
+            <div ng-include="'app/assessment/partials/review.details.html'"></div>
+        </div>
     </div>
 </div>
+<em-loader data-ng-show="ac.loading.isAnythingLoading()"
+           style="position:absolute; top:50%; left: 50%;"
+           class="center"></em-loader>

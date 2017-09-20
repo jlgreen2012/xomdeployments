@@ -53,6 +53,19 @@
                 }
                 return true;
             };
+
+             /**
+             * Validates the team assessment is the latest, completed team assessment.
+             * @param {Object} modelValue
+             * @param {Object} viewValue
+             * @returns {Boolean} always returns true. Validity is manually set from controller.
+             */
+            ctrl.$validators.latestAttempt = function (modelValue, viewValue) {
+                if (viewValue !== null && typeof viewValue !== "undefined") {
+                    return true; // always going to be manually set from the controller.
+                }
+                return true;
+            };
         }
     }
 })();

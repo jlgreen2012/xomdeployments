@@ -27,7 +27,9 @@
             getTeamAssessments: getTeamAssessments,
             getTeamAssessmentsForAssessments: getTeamAssessmentsForAssessments,
             getTeamAssessmentShareLink: getTeamAssessmentShareLink,
-            addSharedTeamAssessment: addSharedTeamAssessment
+            addSharedTeamAssessment: addSharedTeamAssessment,
+            getMostRecentAttemptForTeam: getMostRecentAttemptForTeam,
+            getTeamAssessmentByIdFromGroupedList: getTeamAssessmentByIdFromGroupedList
         };
 
         return service;
@@ -371,5 +373,64 @@
                 return $q.reject(message);
             }
         }
+
+        /**
+         * Creates the team assessment object containing the most recent team assessment
+         * AND the list of all team assessments for a particular team.
+         * @param {Array} groupedTeamAssessments - flat list of team assessments for a given team
+         * @returns {Object} in the form of { latest: {}, list: [] }
+         */
+        function getMostRecentAttemptForTeam(groupedTeamAssessments) {
+            let mostRecentTeamAssessment = null,
+                teamAssessmentObj = null;
+
+            if (groupedTeamAssessments.length > 1) {
+                // Get the latest completed OR started team assessment.
+                mostRecentTeamAssessment = groupedTeamAssessments.reduce(function (prev, current) {
+                    var prevDate, currentDate;
+                    prevDate = prev.completed !== null ? prev.completed : prev.started;
+                    currentDate = current.completed !== null ? current.completed : current.started;
+                    return prevDate > currentDate ? prev : current;
+                });
+
+                // Add to the list of team assessments.
+                teamAssessmentObj = {
+                    latest: mostRecentTeamAssessment,
+                    list: groupedTeamAssessments
+                };
+            }
+            else {
+                // if there's only one attempt, make that the most recent.
+                teamAssessmentObj = {
+                    latest: groupedTeamAssessments[0],
+                    list: groupedTeamAssessments
+                };
+            }
+            return teamAssessmentObj;
+        }
+
+        /**
+         * Gets the team assessment matching the provided id on the current assessment.
+         * @param {Array} teamAssessmentGroupedList - structure [ { list: [], latest: {} ]
+         * @param {Int} teamAssessmentId
+         * @returns {Object} the team assessment details. Returns undefined if not found. 
+         */
+        function getTeamAssessmentByIdFromGroupedList(teamAssessmentGroupedList, teamAssessmentId) {
+            var teamAssessment;
+            if (teamAssessmentGroupedList.length > 0) {
+                teamAssessment = teamAssessmentGroupedList
+                            .map(function (t) {
+                                return t.list;
+                            })
+                            .reduce(function (flat, toFlatten) {
+                                return flat.concat(toFlatten);
+                            }, [])
+                            .find(function (t) {
+                                return t.id === teamAssessmentId;
+                            });
+            }
+            return teamAssessment;
+        }
+
     }
 })();

@@ -754,5 +754,221 @@
                 expect($httpBackend.flush).not.toThrow();
             });
         });
+
+        describe('.getMostRecentAttemptForTeam()', function () {
+            it('should get the latest team assessment by started date when completed date is null', function () {
+                // arrange
+                let groupedTeamAssessments = [
+                            {
+                                id: 345,
+                                assessmentId: 2,
+                                teamId: 3,
+                                teamName: 'team two',
+                                started: '2017-06-09T11:30:15.457Z',
+                                completed: null
+                            },
+                            {
+                                id: 456,
+                                assessmentId: 2,
+                                teamId: 3,
+                                teamName: 'team two',
+                                started: '2017-06-12T11:30:15.457Z',
+                                completed: null // in progress
+                            },
+                            {
+                                id: 789,
+                                assessmentId: 2,
+                                teamId: 3,
+                                teamName: 'team two',
+                                started: '2017-06-11T11:30:15.457Z',
+                                completed: '2017-06-11T10:43:15.457Z'
+                            }
+                ];
+
+                // act
+                let result = $service.getMostRecentAttemptForTeam(groupedTeamAssessments);
+
+                // assert
+                expect(result.latest.id).toEqual(456);
+            });
+
+            it('should get the latest team assessment by completed date', function () {
+                // arrange
+                let groupedTeamAssessments = [
+                            {
+                                id: 123,
+                                assessmentId: 2,
+                                teamId: 2,
+                                teamName: 'team one',
+                                started: '2017-06-09T11:30:15.457Z',
+                                completed: '2017-06-13T10:43:15.457Z'
+                            },
+                            {
+                                id: 345,
+                                assessmentId: 2,
+                                teamId: 3,
+                                teamName: 'team two',
+                                started: '2017-09-01T16:30:15.457Z',
+                                completed: '2017-09-03T10:30:15.457Z'
+                            },
+                            {
+                                id: 456,
+                                assessmentId: 2,
+                                teamId: 3,
+                                teamName: 'team two',
+                                started: '2017-06-12T11:30:15.457Z',
+                                completed: null // in progress
+                            },
+                            {
+                                id: 789,
+                                assessmentId: 2,
+                                teamId: 3,
+                                teamName: 'team two',
+                                started: '2017-06-11T11:30:15.457Z',
+                                completed: '2017-06-11T10:43:15.457Z'
+                            }
+                ];
+
+                // act
+                let result = $service.getMostRecentAttemptForTeam(groupedTeamAssessments);
+
+                // assert
+                expect(result.latest.id).toEqual(345);
+            });
+
+            it('should auto set the latest if only one team assessment is provided', function () {
+                // arrange
+                let groupedTeamAssessments = [
+                            {
+                                id: 123,
+                                assessmentId: 2,
+                                teamId: 2,
+                                teamName: 'team one',
+                                started: '2017-06-09T11:30:15.457Z',
+                                completed: '2017-06-13T10:43:15.457Z'
+                            }
+                ];
+
+                // act
+                let result = $service.getMostRecentAttemptForTeam(groupedTeamAssessments);
+
+                // assert
+                expect(result.latest.id).toEqual(123);
+            });
+        });
+
+        describe('.getTeamAssessmentByIdFromGroupedList()', function () {
+            it('should return undefined if the list of team assessments is empty', function () {
+                // arrange
+                var teamAssessments = [],
+                    id = 123;
+
+                // act
+                var result = $service.getTeamAssessmentByIdFromGroupedList(teamAssessments, id);
+
+                // assert
+                expect(result).not.toBeDefined();
+            });
+
+            it('should return undefined if the list does not contain the provided id', function () {
+                // arrange
+                var teamAssessments = [{
+                    latest: {
+                        id: 123,
+                        assessmentId: 1,
+                        teamId: 2,
+                        teamName: 'team one',
+                        started: '2017-09-01T16:30:15.457Z',
+                        completed: '2017-09-03T10:30:15.457Z'
+                    },
+                    list: [{
+                        id: 123,
+                        assessmentId: 1,
+                        teamId: 2,
+                        teamName: 'team one',
+                        started: '2017-09-01T16:30:15.457Z',
+                        completed: '2017-09-03T10:30:15.457Z'
+                    },
+                    {
+                        id: 345,
+                        assessmentId: 2,
+                        teamId: 3,
+                        teamName: 'team two',
+                        started: '2017-06-09T11:30:15.457Z',
+                        completed: '2017-06-13T10:43:15.457Z'
+                    }]
+                }],
+                id = 12345;
+
+                // act
+                var result = $service.getTeamAssessmentByIdFromGroupedList(teamAssessments, id);
+
+                // assert
+                expect(result).not.toBeDefined();
+            });
+
+            it('should return the team assessment with the matching id', function () {
+                // arrange
+                var teamAssessments = [{
+                    latest: {
+                        id: 123,
+                        assessmentId: 1,
+                        teamId: 2,
+                        teamName: 'team one',
+                        started: '2017-09-01T16:30:15.457Z',
+                        completed: '2017-09-03T10:30:15.457Z'
+                    },
+                    list: [{
+                        id: 123,
+                        assessmentId: 1,
+                        teamId: 2,
+                        teamName: 'team one',
+                        started: '2017-09-01T16:30:15.457Z',
+                        completed: '2017-09-03T10:30:15.457Z'
+                    },
+                    {
+                        id: 345,
+                        assessmentId: 2,
+                        teamId: 3,
+                        teamName: 'team two',
+                        started: '2017-06-09T11:30:15.457Z',
+                        completed: '2017-06-13T10:43:15.457Z'
+                    }]
+                }, {
+                    latest: {
+                        id: 321,
+                        assessmentId: 1,
+                        teamId: 2,
+                        teamName: 'team one',
+                        started: '2017-09-01T16:30:15.457Z',
+                        completed: '2017-09-03T10:30:15.457Z'
+                    },
+                    list: [{
+                        id: 321,
+                        assessmentId: 1,
+                        teamId: 2,
+                        teamName: 'team one',
+                        started: '2017-09-01T16:30:15.457Z',
+                        completed: '2017-09-03T10:30:15.457Z'
+                    },
+                    {
+                        id: 543,
+                        assessmentId: 2,
+                        teamId: 3,
+                        teamName: 'team two',
+                        started: '2017-06-09T11:30:15.457Z',
+                        completed: '2017-06-13T10:43:15.457Z'
+                    }]
+                }],
+                id = 543;
+
+                // act
+                var result = $service.getTeamAssessmentByIdFromGroupedList(teamAssessments, id);
+
+                // assert
+                expect(result).toBeDefined();
+                expect(result.id).toEqual(id);
+            });
+        });
     });
 })();

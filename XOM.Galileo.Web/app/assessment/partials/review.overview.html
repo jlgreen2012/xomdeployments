@@ -2,7 +2,7 @@
     <h2>{{ac.current.details.assessmentName}}</h2>
 </div>-->
 
-<div data-ng-show="ac.loaded === true && ac.assessment.teamAssessments.length === 0">
+<div data-ng-show="ac.assessment.teamAssessments.length === 0">
     <div class="em-c-alert" role="alert">
         <svg class="em-c-icon em-c-alert__icon">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="images/em-icons.svg#icon-warning"></use>
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<div data-ng-show="ac.loaded === true && ac.assessment.teamAssessments.length > 0">
+<div data-ng-show="ac.assessment.teamAssessments.length > 0">
 
     <!-- Tiles -->
     <div class="em-l-grid em-l-grid--2up ">
@@ -93,7 +93,7 @@
                             </span>
                         </div>
                         <div class="em-c-alert__actions">
-                            <a class="em-c-text-btn " href="/#/assessments/{{ac.current.details.assessmentId}}/teams/{{ac.current.details.teamId}}/playbook">
+                            <a class="em-c-text-btn " href="/#/assessments/{{ac.current.details.assessmentId}}/teamAssessments/{{ac.current.details.id}}/playbook">
                                 Create <span class="fa fa-plus-circle fa-sm em-u-margin-left-half"></span>
                             </a>
                         </div>
@@ -129,9 +129,10 @@
                 </div>
             </div>
         </div>
-        <div class="em-l-grid__item">
+        <div class="em-l-grid__item"
+             data-ng-model="ac.showShareModal" data-ng-init="false">
             <!-- Share -->
-            <div class="section-header-full-width section-header-full-height" data-ng-if="ac.current.details.isCompletedByMe === true" data-ng-model="ac.showShareModal" data-ng-init="false">
+            <div class="section-header-full-width section-header-full-height" data-ng-if="ac.current.details.isCompletedByMe === true">
                 <div class="em-c-alert alert-plain alert-full-height" role="alert">
                     <span class="fa fa-user em-u-margin-right"></span>
                     <div class="em-c-alert__body">
@@ -150,12 +151,12 @@
                         </button>
                     </div>
                 </div>
-
-                <div data-em-share-modal
-                     data-link="ac.getShareAssessmentLink()"
-                     data-title="Share Assessment"
-                     data-is-open="ac.showShareModal"></div>
             </div>
+            <div data-em-share-modal
+                 data-link="ac.getShareAssessmentLink()"
+                 data-title="Share Assessment"
+                 data-is-open="ac.showShareModal"
+                 data-ng-if="ac.current.details.isCompletedByMe === true"></div>
             <div class="section-header-full-width section-header-full-height" data-ng-show="ac.current.details.isCompletedByMe === false">
                 <div class="em-c-alert alert-plain alert-full-height" role="alert">
                     <span class="fa fa-user em-u-margin-right"></span>

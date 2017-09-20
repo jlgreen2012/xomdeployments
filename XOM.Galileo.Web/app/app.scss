@@ -61,3 +61,8 @@ body {
 .em-c-alert {
     margin-bottom: 0;
 }
+
+.em-c-btn[disabled=disabled] {
+    opacity: .5;
+    cursor:not-allowed;
+}
