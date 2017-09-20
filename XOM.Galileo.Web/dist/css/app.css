@@ -1,0 +1,1442 @@
+/*
+
+    Unity Colors
+
+    Helpers implementation for ExxonMobil Unity Framework colors
+
+*/
+/* Colors */
+.em-u-color--amber {
+  color: #f2ac33 !important; }
+
+.em-u-color--blue {
+  color: #0c69b0 !important; }
+
+.em-u-color--blue-gradient {
+  color: #3a397b !important; }
+
+.em-u-color--burgundy {
+  color: #ad1723 !important; }
+
+.em-u-color--cerise {
+  color: #a71065 !important; }
+
+.em-u-color--curious-blue {
+  color: #3190d9 !important; }
+
+.em-u-color--cyan {
+  color: #00a3e0 !important; }
+
+.em-u-color--dark-blue {
+  color: #233190 !important; }
+
+.em-u-color--deep-blue {
+  color: #111122 !important; }
+
+.em-u-color--green {
+  color: #00af53 !important; }
+
+.em-u-color--indigo {
+  color: #002f6c !important; }
+
+.em-u-color--lime {
+  color: #b4d405 !important; }
+
+.em-u-color--medium-gray {
+  color: #545459 !important; }
+
+.em-u-color--orange {
+  color: #ed8b00 !important; }
+
+.em-u-color--plum {
+  color: #890c58 !important; }
+
+.em-u-color--purple {
+  color: #7a4183 !important; }
+
+.em-u-color--red {
+  color: #d82424 !important; }
+
+.em-u-color--red-gradient {
+  color: #ad1723 !important; }
+
+.em-u-color--ruby {
+  color: #b10040 !important; }
+
+.em-u-color--sea-blue {
+  color: #005f7f !important; }
+
+.em-u-color--turquoise {
+  color: #00aca8 !important; }
+
+.em-u-color--vermilion {
+  color: #d93900 !important; }
+
+.em-u-color--violet {
+  color: #3a397b !important; }
+
+.em-u-color--yellow {
+  color: #ffd700 !important; }
+
+.em-u-color--white {
+  color: #ffffff !important; }
+
+.em-u-color--transparent {
+  color: transparent !important; }
+
+/* Background Colors */
+.em-u-background-color--amber {
+  background-color: #f2ac33 !important;
+  color: #000000; }
+
+.em-u-background-color--blue {
+  background-color: #0c69b0 !important;
+  color: #ffffff; }
+
+.em-u-background-color--blue-gradient {
+  background-color: #3a397b !important;
+  background-image: linear-gradient(45deg, #3a397b 0, #233190 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--burgundy {
+  background-color: #ad1723 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cerise {
+  background-color: #a71065 !important;
+  color: #ffffff; }
+
+.em-u-background-color--curious-blue {
+  background-color: #3190d9 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cyan {
+  background-color: #00a3e0 !important;
+  color: #000000; }
+
+.em-u-background-color--dark-blue {
+  background-color: #233190 !important;
+  color: #ffffff; }
+
+.em-u-background-color--deep-blue {
+  background-color: #111122 !important;
+  color: #ffffff; }
+
+.em-u-background-color--green {
+  background-color: #00af53 !important;
+  color: #000000; }
+
+.em-u-background-color--indigo {
+  background-color: #002f6c !important;
+  color: #ffffff; }
+
+.em-u-background-color--lime {
+  background-color: #b4d405 !important;
+  color: #000000; }
+
+.em-u-background-color--medium-gray {
+  background-color: #545459 !important;
+  color: #ffffff; }
+
+.em-u-background-color--orange {
+  background-color: #ed8b00 !important;
+  color: #000000; }
+
+.em-u-background-color--plum {
+  background-color: #890c58 !important;
+  color: #ffffff; }
+
+.em-u-background-color--purple {
+  background-color: #7a4183 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red {
+  background-color: #d82424 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red-gradient {
+  background-color: #ad1723 !important;
+  background-image: linear-gradient(45deg, #ad1723 0, #d82424 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--ruby {
+  background-color: #b10040 !important;
+  color: #ffffff; }
+
+.em-u-background-color--sea-blue {
+  background-color: #005f7f !important;
+  color: #ffffff; }
+
+.em-u-background-color--turquoise {
+  background-color: #00aca8 !important;
+  color: #000000; }
+
+.em-u-background-color--vermilion {
+  background-color: #d93900 !important;
+  color: #ffffff; }
+
+.em-u-background-color--violet {
+  background-color: #3a397b !important;
+  color: #ffffff; }
+
+.em-u-background-color--yellow {
+  background-color: #ffd700 !important;
+  color: #000000; }
+
+.em-u-background-color--white {
+  background-color: #ffffff !important;
+  color: #000000; }
+
+.em-u-background-color--transparent {
+  background-color: transparent !important;
+  color: #000000; }
+
+select {
+  background-color: #ffffff; }
+
+body > header {
+  position: relative; }
+  body > header > #loading-bar > .bar {
+    position: absolute;
+    top: 100%; }
+  body > header > #loading-bar-spinner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); }
+
+.capitalize {
+  text-transform: capitalize; }
+
+.justify {
+  -ms-flex-align: center;
+      align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between; }
+
+.flex-column {
+  -ms-flex-direction: column;
+      flex-direction: column; }
+
+.svg-content-responsive {
+  display: inline-block;
+  left: 0;
+  position: absolute;
+  top: 0; }
+
+.show-new-lines {
+  white-space: pre-line; }
+
+.float-right {
+  float: right !important; }
+
+.float-left {
+  float: left !important; }
+
+.em-c-alert {
+  margin-bottom: 0; }
+
+.em-c-btn[disabled=disabled] {
+  opacity: .5;
+  cursor: not-allowed; }
+
+/*
+
+    Unity Colors
+
+    Helpers implementation for ExxonMobil Unity Framework colors
+
+*/
+/* Colors */
+.em-u-color--amber {
+  color: #f2ac33 !important; }
+
+.em-u-color--blue {
+  color: #0c69b0 !important; }
+
+.em-u-color--blue-gradient {
+  color: #3a397b !important; }
+
+.em-u-color--burgundy {
+  color: #ad1723 !important; }
+
+.em-u-color--cerise {
+  color: #a71065 !important; }
+
+.em-u-color--curious-blue {
+  color: #3190d9 !important; }
+
+.em-u-color--cyan {
+  color: #00a3e0 !important; }
+
+.em-u-color--dark-blue {
+  color: #233190 !important; }
+
+.em-u-color--deep-blue {
+  color: #111122 !important; }
+
+.em-u-color--green {
+  color: #00af53 !important; }
+
+.em-u-color--indigo {
+  color: #002f6c !important; }
+
+.em-u-color--lime {
+  color: #b4d405 !important; }
+
+.em-u-color--medium-gray {
+  color: #545459 !important; }
+
+.em-u-color--orange {
+  color: #ed8b00 !important; }
+
+.em-u-color--plum {
+  color: #890c58 !important; }
+
+.em-u-color--purple {
+  color: #7a4183 !important; }
+
+.em-u-color--red {
+  color: #d82424 !important; }
+
+.em-u-color--red-gradient {
+  color: #ad1723 !important; }
+
+.em-u-color--ruby {
+  color: #b10040 !important; }
+
+.em-u-color--sea-blue {
+  color: #005f7f !important; }
+
+.em-u-color--turquoise {
+  color: #00aca8 !important; }
+
+.em-u-color--vermilion {
+  color: #d93900 !important; }
+
+.em-u-color--violet {
+  color: #3a397b !important; }
+
+.em-u-color--yellow {
+  color: #ffd700 !important; }
+
+.em-u-color--white {
+  color: #ffffff !important; }
+
+.em-u-color--transparent {
+  color: transparent !important; }
+
+/* Background Colors */
+.em-u-background-color--amber {
+  background-color: #f2ac33 !important;
+  color: #000000; }
+
+.em-u-background-color--blue {
+  background-color: #0c69b0 !important;
+  color: #ffffff; }
+
+.em-u-background-color--blue-gradient {
+  background-color: #3a397b !important;
+  background-image: linear-gradient(45deg, #3a397b 0, #233190 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--burgundy {
+  background-color: #ad1723 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cerise {
+  background-color: #a71065 !important;
+  color: #ffffff; }
+
+.em-u-background-color--curious-blue {
+  background-color: #3190d9 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cyan {
+  background-color: #00a3e0 !important;
+  color: #000000; }
+
+.em-u-background-color--dark-blue {
+  background-color: #233190 !important;
+  color: #ffffff; }
+
+.em-u-background-color--deep-blue {
+  background-color: #111122 !important;
+  color: #ffffff; }
+
+.em-u-background-color--green {
+  background-color: #00af53 !important;
+  color: #000000; }
+
+.em-u-background-color--indigo {
+  background-color: #002f6c !important;
+  color: #ffffff; }
+
+.em-u-background-color--lime {
+  background-color: #b4d405 !important;
+  color: #000000; }
+
+.em-u-background-color--medium-gray {
+  background-color: #545459 !important;
+  color: #ffffff; }
+
+.em-u-background-color--orange {
+  background-color: #ed8b00 !important;
+  color: #000000; }
+
+.em-u-background-color--plum {
+  background-color: #890c58 !important;
+  color: #ffffff; }
+
+.em-u-background-color--purple {
+  background-color: #7a4183 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red {
+  background-color: #d82424 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red-gradient {
+  background-color: #ad1723 !important;
+  background-image: linear-gradient(45deg, #ad1723 0, #d82424 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--ruby {
+  background-color: #b10040 !important;
+  color: #ffffff; }
+
+.em-u-background-color--sea-blue {
+  background-color: #005f7f !important;
+  color: #ffffff; }
+
+.em-u-background-color--turquoise {
+  background-color: #00aca8 !important;
+  color: #000000; }
+
+.em-u-background-color--vermilion {
+  background-color: #d93900 !important;
+  color: #ffffff; }
+
+.em-u-background-color--violet {
+  background-color: #3a397b !important;
+  color: #ffffff; }
+
+.em-u-background-color--yellow {
+  background-color: #ffd700 !important;
+  color: #000000; }
+
+.em-u-background-color--white {
+  background-color: #ffffff !important;
+  color: #000000; }
+
+.em-u-background-color--transparent {
+  background-color: transparent !important;
+  color: #000000; }
+
+.box-border {
+  border: 1px solid #000000; }
+
+.vertical-center {
+  margin-bottom: auto !important;
+  margin-top: auto !important;
+  vertical-align: middle; }
+
+.center {
+  margin-bottom: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: auto !important; }
+
+.button-wide {
+  width: 70%; }
+
+.select-wide {
+  width: 50%; }
+
+.invisible {
+  visibility: hidden; }
+
+.validation-message-label {
+  padding: 5px; }
+  .validation-message-label.invalid {
+    background: #d82424; }
+
+.section-header-full-width {
+  display: inline-block;
+  max-width: 100%;
+  width: 100%; }
+  .section-header-full-width .em-c-solid-card,
+  .section-header-full-width .em-c-solid-card__body,
+  .section-header-full-width .em-c-solid-card__footer {
+    max-width: 100%;
+    width: 100%; }
+
+.section-header-full-height {
+  height: 100%; }
+  .section-header-full-height div {
+    height: 100%; }
+
+.chart.radar .legend {
+  cursor: pointer; }
+
+@media (min-width: 62em) {
+  .two-column-left-sidebar-on-top.em-l--two-column .em-l__secondary {
+    -ms-flex-order: 0;
+        order: 0;
+    padding-top: .5rem; }
+  .two-column-left-sidebar-on-top.em-l--two-column .em-l__main {
+    -ms-flex-order: 1;
+        order: 1; } }
+
+@media all and (max-width: 62em) {
+  .two-column-left-sidebar-on-top.em-l--two-column .em-l__secondary {
+    margin-bottom: 1rem;
+    margin-right: 0 !important; } }
+
+.em-c-alert.alert-plain {
+  background: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  color: #000000;
+  margin-bottom: .5rem; }
+  .em-c-alert.alert-plain * {
+    color: #000000; }
+  .em-c-alert.alert-plain.alert-condensed {
+    padding-bottom: 5px;
+    padding-top: 5px; }
+  .em-c-alert.alert-plain.alert-full-height {
+    height: 100%; }
+
+.assessment-review-question-section .em-c-section__header,
+.assessment-review-question-section .em-c-section__footer {
+  border: 0;
+  margin-bottom: 0;
+  margin-top: 0; }
+
+.assessment-review-question-section .em-c-section__body .em-l-grid__item {
+  border-bottom: 0.5px solid #e5e5e5;
+  border-left: 0.25px solid #e5e5e5;
+  border-right: 0.25px solid #e5e5e5;
+  border-top: 0.5px solid #e5e5e5; }
+
+.assessment-review-selected-answer {
+  background-color: #00aca8;
+  color: #ffffff;
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem; }
+
+.em-c-solid-card {
+  max-width: 100%; }
+  .em-c-solid-card.full-width-card {
+    max-width: 100%; }
+    .em-c-solid-card.full-width-card em-c-solid-card__footer {
+      max-width: 100%; }
+
+.em-l--two-column-fixed .em-l__main .fpo-block {
+  height: 30rem; }
+
+.fpo-block {
+  background: #f5f5f5;
+  padding: 1rem;
+  text-align: center; }
+
+.fpo-block--dark {
+  background: #e5e5e5; }
+
+.modal-wide {
+  width: 50em !important; }
+
+main,
+ng-view,
+.em-l-container {
+  height: 100%; }
+
+.banner-image {
+  height: 35%;
+  min-height: 150px;
+  overflow: hidden; }
+
+.banner-image-background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%; }
+
+/*
+
+    ExxonMobile's Unity Angular module style definitions
+
+*/
+textarea {
+  resize: none; }
+
+input[type='number'] {
+  -moz-appearance: textfield; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none; }
+
+.em-c-header--condensed .em-c-header__inner {
+  margin: 0 auto; }
+
+.em-c-primary-nav__icon {
+  transition: transform 0.35s; }
+
+.em-c-header--condensed .em-c-header__body {
+  padding: 0; }
+  .em-c-header--condensed .em-c-header__body .em-c-primary-nav__item {
+    margin-right: 0; }
+    .em-c-header--condensed .em-c-header__body .em-c-primary-nav__item .em-c-primary-nav__link {
+      padding: 1rem;
+      transition: 0.35s; }
+
+.em-c-field__count,
+.em-c-field__icon {
+  bottom: initial;
+  right: 10px;
+  top: 8px; }
+
+.admin-users .em-c-table__cell {
+  padding-bottom: 1rem;
+  padding-left: .8rem;
+  padding-right: .8rem;
+  padding-top: 1rem;
+  vertical-align: middle; }
+  .admin-users .em-c-table__cell .em-c-field__body {
+    margin-bottom: 0; }
+
+/*
+
+    Unity Colors
+
+    Helpers implementation for ExxonMobil Unity Framework colors
+
+*/
+/* Colors */
+.em-u-color--amber {
+  color: #f2ac33 !important; }
+
+.em-u-color--blue {
+  color: #0c69b0 !important; }
+
+.em-u-color--blue-gradient {
+  color: #3a397b !important; }
+
+.em-u-color--burgundy {
+  color: #ad1723 !important; }
+
+.em-u-color--cerise {
+  color: #a71065 !important; }
+
+.em-u-color--curious-blue {
+  color: #3190d9 !important; }
+
+.em-u-color--cyan {
+  color: #00a3e0 !important; }
+
+.em-u-color--dark-blue {
+  color: #233190 !important; }
+
+.em-u-color--deep-blue {
+  color: #111122 !important; }
+
+.em-u-color--green {
+  color: #00af53 !important; }
+
+.em-u-color--indigo {
+  color: #002f6c !important; }
+
+.em-u-color--lime {
+  color: #b4d405 !important; }
+
+.em-u-color--medium-gray {
+  color: #545459 !important; }
+
+.em-u-color--orange {
+  color: #ed8b00 !important; }
+
+.em-u-color--plum {
+  color: #890c58 !important; }
+
+.em-u-color--purple {
+  color: #7a4183 !important; }
+
+.em-u-color--red {
+  color: #d82424 !important; }
+
+.em-u-color--red-gradient {
+  color: #ad1723 !important; }
+
+.em-u-color--ruby {
+  color: #b10040 !important; }
+
+.em-u-color--sea-blue {
+  color: #005f7f !important; }
+
+.em-u-color--turquoise {
+  color: #00aca8 !important; }
+
+.em-u-color--vermilion {
+  color: #d93900 !important; }
+
+.em-u-color--violet {
+  color: #3a397b !important; }
+
+.em-u-color--yellow {
+  color: #ffd700 !important; }
+
+.em-u-color--white {
+  color: #ffffff !important; }
+
+.em-u-color--transparent {
+  color: transparent !important; }
+
+/* Background Colors */
+.em-u-background-color--amber {
+  background-color: #f2ac33 !important;
+  color: #000000; }
+
+.em-u-background-color--blue {
+  background-color: #0c69b0 !important;
+  color: #ffffff; }
+
+.em-u-background-color--blue-gradient {
+  background-color: #3a397b !important;
+  background-image: linear-gradient(45deg, #3a397b 0, #233190 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--burgundy {
+  background-color: #ad1723 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cerise {
+  background-color: #a71065 !important;
+  color: #ffffff; }
+
+.em-u-background-color--curious-blue {
+  background-color: #3190d9 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cyan {
+  background-color: #00a3e0 !important;
+  color: #000000; }
+
+.em-u-background-color--dark-blue {
+  background-color: #233190 !important;
+  color: #ffffff; }
+
+.em-u-background-color--deep-blue {
+  background-color: #111122 !important;
+  color: #ffffff; }
+
+.em-u-background-color--green {
+  background-color: #00af53 !important;
+  color: #000000; }
+
+.em-u-background-color--indigo {
+  background-color: #002f6c !important;
+  color: #ffffff; }
+
+.em-u-background-color--lime {
+  background-color: #b4d405 !important;
+  color: #000000; }
+
+.em-u-background-color--medium-gray {
+  background-color: #545459 !important;
+  color: #ffffff; }
+
+.em-u-background-color--orange {
+  background-color: #ed8b00 !important;
+  color: #000000; }
+
+.em-u-background-color--plum {
+  background-color: #890c58 !important;
+  color: #ffffff; }
+
+.em-u-background-color--purple {
+  background-color: #7a4183 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red {
+  background-color: #d82424 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red-gradient {
+  background-color: #ad1723 !important;
+  background-image: linear-gradient(45deg, #ad1723 0, #d82424 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--ruby {
+  background-color: #b10040 !important;
+  color: #ffffff; }
+
+.em-u-background-color--sea-blue {
+  background-color: #005f7f !important;
+  color: #ffffff; }
+
+.em-u-background-color--turquoise {
+  background-color: #00aca8 !important;
+  color: #000000; }
+
+.em-u-background-color--vermilion {
+  background-color: #d93900 !important;
+  color: #ffffff; }
+
+.em-u-background-color--violet {
+  background-color: #3a397b !important;
+  color: #ffffff; }
+
+.em-u-background-color--yellow {
+  background-color: #ffd700 !important;
+  color: #000000; }
+
+.em-u-background-color--white {
+  background-color: #ffffff !important;
+  color: #000000; }
+
+.em-u-background-color--transparent {
+  background-color: transparent !important;
+  color: #000000; }
+
+.app-logs .em-c-table__cell {
+  font-size: small;
+  padding-bottom: 1rem;
+  padding-left: .8rem;
+  padding-right: .8rem;
+  padding-top: 1rem;
+  vertical-align: middle; }
+  .app-logs .em-c-table__cell .em-c-field__body {
+    margin-bottom: 0; }
+
+.app-logs .Critical {
+  color: #d82424;
+  font-weight: bold; }
+
+.app-logs code {
+  font-size: 1em; }
+
+.app-logs .detail-label {
+  font-weight: bold;
+  margin-bottom: 4px; }
+
+.app-logs .detail-content {
+  margin-left: 8px; }
+
+/*
+
+    Unity Colors
+
+    Helpers implementation for ExxonMobil Unity Framework colors
+
+*/
+/* Colors */
+.em-u-color--amber {
+  color: #f2ac33 !important; }
+
+.em-u-color--blue {
+  color: #0c69b0 !important; }
+
+.em-u-color--blue-gradient {
+  color: #3a397b !important; }
+
+.em-u-color--burgundy {
+  color: #ad1723 !important; }
+
+.em-u-color--cerise {
+  color: #a71065 !important; }
+
+.em-u-color--curious-blue {
+  color: #3190d9 !important; }
+
+.em-u-color--cyan {
+  color: #00a3e0 !important; }
+
+.em-u-color--dark-blue {
+  color: #233190 !important; }
+
+.em-u-color--deep-blue {
+  color: #111122 !important; }
+
+.em-u-color--green {
+  color: #00af53 !important; }
+
+.em-u-color--indigo {
+  color: #002f6c !important; }
+
+.em-u-color--lime {
+  color: #b4d405 !important; }
+
+.em-u-color--medium-gray {
+  color: #545459 !important; }
+
+.em-u-color--orange {
+  color: #ed8b00 !important; }
+
+.em-u-color--plum {
+  color: #890c58 !important; }
+
+.em-u-color--purple {
+  color: #7a4183 !important; }
+
+.em-u-color--red {
+  color: #d82424 !important; }
+
+.em-u-color--red-gradient {
+  color: #ad1723 !important; }
+
+.em-u-color--ruby {
+  color: #b10040 !important; }
+
+.em-u-color--sea-blue {
+  color: #005f7f !important; }
+
+.em-u-color--turquoise {
+  color: #00aca8 !important; }
+
+.em-u-color--vermilion {
+  color: #d93900 !important; }
+
+.em-u-color--violet {
+  color: #3a397b !important; }
+
+.em-u-color--yellow {
+  color: #ffd700 !important; }
+
+.em-u-color--white {
+  color: #ffffff !important; }
+
+.em-u-color--transparent {
+  color: transparent !important; }
+
+/* Background Colors */
+.em-u-background-color--amber {
+  background-color: #f2ac33 !important;
+  color: #000000; }
+
+.em-u-background-color--blue {
+  background-color: #0c69b0 !important;
+  color: #ffffff; }
+
+.em-u-background-color--blue-gradient {
+  background-color: #3a397b !important;
+  background-image: linear-gradient(45deg, #3a397b 0, #233190 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--burgundy {
+  background-color: #ad1723 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cerise {
+  background-color: #a71065 !important;
+  color: #ffffff; }
+
+.em-u-background-color--curious-blue {
+  background-color: #3190d9 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cyan {
+  background-color: #00a3e0 !important;
+  color: #000000; }
+
+.em-u-background-color--dark-blue {
+  background-color: #233190 !important;
+  color: #ffffff; }
+
+.em-u-background-color--deep-blue {
+  background-color: #111122 !important;
+  color: #ffffff; }
+
+.em-u-background-color--green {
+  background-color: #00af53 !important;
+  color: #000000; }
+
+.em-u-background-color--indigo {
+  background-color: #002f6c !important;
+  color: #ffffff; }
+
+.em-u-background-color--lime {
+  background-color: #b4d405 !important;
+  color: #000000; }
+
+.em-u-background-color--medium-gray {
+  background-color: #545459 !important;
+  color: #ffffff; }
+
+.em-u-background-color--orange {
+  background-color: #ed8b00 !important;
+  color: #000000; }
+
+.em-u-background-color--plum {
+  background-color: #890c58 !important;
+  color: #ffffff; }
+
+.em-u-background-color--purple {
+  background-color: #7a4183 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red {
+  background-color: #d82424 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red-gradient {
+  background-color: #ad1723 !important;
+  background-image: linear-gradient(45deg, #ad1723 0, #d82424 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--ruby {
+  background-color: #b10040 !important;
+  color: #ffffff; }
+
+.em-u-background-color--sea-blue {
+  background-color: #005f7f !important;
+  color: #ffffff; }
+
+.em-u-background-color--turquoise {
+  background-color: #00aca8 !important;
+  color: #000000; }
+
+.em-u-background-color--vermilion {
+  background-color: #d93900 !important;
+  color: #ffffff; }
+
+.em-u-background-color--violet {
+  background-color: #3a397b !important;
+  color: #ffffff; }
+
+.em-u-background-color--yellow {
+  background-color: #ffd700 !important;
+  color: #000000; }
+
+.em-u-background-color--white {
+  background-color: #ffffff !important;
+  color: #000000; }
+
+.em-u-background-color--transparent {
+  background-color: transparent !important;
+  color: #000000; }
+
+.em-c-section__footer {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 2rem;
+  padding-top: .5rem; }
+
+.em-c-progress-tracker__item {
+  cursor: pointer; }
+
+.em-c-progress-tracker__number {
+  border-color: #3a397b;
+  color: #3a397b; }
+
+.em-is-complete .em-c-progress-tracker__number {
+  background-color: #00aca8;
+  border-color: #00aca8;
+  color: #ffffff; }
+
+.em-is-complete .em-c-progress-tracker__label {
+  color: #00aca8; }
+
+.em-is-current .em-c-progress-tracker__number {
+  background-color: #ffffff;
+  border-color: #00aca8;
+  color: #00aca8; }
+
+.em-is-current .em-c-progress-tracker__label {
+  color: #00aca8; }
+
+.wz-invalid-step {
+  color: #ad1723; }
+  .wz-invalid-step .em-c-progress-tracker__number {
+    border-color: #ad1723;
+    color: #ad1723; }
+
+/*
+
+    Unity Colors
+
+    Helpers implementation for ExxonMobil Unity Framework colors
+
+*/
+/* Colors */
+.em-u-color--amber {
+  color: #f2ac33 !important; }
+
+.em-u-color--blue {
+  color: #0c69b0 !important; }
+
+.em-u-color--blue-gradient {
+  color: #3a397b !important; }
+
+.em-u-color--burgundy {
+  color: #ad1723 !important; }
+
+.em-u-color--cerise {
+  color: #a71065 !important; }
+
+.em-u-color--curious-blue {
+  color: #3190d9 !important; }
+
+.em-u-color--cyan {
+  color: #00a3e0 !important; }
+
+.em-u-color--dark-blue {
+  color: #233190 !important; }
+
+.em-u-color--deep-blue {
+  color: #111122 !important; }
+
+.em-u-color--green {
+  color: #00af53 !important; }
+
+.em-u-color--indigo {
+  color: #002f6c !important; }
+
+.em-u-color--lime {
+  color: #b4d405 !important; }
+
+.em-u-color--medium-gray {
+  color: #545459 !important; }
+
+.em-u-color--orange {
+  color: #ed8b00 !important; }
+
+.em-u-color--plum {
+  color: #890c58 !important; }
+
+.em-u-color--purple {
+  color: #7a4183 !important; }
+
+.em-u-color--red {
+  color: #d82424 !important; }
+
+.em-u-color--red-gradient {
+  color: #ad1723 !important; }
+
+.em-u-color--ruby {
+  color: #b10040 !important; }
+
+.em-u-color--sea-blue {
+  color: #005f7f !important; }
+
+.em-u-color--turquoise {
+  color: #00aca8 !important; }
+
+.em-u-color--vermilion {
+  color: #d93900 !important; }
+
+.em-u-color--violet {
+  color: #3a397b !important; }
+
+.em-u-color--yellow {
+  color: #ffd700 !important; }
+
+.em-u-color--white {
+  color: #ffffff !important; }
+
+.em-u-color--transparent {
+  color: transparent !important; }
+
+/* Background Colors */
+.em-u-background-color--amber {
+  background-color: #f2ac33 !important;
+  color: #000000; }
+
+.em-u-background-color--blue {
+  background-color: #0c69b0 !important;
+  color: #ffffff; }
+
+.em-u-background-color--blue-gradient {
+  background-color: #3a397b !important;
+  background-image: linear-gradient(45deg, #3a397b 0, #233190 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--burgundy {
+  background-color: #ad1723 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cerise {
+  background-color: #a71065 !important;
+  color: #ffffff; }
+
+.em-u-background-color--curious-blue {
+  background-color: #3190d9 !important;
+  color: #ffffff; }
+
+.em-u-background-color--cyan {
+  background-color: #00a3e0 !important;
+  color: #000000; }
+
+.em-u-background-color--dark-blue {
+  background-color: #233190 !important;
+  color: #ffffff; }
+
+.em-u-background-color--deep-blue {
+  background-color: #111122 !important;
+  color: #ffffff; }
+
+.em-u-background-color--green {
+  background-color: #00af53 !important;
+  color: #000000; }
+
+.em-u-background-color--indigo {
+  background-color: #002f6c !important;
+  color: #ffffff; }
+
+.em-u-background-color--lime {
+  background-color: #b4d405 !important;
+  color: #000000; }
+
+.em-u-background-color--medium-gray {
+  background-color: #545459 !important;
+  color: #ffffff; }
+
+.em-u-background-color--orange {
+  background-color: #ed8b00 !important;
+  color: #000000; }
+
+.em-u-background-color--plum {
+  background-color: #890c58 !important;
+  color: #ffffff; }
+
+.em-u-background-color--purple {
+  background-color: #7a4183 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red {
+  background-color: #d82424 !important;
+  color: #ffffff; }
+
+.em-u-background-color--red-gradient {
+  background-color: #ad1723 !important;
+  background-image: linear-gradient(45deg, #ad1723 0, #d82424 100%) !important;
+  color: #ffffff; }
+
+.em-u-background-color--ruby {
+  background-color: #b10040 !important;
+  color: #ffffff; }
+
+.em-u-background-color--sea-blue {
+  background-color: #005f7f !important;
+  color: #ffffff; }
+
+.em-u-background-color--turquoise {
+  background-color: #00aca8 !important;
+  color: #000000; }
+
+.em-u-background-color--vermilion {
+  background-color: #d93900 !important;
+  color: #ffffff; }
+
+.em-u-background-color--violet {
+  background-color: #3a397b !important;
+  color: #ffffff; }
+
+.em-u-background-color--yellow {
+  background-color: #ffd700 !important;
+  color: #000000; }
+
+.em-u-background-color--white {
+  background-color: #ffffff !important;
+  color: #000000; }
+
+.em-u-background-color--transparent {
+  background-color: transparent !important;
+  color: #000000; }
+
+/*
+
+    EM-Expandable-Button
+    
+    
+    @directive <em-expandable-button>
+*/
+.em-c-expandable-button .em-c-btn .em-c-btn__icon {
+  transition: transform .35s; }
+
+.em-c-expandable-button[plus-icon] .em-c-btn .em-c-btn__icon {
+  transform: rotateZ(-225deg); }
+
+.em-c-expandable-button .expandable-target {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition-property: opacity, height;
+  transition-duration: .35s; }
+
+.em-c-expandable-button.em-is-active .em-c-btn__icon {
+  transform: rotateZ(90deg); }
+
+.em-c-expandable-button.em-is-active[plus-icon] .em-c-btn .em-c-btn__icon {
+  transform: rotateZ(0deg); }
+
+.em-c-expandable-button.em-is-active .expandable-target {
+  height: auto;
+  opacity: 1;
+  visibility: visible; }
+
+/*
+
+    EM-Field and children
+    
+    
+    @directives <em-field>
+                <em-field-body>
+                <em-field-group>
+                <em-field-messages>
+              + <em-toggle>
+              + <em-date-picker>
+              + <input/>
+              + <textarea>
+              + <select>
+              + <label>
+*/
+.em-c-field .em-c-field__body.has-icon {
+  display: inline-block;
+  padding-right: 48px; }
+
+.em-c-field em-toggle {
+  padding: 3px 0; }
+
+.em-c-field.em-has-error em-field-note.em-c-field__note {
+  background-color: transparent;
+  color: #b12a0b;
+  position: relative;
+  width: 100%;
+  padding: 4px 8px 1rem;
+  transition-duration: .35s;
+  transition-property: color, opacity; }
+  .em-c-field.em-has-error em-field-note.em-c-field__note span {
+    position: absolute; }
+
+/*
+
+    EM-Loader
+    
+    
+    @directive <em-loader size="valid css height/width" type="spinner || default" center>
+
+*/
+.em-c-loader {
+  pointer-events: none; }
+  .em-c-loader[center] {
+    margin: auto; }
+  .em-c-loader[middle] {
+    vertical-align: middle; }
+  .em-c-loader[absolute] {
+    position: absolute;
+    z-index: 9999; }
+    .em-c-loader[absolute][center] {
+      left: 50%;
+      transform: translateX(-50%); }
+    .em-c-loader[absolute][middle] {
+      top: 50%;
+      transform: translateY(-50%); }
+    .em-c-loader[absolute][center][middle] {
+      transform: translate(-50%, -50%); }
+  .em-c-loader .spinner {
+    animation: spinner 400ms linear infinite;
+    border-color: transparent;
+    border-top-color: #29d;
+    border-left-color: #29d;
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 2px;
+    height: 100%;
+    width: 100%; }
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.em-loader-overlay {
+  opacity: .5;
+  z-index: 9999; }
+
+/*
+
+    EM-Table
+    
+    
+    @directive <em-table>
+
+*/
+.em-c-table .em-c-table__header.invert {
+  background-color: transparent;
+  color: #000; }
+
+.em-c-table .em-c-table__row .em-c-table__icon {
+  transition: transform .35s; }
+
+.em-c-table.vertical-striped .em-c-table__header.invert {
+  border-bottom: 1px solid #e5e5e5; }
+
+.em-c-table.vertical-striped .em-c-table__header th:not(:last-child) {
+  border-right: 1px solid #e5e5e5; }
+
+.em-c-table.vertical-striped td:not(:last-child) {
+  border-right: 1px solid #e5e5e5; }
+
+.em-c-table.vertical-striped tbody:last-child tr:last-child {
+  border-bottom: none; }
+
+.em-c-table.vertical-striped tbody:last-child tr[parent]:not(.em-is-open) {
+  border-bottom-color: transparent; }
+
+/*
+
+    EM-Tree
+    
+    
+    @directives <tree-nav>
+                <tree-list>
+                <tree-item>
+                <tree-link>
+
+*/
+nav.em-c-tree {
+  margin: 0;
+  height: auto; }
+  nav.em-c-tree .em-c-tree__link {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
+    transition: 0.35s; }
+    nav.em-c-tree .em-c-tree__link .em-c-icon.em-c-tree__icon {
+      position: initial;
+      margin-left: -2px;
+      margin-right: 16px;
+      transition: 0.35s; }
+    nav.em-c-tree .em-c-tree__link .em-c-tree__text {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+          align-items: center;
+      width: 100%; }
+      nav.em-c-tree .em-c-tree__link .em-c-tree__text [right] {
+        margin-left: auto; }
+      nav.em-c-tree .em-c-tree__link .em-c-tree__text > * + * {
+        margin-left: 1rem; }
+
+.typeahead-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
+
+.typeahead-dropdown li {
+  padding: 10px; }
